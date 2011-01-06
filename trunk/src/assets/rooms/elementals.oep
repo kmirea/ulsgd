@@ -1,0 +1,44 @@
+<project>
+	<name>Elementals</name>
+	<settings>
+		<defaultWidth>320</defaultWidth>
+		<defaultHeight>240</defaultHeight>
+		<minWidth>320</minWidth>
+		<minHeight>240</minHeight>
+		<workingDirectory>../graphics</workingDirectory>
+	</settings>
+	<values>
+		<string name="name" />
+		<integer name="roomID" />
+		<integer name="stageID" />
+		<boolean name="isHub" />
+	</values>
+	<objects>
+		<folder name="golems" image="golem.png">
+			<object name="golem" image="golem.png" width="16" height="16" />
+			<object name="golemFire" image="golemFire.png" width="16" height="16" />
+			<object name="golemWater" image="golemWater.png" width="16" height="16" />
+			<object name="golemEarth" image="golemEarth.png" width="16" height="16" />
+			<object name="golemPlant" image="golemPlant.png" width="16" height="16" />
+		</folder>
+		<folder name="floors" image="floor.png">
+			<object name="floor" image="floor.png" width="16" height="16" />
+			<object name="floorFire" image="floorFire.png" width="16" height="16" />
+			<object name="floorWater" image="floorWater.png" width="16" height="16" />
+			<object name="floorEarth" image="floorEarth.png" width="16" height="16" />
+			<object name="floorPlant" image="floorPlant.png" width="16" height="16" />
+		</folder>
+		<folder name="walls" image="wall.png">
+			<object name="wall" image="wall.png" width="16" height="16" />
+			<object name="wallFire" image="wallFire.png" width="16" height="16" />
+			<object name="wallWater" image="wallWater.png" width="16" height="16" />
+			<object name="wallEarth" image="wallEarth.png" width="16" height="16" />
+			<object name="wallPlant" image="wallPlant.png" width="16" height="16" />
+		</folder>
+	</objects>
+	<layers>
+		<objects name="objects" gridSize="16" />
+		<objects name="exits" gridSize="16" />
+		<objects name="tiles" gridSize="16" />
+	</layers>
+</project>
