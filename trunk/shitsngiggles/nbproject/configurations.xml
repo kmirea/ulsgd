@@ -9,7 +9,7 @@
       <itemPath>Elemental.h</itemPath>
       <itemPath>Golem.h</itemPath>
       <itemPath>InputUser.h</itemPath>
-      <itemPath>Object.cpp</itemPath>
+      <itemPath>IrrObjectNode.h</itemPath>
       <itemPath>Object.h</itemPath>
       <itemPath>PlayerController.h</itemPath>
       <itemPath>PlayerGolem.h</itemPath>
@@ -26,7 +26,9 @@
                    displayName="Source Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
+      <itemPath>Elemental.cpp</itemPath>
       <itemPath>InputUser.cpp</itemPath>
+      <itemPath>Object.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
