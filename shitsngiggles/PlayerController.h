@@ -12,6 +12,7 @@
 
 class PlayerController : public Controller, public InputUser
 {
+protected:
     void InputEvent(const u8 key);
 };
 
