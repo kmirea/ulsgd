@@ -10,6 +10,8 @@
 
 #include "Types.h"
 
+#include "IrrObjectNode.h"
+
 class Room;
 class InputUser;
 
@@ -21,10 +23,16 @@ class World
 
 	vector<InputUser*> InputUserList;
 
-        void RegisterInputUser(InputUser*);
+	irr::IrrlichtDevice* IrrDevice;
 
 public:
+	World();
+	~World();
 
+	bool run();
+
+	void RegisterInputUser(InputUser* User);
+	irr::IrrlichtDevice* getIrrDevice() const;
 };
 
 #endif	/* WORLD_H */

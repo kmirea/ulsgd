@@ -14,8 +14,36 @@
 #include <irrlicht/irrlicht.h>
 #endif
 
+#include "Types.h"
+
+class Room;
+
 class IrrObjectNode
 {
+	irr::scene::ISceneNode* IrrSceneNode;
+
+	static irr::scene::ISceneManager* IrrSceneManager;
+	static irr::video::IVideoDriver* IrrVideoDriver;
+
+	irr::core::vector3df IrrPosition;
+	irr::core::vector3df IrrRotation;
+	
+	vector<f32> FrameBoundary;
+	f32 Frame;
+
+public:
+	IrrObjectNode( Room* RoomRoot );
+	void setIrrManagers( irr::IrrlichtDevice* IrrDevice );
+
+protected:
+	void setTexture( string TextureName, u32 TextureMaxX, u32 TextureMaxY );
+	void setFrameBoundaries( u32 FrameMinX, u32 FrameMaxX, u32 FrameY );
+	void setFrame( u32 Frame );
+
+	void setIrrPosition( u32 X, u32 Y );
+	void setIrrRotation( u32 R );
+
+	void setIrrLayer( u32 Z );
 
 };
 

@@ -33,10 +33,13 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/Room.o \
+	${OBJECTDIR}/World.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/Object.o \
 	${OBJECTDIR}/Elemental.o \
-	${OBJECTDIR}/InputUser.o
+	${OBJECTDIR}/InputUser.o \
+	${OBJECTDIR}/IrrObjectNode.o
 
 
 # C Compiler Flags
@@ -53,7 +56,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=-lIrrlicht
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -62,6 +65,16 @@ LDLIBSOPTIONS=
 dist/Debug/GNU-Linux-x86/shitsngiggles: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/GNU-Linux-x86
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/shitsngiggles ${OBJECTFILES} ${LDLIBSOPTIONS} 
+
+${OBJECTDIR}/Room.o: Room.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Room.o Room.cpp
+
+${OBJECTDIR}/World.o: World.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/World.o World.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -82,6 +95,11 @@ ${OBJECTDIR}/InputUser.o: InputUser.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/InputUser.o InputUser.cpp
+
+${OBJECTDIR}/IrrObjectNode.o: IrrObjectNode.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/IrrObjectNode.o IrrObjectNode.cpp
 
 # Subprojects
 .build-subprojects:

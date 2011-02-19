@@ -16,7 +16,7 @@
 
 class Room;
 
-class Object
+class Object : public IrrObjectNode
 {
 	const Room* room;
 
@@ -47,6 +47,9 @@ public:
 	
 protected:
 	const Room* getRoom() const;
+
+	void setPosition( const vector<u32>& Position );
+	void setVelocity( const vector<u32>& Velocity );
 };
 
 #endif	/* OBJECT_H */

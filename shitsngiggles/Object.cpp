@@ -38,3 +38,13 @@ const Room* Object::getRoom() const
 {
 	return room;
 }
+
+void Object::setPosition(const vector<u32>& P)
+{
+	Position = P;
+}
+
+void Object::setVelocity(const vector<u32>& V)
+{
+	Velocity = V;
+}
