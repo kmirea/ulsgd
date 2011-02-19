@@ -12,6 +12,8 @@
 
 #include "Types.h"
 
+#include "IrrObjectNode.h"
+
 class Room;
 
 class Object
@@ -40,6 +42,8 @@ public:
 	virtual void prepass( const u32 GameTime ) = 0;
 	virtual void pass( const u32 GameTime ) = 0;
 	virtual void postpass( const u32 GameTime ) = 0;
+
+	virtual void handleCollision( Object& Other ) = 0;
 	
 protected:
 	const Room* getRoom() const;

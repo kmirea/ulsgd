@@ -35,6 +35,7 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/Object.o \
+	${OBJECTDIR}/Elemental.o \
 	${OBJECTDIR}/InputUser.o
 
 
@@ -71,6 +72,11 @@ ${OBJECTDIR}/Object.o: Object.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Object.o Object.cpp
+
+${OBJECTDIR}/Elemental.o: Elemental.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Elemental.o Elemental.cpp
 
 ${OBJECTDIR}/InputUser.o: InputUser.cpp 
 	${MKDIR} -p ${OBJECTDIR}
