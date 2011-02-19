@@ -21,6 +21,8 @@ class World
 
 	vector<InputUser*> InputUserList;
 
+        void RegisterInputUser(InputUser*);
+
 public:
 
 };

@@ -17,7 +17,11 @@ class InputUser
 	const World* world;
 
 public:
-	void registerInput( const u8 Key ); // TODO: Extend this to use more inputs
+    void SendInput(const vector<u8>& input);
+protected:
+	void registerInputVal( const u8 Key ); // TODO: Extend this to use more inputs
+        void registerInput();
+        virtual void InputEvent(const u8 key)=0;
 };
 
 #endif	/* INPUTUSER_H */
