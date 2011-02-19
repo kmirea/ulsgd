@@ -1,6 +1,6 @@
 #include "Object.h"
 
-Object::Object( Room* R, const vector<u32>& P, const vector<u32>& V ) : room(R), Position(P), Velocity(V)
+Object::Object( Room* R, const vector<u32>& P, const vector<u32>& V ) : IrrObjectNode(R), room(R), Position(P), Velocity(V)
 {
 }
 
@@ -42,6 +42,7 @@ const Room* Object::getRoom() const
 void Object::setPosition(const vector<u32>& P)
 {
 	Position = P;
+	setIrrPosition( X(), Y() );
 }
 
 void Object::setVelocity(const vector<u32>& V)
