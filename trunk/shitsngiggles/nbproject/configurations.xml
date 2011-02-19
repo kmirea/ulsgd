@@ -28,7 +28,10 @@
                    kind="SOURCE_LOGICAL_FOLDER">
       <itemPath>Elemental.cpp</itemPath>
       <itemPath>InputUser.cpp</itemPath>
+      <itemPath>IrrObjectNode.cpp</itemPath>
       <itemPath>Object.cpp</itemPath>
+      <itemPath>Room.cpp</itemPath>
+      <itemPath>World.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -52,6 +55,11 @@
         <platform>2</platform>
       </toolsSet>
       <compileType>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibLibItem>Irrlicht</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
     </conf>
     <conf name="Release" type="1">
@@ -73,6 +81,11 @@
         <asmTool>
           <developmentMode>5</developmentMode>
         </asmTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibLibItem>Irrlicht</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
     </conf>
   </confs>
