@@ -12,7 +12,7 @@
 
 class PlayerController : public Controller, public InputUser
 {
-	
+    void InputEvent(const u8 key);
 };
 
 #endif	/* PLAYERCONTROLLER_H */
