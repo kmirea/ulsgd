@@ -71,4 +71,26 @@ IrrObjectNode::IrrObjectNode( Room* RoomRoot ) : IrrSceneNode(NULL), IrrPosition
 {
 	IrrSceneNode = IrrSceneManager->addBillboardSceneNode( RoomRoot->getRoomRoot() );
 	IrrSceneNode->setVisible( false );
+	Animator = NULL;
+}
+
+void IrrObjectNode::addMotionAnimator(s32 DeltaX, s32 DeltaY, u32 TimeForWay)
+{
+	if( Animator == NULL)
+	{
+		Animator = IrrSceneManager->createFlyStraightAnimator( IrrPosition,
+			IrrPosition+irr::core::vector3df( DeltaX, DeltaY, 0 ), TimeForWay, false, false );
+		Animator->grab();
+		IrrSceneNode->addAnimator( Animator );
+	}
+}
+
+void IrrObjectNode::removeAnimator()
+{
+	if( Animator != NULL )
+	{
+		IrrSceneNode->removeAnimators();
+		Animator->drop;
+		Animator == NULL;
+	}
 }

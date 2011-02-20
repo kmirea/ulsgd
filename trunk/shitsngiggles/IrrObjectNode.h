@@ -31,6 +31,7 @@ class IrrObjectNode
 	vector<f32> FrameBoundary;
 	f32 Frame;
 
+	irr::scene::ISceneNodeAnimator* Animator;
 public:
 	IrrObjectNode( Room* RoomRoot );
 	void setIrrManagers( irr::IrrlichtDevice* IrrDevice );
@@ -45,6 +46,8 @@ protected:
 
 	void setIrrLayer( u32 Z );
 
+	void addMotionAnimator( s32 DeltaX, s32 DeltaY, u32 Speed );
+	void removeAnimator();
 };
 
 #endif	/* IRROBJECTNODE_H */
