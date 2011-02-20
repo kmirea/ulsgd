@@ -5,11 +5,13 @@
                    displayName="Header Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
+      <itemPath>BinarySearchTree.h</itemPath>
       <itemPath>Controller.h</itemPath>
       <itemPath>Elemental.h</itemPath>
       <itemPath>Golem.h</itemPath>
       <itemPath>InputUser.h</itemPath>
       <itemPath>IrrObjectNode.h</itemPath>
+      <itemPath>MastEventReceiver.h</itemPath>
       <itemPath>Object.h</itemPath>
       <itemPath>PlayerController.h</itemPath>
       <itemPath>PlayerGolem.h</itemPath>
@@ -29,7 +31,9 @@
       <itemPath>Elemental.cpp</itemPath>
       <itemPath>InputUser.cpp</itemPath>
       <itemPath>IrrObjectNode.cpp</itemPath>
+      <itemPath>MastEventReceiver.cpp</itemPath>
       <itemPath>Object.cpp</itemPath>
+      <itemPath>PlayerGolem.cpp</itemPath>
       <itemPath>Room.cpp</itemPath>
       <itemPath>World.cpp</itemPath>
       <itemPath>main.cpp</itemPath>

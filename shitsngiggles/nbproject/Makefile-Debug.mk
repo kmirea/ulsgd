@@ -36,6 +36,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/Room.o \
 	${OBJECTDIR}/World.o \
 	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/MastEventReceiver.o \
+	${OBJECTDIR}/PlayerGolem.o \
 	${OBJECTDIR}/Object.o \
 	${OBJECTDIR}/Elemental.o \
 	${OBJECTDIR}/InputUser.o \
@@ -80,6 +82,16 @@ ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/MastEventReceiver.o: MastEventReceiver.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/MastEventReceiver.o MastEventReceiver.cpp
+
+${OBJECTDIR}/PlayerGolem.o: PlayerGolem.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/PlayerGolem.o PlayerGolem.cpp
 
 ${OBJECTDIR}/Object.o: Object.cpp 
 	${MKDIR} -p ${OBJECTDIR}

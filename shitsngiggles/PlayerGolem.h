@@ -12,7 +12,7 @@
 
 class PlayerGolem : public Golem
 {
-	
+	void pass( const u32 GameTime );
 };
 
 #endif	/* PLAYERGOLEM_H */
