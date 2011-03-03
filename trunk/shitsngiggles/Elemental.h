@@ -35,6 +35,8 @@ public:
 	E_ELEMENT_TYPE getElementyType() const;
 protected:
 	E_ELEMENT_TYPE ElementType;
+
+	E_ELEMENT_TYPE NextElement;
 };
 
 #endif	/* ELEMENTAL_H */

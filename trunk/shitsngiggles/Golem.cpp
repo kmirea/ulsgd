@@ -1,9 +1,22 @@
 #include "Golem.h"
 
+#define GOLEM_TEXTURE "media/golem.png"
+#define GOLEM_LAYER -3
+
+Golem::Golem(Room* room, const vector<u32>& Position, const vector<u32>& Velocity, E_ELEMENT_TYPE Element)
+: Elemental( room, Position, Velocity, Element )
+{
+	
+}
+
+Golem::~Golem()
+{
+	
+}
+
 bool Golem::isDead()
 {
-    
-    return false;
+	return false;
 }
 
 void Golem::prepass(const u32 GameTime)

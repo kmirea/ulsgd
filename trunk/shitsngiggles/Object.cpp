@@ -2,6 +2,8 @@
 
 Object::Object( Room* R, const vector<u32>& P, const vector<u32>& V ) : IrrObjectNode(R), room(R), Position(P), Velocity(V)
 {
+	setIrrPosition( X(), Y() );
+	setIrrRotation( 0 );
 }
 
 const vector<u32>& Object::getPosition() const	// [0] == X, [1] == Y
