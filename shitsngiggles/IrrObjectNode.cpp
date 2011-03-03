@@ -57,7 +57,7 @@ void IrrObjectNode::setIrrRotation( u32 R )
 
 void IrrObjectNode::setIrrLayer( u32 Z )
 {
-	IrrPosition.Z = (f32)Z;
+	IrrPosition.Z = (f32)Z / 100.0f;
 }
 
 void IrrObjectNode::setIrrManagers( irr::IrrlichtDevice* IrrDevice )
@@ -90,7 +90,7 @@ void IrrObjectNode::removeAnimator()
 	if( Animator != NULL )
 	{
 		IrrSceneNode->removeAnimators();
-		Animator->drop;
+		Animator->drop();
 		Animator == NULL;
 	}
 }

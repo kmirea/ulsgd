@@ -10,13 +10,22 @@
 
 #include "Elemental.h"
 
+enum DIRECTION
+{
+	NORTH,
+	EAST,
+	SOUTH,
+	WEST
+};
+
 class Golem : public Elemental
 {
 public:
-	bool moveNorth();
-	bool moveSouth();
-	bool moveEast();
-	bool moveWest();
+	Golem( Room* room, const vector<u32>& Position, const vector<u32>& Velocity, E_ELEMENT_TYPE Element );
+	virtual ~Golem();
+	
+	bool move( DIRECTION Direction );
+	virtual bool shoot( DIRECTION Direction );
 
     bool isDead(); //checks to see if the golem is dead
 
@@ -24,12 +33,10 @@ public:
     virtual void pass(const u32 GameTime); // decision
     virtual void postpass(const u32 GameTime); // action
 
-	void handleCollision(Object* Other); // handles collision
+	void handleCollision(Object& Other); // handles collision
 protected:
 	vector<u32> NextPosition;
 	vector<u32> NextVelocity;
-
-	E_ELEMENT_TYPE NextElement;
 
 	bool isMoving;
 };
