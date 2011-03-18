@@ -39,13 +39,13 @@
       </toolsSet>
       <compileType>
         <cTool>
-          <commandLine>`pkg-config --cflags irrBullet cAudio`</commandLine>
+          <commandLine>`pkg-config --cflags irrBullet cAudio enet`</commandLine>
         </cTool>
         <ccTool>
-          <commandLine>`pkg-config --cflags irrBullet cAudio`</commandLine>
+          <commandLine>`pkg-config --cflags irrBullet cAudio enet`</commandLine>
         </ccTool>
         <linkerTool>
-          <commandLine>`pkg-config --libs irrBullet cAudio`</commandLine>
+          <commandLine>`pkg-config --libs irrBullet cAudio enet`</commandLine>
         </linkerTool>
       </compileType>
     </conf>
@@ -58,11 +58,11 @@
       <compileType>
         <cTool>
           <developmentMode>5</developmentMode>
-          <commandLine>`pkg-config --cflags irrBullet cAudio`</commandLine>
+          <commandLine>`pkg-config --cflags irrBullet cAudio enet`</commandLine>
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
-          <commandLine>`pkg-config --cflags irrBullet cAudio`</commandLine>
+          <commandLine>`pkg-config --cflags irrBullet cAudio enet`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -71,7 +71,7 @@
           <developmentMode>5</developmentMode>
         </asmTool>
         <linkerTool>
-          <commandLine>`pkg-config --libs irrBullet cAudio`</commandLine>
+          <commandLine>`pkg-config --libs irrBullet cAudio enet`</commandLine>
         </linkerTool>
       </compileType>
     </conf>
