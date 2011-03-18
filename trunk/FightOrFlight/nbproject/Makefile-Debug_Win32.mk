@@ -33,7 +33,10 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/Types.o \
+	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/NetworkObject.o \
+	${OBJECTDIR}/ReferenceCountedObject.o
 
 
 # C Compiler Flags
@@ -60,10 +63,25 @@ dist/Debug_Win32/GNU-Linux-x86/fightorflight: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug_Win32/GNU-Linux-x86
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/fightorflight ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
+${OBJECTDIR}/Types.o: Types.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Types.o Types.cpp
+
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/NetworkObject.o: NetworkObject.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkObject.o NetworkObject.cpp
+
+${OBJECTDIR}/ReferenceCountedObject.o: ReferenceCountedObject.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/ReferenceCountedObject.o ReferenceCountedObject.cpp
 
 # Subprojects
 .build-subprojects:

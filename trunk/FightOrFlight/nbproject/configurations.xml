@@ -5,6 +5,11 @@
                    displayName="Header Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
+      <itemPath>NetProtocolStruct.h</itemPath>
+      <itemPath>NetworkManager.h</itemPath>
+      <itemPath>NetworkObject.h</itemPath>
+      <itemPath>ReferenceCountedObject.h</itemPath>
+      <itemPath>Types.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -15,6 +20,9 @@
                    displayName="Source Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
+      <itemPath>NetworkObject.cpp</itemPath>
+      <itemPath>ReferenceCountedObject.cpp</itemPath>
+      <itemPath>Types.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
