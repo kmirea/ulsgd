@@ -19,11 +19,12 @@ class World
 {
 	Room* CurrentRoom;
 
-	vector<Room*> OffloadedRoomList;
-
 	vector<InputUser*> InputUserList;
 
 	irr::IrrlichtDevice* IrrDevice;
+        void prepass(const u32 GameTime);
+        void pass(const u32 GameTime);
+        void postpass(const u32 GameTime);
 
 public:
 	World();
@@ -33,6 +34,7 @@ public:
 
 	void RegisterInputUser(InputUser* User);
 	irr::IrrlichtDevice* getIrrDevice() const;
+
 };
 
 #endif	/* WORLD_H */
