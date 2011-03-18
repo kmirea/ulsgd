@@ -1,0 +1,12 @@
+prefix=/usr/local
+ver=2.1.0
+includedir=${prefix}/include
+libdir=${prefix}/lib/cAudio${ver}
+
+
+Name: cAudio
+Description: The cAudio OpenAL audio-rendering engine
+Version: ${ver}
+Requires: openal vorbis vorbisfile ogg
+Cflags: -I${includedir}
+Libs: -L${libdir} -lcAudio

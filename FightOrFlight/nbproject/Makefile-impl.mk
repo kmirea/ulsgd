@@ -27,11 +27,11 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=FightOrFlight
 
 # Active Configuration
-DEFAULTCONF=Debug
+DEFAULTCONF=Debug_Linux
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Debug Release 
+ALLCONFS=Debug_Linux Release_Linux Debug_Win32 Release_Win32 
 
 
 # build
