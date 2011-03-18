@@ -1,0 +1,3 @@
+usr/include/enet
+debian/enet.pc usr/lib/pkgconfig
+
