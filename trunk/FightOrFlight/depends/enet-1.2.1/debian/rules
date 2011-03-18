@@ -1,0 +1,24 @@
+#!/usr/bin/make -f
+
+CFLAGS += -W -Wall -fPIC
+
+%:
+	dh --with quilt $@
+
+override_dh_auto_configure:
+	ln -sf /usr/share/misc/config.sub /usr/share/misc/config.guess .
+	dh_auto_configure
+
+override_dh_auto_build:
+	dh_auto_build
+	# create the shared lib
+	gcc -Wl,-soname,libenet.so.0debian1 -shared -o libenet.so.0debian1.0 *.o
+
+	doxygen
+
+override_dh_clean:
+	[ ! -d docs/html ] || rm -r docs/html/
+	dh_clean
+
+override_dh_strip:
+	dh_strip --dbg-package=libenet0debian1-dbg

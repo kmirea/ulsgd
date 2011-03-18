@@ -1,0 +1,5 @@
+config.sub
+config.guess
+
+libenet.so.*
+

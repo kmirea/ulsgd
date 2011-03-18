@@ -1,0 +1,15 @@
+Document: libenet-doc
+Title: API documentation for ENet
+Author: Lee Salzman
+Abstract: ENet's purpose is to provide a relatively thin, simple and robust
+ network communication layer on top of UDP (User Datagram Protocol). The
+ primary feature it provides is optional reliable, in-order delivery of
+ packets.
+ .
+ This manual describes the API provided by ENet.
+Section: Programming/C
+
+Format: HTML
+Index: /usr/share/doc/libenet-doc/html/index.html
+Files: /usr/share/doc/libenet-doc/html/*.html
+
