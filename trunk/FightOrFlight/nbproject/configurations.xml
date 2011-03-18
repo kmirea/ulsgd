@@ -31,16 +31,25 @@
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug" type="1">
+    <conf name="Debug_Linux" type="1">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <compilerSet>GNU|GNU</compilerSet>
         <platform>2</platform>
       </toolsSet>
       <compileType>
+        <cTool>
+          <commandLine>`pkg-config --cflags irrBullet cAudio`</commandLine>
+        </cTool>
+        <ccTool>
+          <commandLine>`pkg-config --cflags irrBullet cAudio`</commandLine>
+        </ccTool>
+        <linkerTool>
+          <commandLine>`pkg-config --libs irrBullet cAudio`</commandLine>
+        </linkerTool>
       </compileType>
     </conf>
-    <conf name="Release" type="1">
+    <conf name="Release_Linux" type="1">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <compilerSet>GNU|GNU</compilerSet>
@@ -49,9 +58,11 @@
       <compileType>
         <cTool>
           <developmentMode>5</developmentMode>
+          <commandLine>`pkg-config --cflags irrBullet cAudio`</commandLine>
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <commandLine>`pkg-config --cflags irrBullet cAudio`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -59,6 +70,27 @@
         <asmTool>
           <developmentMode>5</developmentMode>
         </asmTool>
+        <linkerTool>
+          <commandLine>`pkg-config --libs irrBullet cAudio`</commandLine>
+        </linkerTool>
+      </compileType>
+    </conf>
+    <conf name="Debug_Win32" type="1">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <compilerSet>GNU|GNU</compilerSet>
+        <platform>2</platform>
+      </toolsSet>
+      <compileType>
+      </compileType>
+    </conf>
+    <conf name="Release_Win32" type="1">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <compilerSet>GNU|GNU</compilerSet>
+        <platform>2</platform>
+      </toolsSet>
+      <compileType>
       </compileType>
     </conf>
   </confs>
