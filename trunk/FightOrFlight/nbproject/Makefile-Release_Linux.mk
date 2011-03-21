@@ -35,7 +35,9 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Types.o \
 	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/NetworkManager.o \
 	${OBJECTDIR}/NetworkObject.o \
+	${OBJECTDIR}/NetProtocolStruct.o \
 	${OBJECTDIR}/ReferenceCountedObject.o
 
 
@@ -73,10 +75,20 @@ ${OBJECTDIR}/main.o: main.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
+${OBJECTDIR}/NetworkManager.o: NetworkManager.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkManager.o NetworkManager.cpp
+
 ${OBJECTDIR}/NetworkObject.o: NetworkObject.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkObject.o NetworkObject.cpp
+
+${OBJECTDIR}/NetProtocolStruct.o: NetProtocolStruct.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetProtocolStruct.o NetProtocolStruct.cpp
 
 ${OBJECTDIR}/ReferenceCountedObject.o: ReferenceCountedObject.cpp 
 	${MKDIR} -p ${OBJECTDIR}

@@ -18,6 +18,7 @@
 #include <map>
 #include <stack>
 #include <queue>
+#include <deque>
 
 #define OPTIONHEADERTYPE u8
 
@@ -38,6 +39,7 @@ using std::stringstream;
 using std::map;
 using std::stack;
 using std::queue;
+using std::deque;
 
 typedef char c8;
 typedef unsigned char u8;
@@ -129,6 +131,25 @@ public:
 	ptr get_start_time() const;
 	ptr get_end_time() const;
 };
+
+#ifdef LITTLE_ENDIAN
+
+#define TO_BIG_ENDIAN_16(x) (x>>8) | (x<<8)
+#define TO_BIG_ENDIAN_32(x) (x>>24) | ((x<<8) & 0x00FF0000) | ((x>>8) & 0x0000FF00) | (x<<24)
+#define TO_BIG_ENDIAN_64(x) (x>>56) | ((x<<40) & 0x00FF000000000000) | ((x<<24) & 0x0000FF0000000000) | ((x<<8)  & 0x000000FF00000000) | ((x>>8)  & 0x00000000FF000000) | ((x>>24) & 0x0000000000FF0000) | ((x>>40) & 0x000000000000FF00) | (x<<56)
+
+#define TO_BIG_ENDIAN(x) ( sizeof(x)==2 ? TO_BIG_ENDIAN_16(x) : ( sizeof(x) == 4 ? TO_BIG_ENDIAN_32(x) : (sizeof(x) == 8 ? TO_BIG_ENDIAN_64(x) : x) ) )
+
+#define FROM_BIG_ENDIAN_16(x) (x>>8) | (x<<8)
+#define FROM_BIG_ENDIAN_32(x) (x>>24) | ((x<<8) & 0x00FF0000) | ((x>>8) & 0x0000FF00) | (x<<24)
+#define FROM_BIG_ENDIAN_64(x) (x>>56) | ((x<<40) & 0x00FF000000000000) | ((x<<24) & 0x0000FF0000000000) | ((x<<8)  & 0x000000FF00000000) | ((x>>8)  & 0x00000000FF000000) | ((x>>24) & 0x0000000000FF0000) | ((x>>40) & 0x000000000000FF00) | (x<<56)
+
+#define FROM_BIG_ENDIAN(x) ( sizeof(x)==2 ? FROM_BIG_ENDIAN_16(x) : ( sizeof(x) == 4 ? FROM_BIG_ENDIAN_32(x) : (sizeof(x) == 8 ? FROM_BIG_ENDIAN_64(x) : x) ) )
+
+#else
+#define TO_BIG_ENDIAN(x) x
+#define FROM_BIG_ENDIAN(x) x
+#endif
 
 #endif	/* _SRL_TYPES_H */
 

@@ -16,33 +16,39 @@ class NetworkManager;
 class NetworkObject : public ReferenceCountedObject
 {
 public:
-	NetworkObject( const NetworkManager* Net );
-	NetworkObject( const NetworkObject& Other );
+	NetworkObject( NetworkManager* Net, NETID NetID );
 
 protected:
 	virtual ~NetworkObject();
 
+	virtual string getDebugInfo();
+
 public:
+	// Return this object's net id
 	NETID getNetID() const;
+
+	// Check to see if any data is pending
 	bool isMessageAvailable() const;
 
-	const vector<u8>& getOutStream();
-	void update();
 
+	deque<u8> getOutStream();
+	
+	virtual void update();
+	
 protected:
-	const vector<u8>& getInStream();
+	// Used to provide network data to child classes
+	const deque<u8>& getInStream();
 
-	void sendData( const vector<u8>& OutData );
+	// Used to allow child classes to send network updates
+	void sendData( const deque<u8>& OutData );
 	
-private:
-	friend class NetworkManager;
-	
-	const NetworkManager* Manager;
+private:	
+	NetworkManager* Manager;
 
 	const NETID net_id;
 
-	vector<u8> InStream;
-	vector<u8> OutStream;
+	deque<u8> InStream;
+	deque<u8> OutStream;
 
 	bool MessageAvailable;
 };
