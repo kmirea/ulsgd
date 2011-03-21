@@ -17,13 +17,13 @@ class ReferenceCountedObject
 {
 public:
 	ReferenceCountedObject();
-	ReferenceCountedObject(const ReferenceCountedObject& Other);
 protected:
 	virtual ~ReferenceCountedObject() = 0;
 
+	virtual string getDebugInfo();
 public:
-	inline void grab();
-	inline void drop();
+	void grab();
+	void drop();
 
 private:
 	u32 ReferenceCount;

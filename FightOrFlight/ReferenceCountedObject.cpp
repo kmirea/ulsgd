@@ -5,10 +5,14 @@ ReferenceCountedObject::ReferenceCountedObject() : ReferenceCount(1)
 
 }
 
-ReferenceCountedObject::ReferenceCountedObject(const ReferenceCountedObject& Other) :
-	ReferenceCount(1)
+ReferenceCountedObject::~ReferenceCountedObject()
 {
 
+}
+
+string ReferenceCountedObject::getDebugInfo()
+{
+	return string("ReferenceCounted");
 }
 
 void ReferenceCountedObject::grab()

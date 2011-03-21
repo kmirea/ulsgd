@@ -39,76 +39,62 @@ struct NetData
 	E_NET_MESSAGE_TYPE MsgType;
 
 	// used for passing updates to existing objects.
-	u8 SyncSize;
 	struct Message_Sync
 	{
-		u8 SyncStart;
-		u8 CalibrateSize;
 		struct Sync_Calibrate
 		{
-			u8 CalibrateStart;
 			// old_position/rotation matrix
 			// old_velocity matrix
 			// old_accelleration matrix
-			u8 CalibrateEnd;
-		} * Calibrate;
-		u8 ForceUpdateSize;
+		} Calibrate;
+		
 		struct Sync_ForceUpdate
 		{
-			u8 ForceUpdateStart;
 			// new_position/rotation matrix
 			// new_velocity matrix
 			// new_accelleration matrix
-			u8 ForceUpdateEnd;
-		} * ForceUpdate;
-		u8 RelUpdateSize;
+		} ForceUpdate;
+
 		struct Sync_RelUpdate
 		{
-			u8 RelUpdateStart;
 			// rel_position/rotation matrix
 			// new_velocity matrix
 			// new _accelleration matrix
-			u8 RelUpdateEnd;
-		} * Relative;
-		u8 SyncEnd;
-	} * Sync;
+		} Relative;
+	} Sync;
 
-	// used for passing object creation queries
-	u8 CreateSize;
+	// used for passing object creation commands
 	struct Message_Create
 	{
-		u8 CreateStart;
 		// Object Type
 		// Object Parent NetID
 		// Initial position/rotation matrix
 		// Initial velocity matrix
 		// Initial accelleration matrix
-		u8 CreateEnd;
-	} * Create;
+	} Create;
 
-	u8 DestroySize;
 	struct Message_Destroy
 	{
-		u8 DestroyStart;
-		// Object NetID
 		// Destroy Type
-		u8 DestroyEnd;
-	} * Destroy;
+	} Destroy;
 
 	ACKID Acknowledge;
 
 	u8 MessageEnd;
-
-	inline bool operator < ( const NetData& Other ) const;
 };
 
-// Helper functions
-vector<u8> makeAckMessage( const vector<u8>& OrigMessage );
-vector<u8> makeSyncMessage( /*...*/ );
-vector<u8> makeCreateMessage( /*...*/ );
-vector<u8> makeDestroyMessage( /*...*/ );
+inline bool operator< ( const NetData&A, const NetData& B );
 
-vector<u8> makeRawMessage( const u8* );
+// Helper functions
+deque<u8> makeAckMessage( NetData& OrigMessage );
+
+void getMessage( NetData& Out, deque<u8>& Data );
+
+deque<u8> makeSyncMessage( /*...*/ );
+deque<u8> makeCreateMessage( /*...*/ );
+deque<u8> makeDestroyMessage( /*...*/ );
+
+deque<u8> makeRawMessage( const u8* );
 
 #endif	/* NETPROTOCOLSTRUCT_H */
 

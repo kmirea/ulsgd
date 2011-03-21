@@ -20,6 +20,8 @@
                    displayName="Source Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
+      <itemPath>NetProtocolStruct.cpp</itemPath>
+      <itemPath>NetworkManager.cpp</itemPath>
       <itemPath>NetworkObject.cpp</itemPath>
       <itemPath>ReferenceCountedObject.cpp</itemPath>
       <itemPath>Types.cpp</itemPath>
