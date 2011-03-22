@@ -172,7 +172,17 @@ deque<u8> makeDestroyMessage( /*...*/ )
 
 }
 
-deque<u8> makeRawMessage( const u8* )
+deque<u8> makeRawMessage( const u8* data, u32 size )
 {
+	deque<u8> Output;
 
+	if( data[0] != Message_Begin || data[size-1] != Message_End )
+		return Output;
+
+	for( u32 i=0; i<size; i++ )
+	{
+		Output.push_back( data[i] );
+	}
+
+	return Output;
 }
