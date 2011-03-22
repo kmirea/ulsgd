@@ -13,6 +13,15 @@
 
 class GameManager;
 
+// used to allow forward decleration of enet typedefs
+class _ENetAddress;
+class _ENetHost;
+class _ENetPeer;
+
+typedef _ENetAddress ENetAddress;
+typedef _ENetHost ENetHost;
+typedef _ENetPeer ENetPeer;
+
 enum E_MANAGER_MODE
 {
 	EMM_CLIENT,
@@ -31,6 +40,9 @@ protected:
 
 public:
 	void update();
+	void sendLocalData();
+
+	bool setConnectionAddress( ENetAddress& Address );
 
 	deque<u8> getUpdateData( NETID NetObject );
 
@@ -38,7 +50,15 @@ private:
 	GameManager* Game;
 	const E_MANAGER_MODE Mode;
 
+	deque<u8> IncomingData;
+
+	ENetHost* netinterface;
+	ENetAddress* server_name;
+
+	NETID next_id_counter;
+	
 	map< NETID, queue<NetData*> > MessageList;
+	vector<ENetPeer*> PeerList;
 };
 
 #endif	/* NETWORKMANAGER_H */

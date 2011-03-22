@@ -20,11 +20,14 @@
                    displayName="Source Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
+      <itemPath>GUIManager.h</itemPath>
+      <itemPath>GameManager.h</itemPath>
       <itemPath>NetProtocolStruct.cpp</itemPath>
       <itemPath>NetworkManager.cpp</itemPath>
       <itemPath>NetworkObject.cpp</itemPath>
       <itemPath>ReferenceCountedObject.cpp</itemPath>
       <itemPath>Types.cpp</itemPath>
+      <itemPath>WorldManager.h</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
