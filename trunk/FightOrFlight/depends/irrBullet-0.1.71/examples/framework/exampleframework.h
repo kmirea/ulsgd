@@ -1,10 +1,10 @@
 #ifndef __EXAMPLE__FRAMEWORK_H_INCLUDED__
 #define __EXAMPLE__FRAMEWORK_H_INCLUDED__
-#include <irrTypes.h>
-#include <vector3d.h>
-#include <SColor.h>
-#include <SMaterial.h>
-#include <IEventReceiver.h>
+#include <irrlicht/irrTypes.h>
+#include <irrlicht/vector3d.h>
+#include <irrlicht/SColor.h>
+#include <irrlicht/SMaterial.h>
+#include <irrlicht/IEventReceiver.h>
 
 
 namespace irr

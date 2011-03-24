@@ -7,9 +7,9 @@
 #define __COLLISION_OBJECT_AFFECTOR_ATTRACT_H__
 
 #include "collisionobjectaffector.h"
-#include <irrTypes.h>
-#include <vector3d.h>
-#include <ISceneNode.h>
+#include <irrlicht/irrTypes.h>
+#include <irrlicht/vector3d.h>
+#include <irrlicht/ISceneNode.h>
 
 class ICollisionObject;
 

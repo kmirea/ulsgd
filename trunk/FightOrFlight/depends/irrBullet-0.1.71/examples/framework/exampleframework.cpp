@@ -1,12 +1,12 @@
-#include <irrlicht.h>
-#include <bulletworld.h>
-#include <rigidbody.h>
-#include <boxshape.h>
-#include <sphereshape.h>
-#include <gimpactmeshshape.h>
-#include <raycastvehicle.h>
-#include <collisionobjectaffectordelete.h>
-#include <collisionobjectaffectorattract.h>
+#include <irrlicht/irrlicht.h>
+#include <irrBullet/bulletworld.h>
+#include <irrBullet/rigidbody.h>
+#include <irrBullet/boxshape.h>
+#include <irrBullet/sphereshape.h>
+#include <irrBullet/gimpactmeshshape.h>
+#include <irrBullet/raycastvehicle.h>
+#include <irrBullet/collisionobjectaffectordelete.h>
+#include <irrBullet/collisionobjectaffectorattract.h>
 //#include <collisionobjectaffectorbuoyancy.h>
 #include "exampleframework.h"
 

@@ -7,7 +7,7 @@
 #define __COLLISION_OBJECT_AFFECTOR_DELETE_H__
 
 #include "collisionobjectaffector.h"
-#include <irrTypes.h>
+#include <irrlicht/irrTypes.h>
 
 class ICollisionObject;
 

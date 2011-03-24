@@ -2,8 +2,8 @@
 #define __AFFECTORS_EXAMPLE_H_INCLUDED__
 
 #include "../framework/exampleframework.h"
-#include <irrString.h>
-#include <irrTypes.h>
+#include <irrlicht/irrString.h>
+#include <irrlicht/irrTypes.h>
 
 
 class IRigidBody;

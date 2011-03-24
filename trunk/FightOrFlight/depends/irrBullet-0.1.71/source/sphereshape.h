@@ -8,7 +8,7 @@
 
 
 #include "collisionshape.h"
-#include "Bullet/BulletCollision/CollisionShapes/btSphereShape.h"
+#include <bullet/BulletCollision/CollisionShapes/btSphereShape.h>
 
 
 class ISphereShape : public ICollisionShape

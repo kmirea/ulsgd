@@ -10,7 +10,7 @@
 #include "collisionshape.h"
 #include "BulletCollision/CollisionDispatch/btCollisionObject.h"
 #include "collisionobjectaffector.h"
-#include <IAttributes.h>
+#include <irrlicht/IAttributes.h>
 
 enum EActivationState
 {

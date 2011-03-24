@@ -8,8 +8,8 @@
 
 #define BIT(x) (1<<(x)) // For collision masking
 
-#include <matrix4.h>
-#include <ISceneNode.h>
+#include <irrlicht/matrix4.h>
+#include <irrlicht/ISceneNode.h>
 
 
 struct SWheelInfo;
