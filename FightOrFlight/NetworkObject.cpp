@@ -4,7 +4,7 @@
 NetworkObject::NetworkObject( NetworkManager* Net, NETID NetID ) : ReferenceCountedObject(),
 		Manager(Net), net_id(NetID), InStream(0,0), OutStream(0,0), MessageAvailable(false)
 {
-	InStream = Manager->getUpdateData( net_id );
+	NetData* InData = Manager->getUpdateData( net_id );
 }
 
 NetworkObject::~NetworkObject()
@@ -32,7 +32,7 @@ deque<u8> NetworkObject::getOutStream()
 
 void NetworkObject::update()
 {
-	deque<u8> indata = Manager->getUpdateData( net_id );
+	NetData* InData = Manager->getUpdateData( net_id );
 }
 
 const deque<u8>& NetworkObject::getInStream()

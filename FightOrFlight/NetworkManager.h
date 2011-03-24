@@ -44,7 +44,7 @@ public:
 
 	bool setConnectionAddress( ENetAddress& Address );
 
-	deque<u8> getUpdateData( NETID NetObject );
+	NetData* getUpdateData( NETID NetObject );
 
 private:
 	GameManager* Game;
