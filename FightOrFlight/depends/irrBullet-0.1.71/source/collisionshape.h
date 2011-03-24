@@ -6,10 +6,10 @@
 #ifndef __COLLISION_SHAPE_H_INCLUDED__
 #define __COLLISION_SHAPE_H_INCLUDED__
 
-#include "BulletCollision/CollisionShapes/btCollisionShape.h"
-#include <vector3d.h>
-#include <irrTypes.h>
-#include <irrString.h>
+#include <bullet/BulletCollision/CollisionShapes/btCollisionShape.h>
+#include <irrlicht/vector3d.h>
+#include <irrlicht/irrTypes.h>
+#include <irrlicht/irrString.h>
 #include "irrbulletcommon.h"
 
 class btVector3;

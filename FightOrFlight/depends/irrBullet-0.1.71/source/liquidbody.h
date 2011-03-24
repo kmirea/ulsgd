@@ -6,10 +6,10 @@
 #ifndef __LIQUID_BODY_H_INCLUDED__
 #define __LIQUID_BODY_H_INCLUDED__
 
-#include <vector3d.h>
-#include <irrTypes.h>
-#include <aabbox3d.h>
-#include <IrrlichtDevice.h>
+#include <irrlicht/vector3d.h>
+#include <irrlicht/irrTypes.h>
+#include <irrlicht/aabbox3d.h>
+#include <irrlicht/IrrlichtDevice.h>
 
 
 class irrBulletWorld;

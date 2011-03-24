@@ -9,12 +9,12 @@
 #include "collisionobject.h"
 #include "BulletSoftBody/btSoftBodyHelpers.h"
 #include "BulletSoftBody/btSoftBody.h"
-#include <irrTypes.h>
+#include <irrlicht/irrTypes.h>
 #include <map>
 #include <vector>
-#include <irrArray.h>
-#include <S3DVertex.h>
-#include <IMeshBuffer.h>
+#include <irrlicht/irrArray.h>
+#include <irrlicht/S3DVertex.h>
+#include <irrlicht/IMeshBuffer.h>
 
 namespace irr
 {

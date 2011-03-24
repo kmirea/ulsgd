@@ -31,9 +31,9 @@ The same applies for all other copyright notices at the top of files included wi
 #define __IRR_BULLET_H_INCLUDED__
 
 #include "irrbullet_compile_config.h"
-#include "Bullet/btBulletDynamicsCommon.h"
-#include "Bullet/btBulletCollisionCommon.h"
-#include "Bullet/BulletCollision/Gimpact/btGImpactCollisionAlgorithm.h"
+#include <bullet/btBulletDynamicsCommon.h>
+#include <bullet/btBulletCollisionCommon.h>
+#include <bullet/BulletCollision/Gimpact/btGImpactCollisionAlgorithm.h>
 #include "irrbulletcommon.h"
 #include "bulletworld.h"
 #include "boxshape.h"

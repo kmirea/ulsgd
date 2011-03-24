@@ -6,10 +6,10 @@
 #ifndef __COLLISION_CALLBACK_INFORMATION_H__
 #define __COLLISION_CALLBACK_INFORMATION_H__
 
-#include <irrTypes.h>
-#include <vector3d.h>
+#include <irrlicht/irrTypes.h>
+#include <irrlicht/vector3d.h>
 #include "irrbulletcommon.h"
-#include "Bullet/BulletCollision/NarrowPhaseCollision/btPersistentManifold.h"
+#include <bullet/BulletCollision/NarrowPhaseCollision/btPersistentManifold.h>
 
 
 class ICollisionObject;

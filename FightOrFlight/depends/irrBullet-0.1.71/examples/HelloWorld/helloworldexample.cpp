@@ -1,5 +1,5 @@
-#include <irrlicht.h>
-#include <irrBullet.h>
+#include <irrlicht/irrlicht.h>
+#include <irrBullet/irrbullet.h>
 #include "helloworldexample.h"
 
 
@@ -86,15 +86,14 @@ void CHelloWorldExample::runExample()
     rows = 10;
 	columns = 10;
 
-    device =
-        createDevice( video::EDT_OPENGL, dimension2d<u32>(640, 480), 16,
-            false, false, false, this);
-
     printf("Number of stack rows: ");
     cin >> rows;
     printf("\nNumber of stack columns: ");
     cin >> columns;
 
+	device =
+        createDevice( video::EDT_OPENGL, dimension2d<u32>(640, 480), 16,
+            false, false, false, this);
 
     device->setWindowCaption(L"irrBullet Hello World");
 

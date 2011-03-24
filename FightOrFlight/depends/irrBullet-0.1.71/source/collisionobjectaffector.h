@@ -6,7 +6,7 @@
 #ifndef __COLLISION_OBJECT_AFFECTOR_H__
 #define __COLLISION_OBJECT_AFFECTOR_H__
 
-#include <irrTypes.h>
+#include <irrlicht/irrTypes.h>
 
 class ICollisionObject;
 

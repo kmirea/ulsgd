@@ -1,5 +1,5 @@
-#include <irrlicht.h>
-#include <irrBullet.h>
+#include <irrlicht/irrlicht.h>
+#include <irrBullet/irrbullet.h>
 #include "affectorsexample.h"
 
 

@@ -29,8 +29,6 @@ install_extern:
 	cp -R ../*.txt ${DOC_DEST_PATH}
 	
 	# lib
-	mkdir -p ${LIB_DEST_PATH}/pkgconfig
-	cp irrBullet.pc ${LIB_DEST_PATH}/pkgconfig/
 	cp ${LIB_SRC_PATH}/libirrBullet.so ${LIB_DEST_PATH}
 	
 	# headers

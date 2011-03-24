@@ -3,7 +3,7 @@
 #ifndef __PHYSICS_DEBUG_H_INCLUDED__
 #define __PHYSICS_DEBUG_H_INCLUDED__
 
-#include "Bullet/LinearMath/btIDebugDraw.h"
+#include <bullet/LinearMath/btIDebugDraw.h>
 #include "irrbulletcommon.h"
 
 namespace irr
