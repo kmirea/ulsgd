@@ -9,7 +9,7 @@
 #define	NETPROTOCOLSTRUCT_H
 
 // include the proper header to expose our data containers (matrix,vector3df)
-#include "Types.h"
+#include "ReferenceCountedObject.h"
 
 #define Message_Begin 0x7e	// 0111 1110b
 #define Message_End 0x81	// 1000 0001b
@@ -29,8 +29,11 @@ enum E_NET_MESSAGE_TYPE
 	ENMT_FORCE_8_BIT = U8_MAX
 };
 
-struct NetData
+class NetData : public ReferenceCountedObject
 {
+public:
+	NetData();
+	
 	u8 MessageStart;
 
 	NETID net_id;
@@ -81,6 +84,11 @@ struct NetData
 	ACKID Acknowledge;
 
 	u8 MessageEnd;
+
+protected:
+	virtual ~NetData();
+
+	string getDebugInfo() const;
 };
 
 inline bool operator< ( const NetData&A, const NetData& B );
@@ -88,7 +96,7 @@ inline bool operator< ( const NetData&A, const NetData& B );
 // Helper functions
 deque<u8> makeAckMessage( NetData& OrigMessage );
 
-void getMessage( NetData& Out, deque<u8>& Data );
+NetData* getMessage( deque<u8>& Data );
 
 deque<u8> makeSyncMessage( /*...*/ );
 deque<u8> makeCreateMessage( /*...*/ );

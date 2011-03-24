@@ -5,11 +5,16 @@
                    displayName="Header Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
+      <itemPath>ClientObject.h</itemPath>
+      <itemPath>Entity.h</itemPath>
+      <itemPath>GameManager.h</itemPath>
       <itemPath>NetProtocolStruct.h</itemPath>
       <itemPath>NetworkManager.h</itemPath>
       <itemPath>NetworkObject.h</itemPath>
+      <itemPath>PhysicsObject.h</itemPath>
       <itemPath>ReferenceCountedObject.h</itemPath>
       <itemPath>Types.h</itemPath>
+      <itemPath>WorldManager.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -20,14 +25,11 @@
                    displayName="Source Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
-      <itemPath>GUIManager.h</itemPath>
-      <itemPath>GameManager.h</itemPath>
       <itemPath>NetProtocolStruct.cpp</itemPath>
       <itemPath>NetworkManager.cpp</itemPath>
       <itemPath>NetworkObject.cpp</itemPath>
       <itemPath>ReferenceCountedObject.cpp</itemPath>
       <itemPath>Types.cpp</itemPath>
-      <itemPath>WorldManager.h</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -41,6 +43,7 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>GUIManager.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

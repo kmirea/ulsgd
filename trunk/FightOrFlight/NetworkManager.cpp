@@ -37,7 +37,7 @@ NetworkManager::~NetworkManager()
 
 void NetworkManager::update()
 {
-	NetData UpdateData;
+	
 }
 
 void NetworkManager::sendLocalData()
@@ -78,7 +78,7 @@ bool NetworkManager::setConnectionAddress( ENetAddress& Address )
 	}
 }
 
-deque<u8> NetworkManager::getUpdateData( NETID NetObject )
+NetData* NetworkManager::getUpdateData( NETID NetObject )
 {
 	
 }

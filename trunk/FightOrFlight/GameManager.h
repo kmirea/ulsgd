@@ -11,10 +11,29 @@
 #include "NetworkManager.h"
 #include "WorldManager.h"
 #include "GUIManager.h"
+#include "Entity.h"
 
-class GameManager
+class GameManager : public ReferenceCountedObject
 {
 public:
+	GameManager( u32 argc, c8** argv );
+	GameManager();
+
+	virtual ~GameManager();
+
+	bool run();
+
+	NetworkManager* getNetworkManager() const;
+	WorldManager* getWorldManager() const;
+	
+	void createObject( NETID NetID );
+
+private:
+
+	NetworkManager* Network;
+	WorldManager* World;
+	
+	vector<Entity*> EntityList;
 
 };
 
