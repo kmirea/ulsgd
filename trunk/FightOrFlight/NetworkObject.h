@@ -32,24 +32,23 @@ public:
 
 
 	deque<u8> getOutStream();
+	// Used to provide network data to child classes
+	NetData* getInStream();
 	
 	virtual void update();
 	
 protected:
-	// Used to provide network data to child classes
-	const deque<u8>& getInStream();
-
 	// Used to allow child classes to send network updates
-	void sendData( const deque<u8>& OutData );
+	void sendData( NetData* );
 	
 private:	
 	NetworkManager* Manager;
 
 	const NETID net_id;
 
-	deque<u8> InStream;
-	deque<u8> OutStream;
-
+	NetData* OutStream;
+	NetData* InStream;
+	
 	bool MessageAvailable;
 };
 
