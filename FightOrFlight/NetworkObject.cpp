@@ -2,9 +2,9 @@
 #include "NetworkManager.h"
 
 NetworkObject::NetworkObject( NetworkManager* Net, NETID NetID ) : ReferenceCountedObject(),
-		Manager(Net), net_id(NetID), InStream(0,0), OutStream(0,0), MessageAvailable(false)
+		Manager(Net), net_id(NetID), OutStream(NULL), InStream(NULL), MessageAvailable(false)
 {
-	NetData* InData = Manager->getUpdateData( net_id );
+	InStream = Manager->getUpdateData( net_id );
 }
 
 NetworkObject::~NetworkObject()
@@ -32,7 +32,12 @@ deque<u8> NetworkObject::getOutStream()
 
 void NetworkObject::update()
 {
-	NetData* InData = Manager->getUpdateData( net_id );
+	if( InStream != NULL )
+	{
+		InStream->drop();
+		InStream = NULL;
+	}
+	InStream = Manager->getUpdateData( net_id );
 }
 
 const deque<u8>& NetworkObject::getInStream()
@@ -40,7 +45,7 @@ const deque<u8>& NetworkObject::getInStream()
 	return InStream;
 }
 
-void NetworkObject::sendData( const deque<u8>& OutData )
+void NetworkObject::sendData( NetData* Out )
 {
 	for( u32 i=0; i<OutData.size(); i++ )
 		OutStream.push_back( OutData[i] );

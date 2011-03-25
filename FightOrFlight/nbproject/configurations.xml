@@ -7,6 +7,7 @@
                    kind="SOURCE_LOGICAL_FOLDER">
       <itemPath>ClientObject.h</itemPath>
       <itemPath>Entity.h</itemPath>
+      <itemPath>GUIManager.h</itemPath>
       <itemPath>GameManager.h</itemPath>
       <itemPath>NetProtocolStruct.h</itemPath>
       <itemPath>NetworkManager.h</itemPath>
@@ -43,7 +44,6 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
-    <itemPath>GUIManager.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
