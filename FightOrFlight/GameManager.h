@@ -12,12 +12,12 @@
 #include "WorldManager.h"
 #include "GUIManager.h"
 #include "Entity.h"
+#include "SoundManager.h"
 
 class GameManager : public ReferenceCountedObject
 {
 public:
 	GameManager( u32 argc, c8** argv );
-	GameManager();
 
 	virtual ~GameManager();
 
@@ -25,13 +25,23 @@ public:
 
 	NetworkManager* getNetworkManager() const;
 	WorldManager* getWorldManager() const;
+	GUIManager* getGUIManager() const;
+	SoundManager* getSoundManager() const;
 	
 	void createObject( NETID NetID );
+	void destroyObject( NETID NetID );
 
+	const vector<Entity*>& getEntityList() const;
+
+protected:
+	virtual string getDebugInfo() const;
+	
 private:
 
 	NetworkManager* Network;
 	WorldManager* World;
+	GUIManager* GUI;
+	SoundManager* Sound;
 	
 	vector<Entity*> EntityList;
 

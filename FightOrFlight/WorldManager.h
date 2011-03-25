@@ -17,7 +17,20 @@
 class WorldManager : public ReferenceCountedObject
 {
 public:
-	WorldManager( GameManager* Game );
+	WorldManager( GameManager* Game, E_MANAGER_MODE Mode );
+protected:
+	virtual ~WorldManager();
+
+public:
+	bool run();
+	void update();
+
+protected:
+	virtual string getDebugInfo() const;
+
+private:
+	GameManager* Game;
+	E_MANAGER_MODE Mode;
 };
 
 #endif	/* WORLDMANAGER_H */

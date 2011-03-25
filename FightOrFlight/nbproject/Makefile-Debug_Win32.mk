@@ -34,9 +34,11 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/Types.o \
+	${OBJECTDIR}/GameManager.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/NetworkManager.o \
 	${OBJECTDIR}/NetworkObject.o \
+	${OBJECTDIR}/WorldManager.o \
 	${OBJECTDIR}/NetProtocolStruct.o \
 	${OBJECTDIR}/ReferenceCountedObject.o
 
@@ -68,32 +70,42 @@ dist/Debug_Win32/GNU-Linux-x86/fightorflight: ${OBJECTFILES}
 ${OBJECTDIR}/Types.o: Types.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Types.o Types.cpp
+	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/Types.o Types.cpp
+
+${OBJECTDIR}/GameManager.o: GameManager.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/GameManager.o GameManager.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 ${OBJECTDIR}/NetworkManager.o: NetworkManager.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkManager.o NetworkManager.cpp
+	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkManager.o NetworkManager.cpp
 
 ${OBJECTDIR}/NetworkObject.o: NetworkObject.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkObject.o NetworkObject.cpp
+	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkObject.o NetworkObject.cpp
+
+${OBJECTDIR}/WorldManager.o: WorldManager.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/WorldManager.o WorldManager.cpp
 
 ${OBJECTDIR}/NetProtocolStruct.o: NetProtocolStruct.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetProtocolStruct.o NetProtocolStruct.cpp
+	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetProtocolStruct.o NetProtocolStruct.cpp
 
 ${OBJECTDIR}/ReferenceCountedObject.o: ReferenceCountedObject.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/ReferenceCountedObject.o ReferenceCountedObject.cpp
+	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/ReferenceCountedObject.o ReferenceCountedObject.cpp
 
 # Subprojects
 .build-subprojects:

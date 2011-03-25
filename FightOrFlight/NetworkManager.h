@@ -36,9 +36,11 @@ public:
 protected:
 	~NetworkManager();
 
-	virtual string getDebugInfo();
+	virtual string getDebugInfo() const;
 
 public:
+	bool run();
+	
 	void update();
 	void sendLocalData();
 
@@ -59,6 +61,8 @@ private:
 	
 	map< NETID, queue<NetData*> > MessageList;
 	vector<ENetPeer*> PeerList;
+
+	bool isConnected;
 };
 
 #endif	/* NETWORKMANAGER_H */

@@ -20,7 +20,7 @@ public:
 protected:
 	virtual ~ReferenceCountedObject() = 0;
 
-	virtual string getDebugInfo();
+	virtual string getDebugInfo() const = 0;
 public:
 	void grab();
 	void drop();

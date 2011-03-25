@@ -22,12 +22,10 @@ bool NetworkObject::isMessageAvailable() const
 	return MessageAvailable;
 }
 
-deque<u8> NetworkObject::getOutStream()
+NetData* NetworkObject::getOutStream()
 {
 	MessageAvailable = false;
-	deque<u8> out = OutStream;
-	
-	return out;
+	return OutStream;
 }
 
 void NetworkObject::update()
@@ -40,15 +38,14 @@ void NetworkObject::update()
 	InStream = Manager->getUpdateData( net_id );
 }
 
-const deque<u8>& NetworkObject::getInStream()
+NetData* NetworkObject::getInStream()
 {
 	return InStream;
 }
 
 void NetworkObject::sendData( NetData* Out )
 {
-	for( u32 i=0; i<OutData.size(); i++ )
-		OutStream.push_back( OutData[i] );
+	OutStream = Out;
 	MessageAvailable = true;
 }
 
