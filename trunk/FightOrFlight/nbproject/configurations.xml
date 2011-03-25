@@ -14,6 +14,8 @@
       <itemPath>NetworkObject.h</itemPath>
       <itemPath>PhysicsObject.h</itemPath>
       <itemPath>ReferenceCountedObject.h</itemPath>
+      <itemPath>SoundManager.h</itemPath>
+      <itemPath>SoundObject.h</itemPath>
       <itemPath>Types.h</itemPath>
       <itemPath>WorldManager.h</itemPath>
     </logicalFolder>
@@ -26,11 +28,13 @@
                    displayName="Source Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
+      <itemPath>GameManager.cpp</itemPath>
       <itemPath>NetProtocolStruct.cpp</itemPath>
       <itemPath>NetworkManager.cpp</itemPath>
       <itemPath>NetworkObject.cpp</itemPath>
       <itemPath>ReferenceCountedObject.cpp</itemPath>
       <itemPath>Types.cpp</itemPath>
+      <itemPath>WorldManager.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -56,9 +60,15 @@
       <compileType>
         <cTool>
           <commandLine>`pkg-config --cflags irrBullet cAudio enet`</commandLine>
+          <preprocessorList>
+            <Elem>DEBUG</Elem>
+          </preprocessorList>
         </cTool>
         <ccTool>
           <commandLine>`pkg-config --cflags irrBullet cAudio enet`</commandLine>
+          <preprocessorList>
+            <Elem>DEBUG</Elem>
+          </preprocessorList>
         </ccTool>
         <linkerTool>
           <commandLine>`pkg-config --libs irrBullet cAudio enet`</commandLine>
@@ -98,6 +108,16 @@
         <platform>2</platform>
       </toolsSet>
       <compileType>
+        <cTool>
+          <preprocessorList>
+            <Elem>DEBUG</Elem>
+          </preprocessorList>
+        </cTool>
+        <ccTool>
+          <preprocessorList>
+            <Elem>DEBUG</Elem>
+          </preprocessorList>
+        </ccTool>
       </compileType>
     </conf>
     <conf name="Release_Win32" type="1">

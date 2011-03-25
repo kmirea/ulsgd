@@ -31,7 +31,7 @@ public:
 	bool isMessageAvailable() const;
 
 
-	deque<u8> getOutStream();
+	NetData* getOutStream();
 	// Used to provide network data to child classes
 	NetData* getInStream();
 	

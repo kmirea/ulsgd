@@ -88,7 +88,7 @@ public:
 protected:
 	virtual ~NetData();
 
-	string getDebugInfo() const;
+	virtual string getDebugInfo() const;
 };
 
 inline bool operator< ( const NetData&A, const NetData& B );

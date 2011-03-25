@@ -34,9 +34,11 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/Types.o \
+	${OBJECTDIR}/GameManager.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/NetworkManager.o \
 	${OBJECTDIR}/NetworkObject.o \
+	${OBJECTDIR}/WorldManager.o \
 	${OBJECTDIR}/NetProtocolStruct.o \
 	${OBJECTDIR}/ReferenceCountedObject.o
 
@@ -70,6 +72,11 @@ ${OBJECTDIR}/Types.o: Types.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Types.o Types.cpp
 
+${OBJECTDIR}/GameManager.o: GameManager.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/GameManager.o GameManager.cpp
+
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
@@ -84,6 +91,11 @@ ${OBJECTDIR}/NetworkObject.o: NetworkObject.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkObject.o NetworkObject.cpp
+
+${OBJECTDIR}/WorldManager.o: WorldManager.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/WorldManager.o WorldManager.cpp
 
 ${OBJECTDIR}/NetProtocolStruct.o: NetProtocolStruct.cpp 
 	${MKDIR} -p ${OBJECTDIR}
