@@ -98,7 +98,7 @@ deque<u8> makeAckMessage( NetData& OrigMessage );
 
 NetData* getMessage( deque<u8>& Data );
 
-deque<u8> makeSyncMessage( /*...*/ );
+deque<u8> makeSyncMessage( NetData* );
 deque<u8> makeCreateMessage( /*...*/ );
 deque<u8> makeDestroyMessage( /*...*/ );
 

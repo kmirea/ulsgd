@@ -1,6 +1,6 @@
 #include "ReferenceCountedObject.h"
 
-ReferenceCountedObject::ReferenceCountedObject() : ReferenceCount(1)
+ReferenceCountedObject::ReferenceCountedObject() : ReferenceCount(0)
 {
 	
 }

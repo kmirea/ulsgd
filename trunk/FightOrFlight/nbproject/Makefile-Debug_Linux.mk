@@ -40,6 +40,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/NetworkObject.o \
 	${OBJECTDIR}/WorldManager.o \
 	${OBJECTDIR}/NetProtocolStruct.o \
+	${OBJECTDIR}/PhysicsObject.o \
+	${OBJECTDIR}/Entity.o \
 	${OBJECTDIR}/ReferenceCountedObject.o
 
 
@@ -101,6 +103,16 @@ ${OBJECTDIR}/NetProtocolStruct.o: NetProtocolStruct.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetProtocolStruct.o NetProtocolStruct.cpp
+
+${OBJECTDIR}/PhysicsObject.o: PhysicsObject.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/PhysicsObject.o PhysicsObject.cpp
+
+${OBJECTDIR}/Entity.o: Entity.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/Entity.o Entity.cpp
 
 ${OBJECTDIR}/ReferenceCountedObject.o: ReferenceCountedObject.cpp 
 	${MKDIR} -p ${OBJECTDIR}

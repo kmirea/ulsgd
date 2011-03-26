@@ -31,6 +31,9 @@ protected:
 private:
 	GameManager* Game;
 	E_MANAGER_MODE Mode;
+
+	irr::IrrlichtDevice* Irrlicht;
+	irrBulletWorld* irrBullet;
 };
 
 #endif	/* WORLDMANAGER_H */

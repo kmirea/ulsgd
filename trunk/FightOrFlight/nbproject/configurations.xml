@@ -28,10 +28,12 @@
                    displayName="Source Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
+      <itemPath>Entity.cpp</itemPath>
       <itemPath>GameManager.cpp</itemPath>
       <itemPath>NetProtocolStruct.cpp</itemPath>
       <itemPath>NetworkManager.cpp</itemPath>
       <itemPath>NetworkObject.cpp</itemPath>
+      <itemPath>PhysicsObject.cpp</itemPath>
       <itemPath>ReferenceCountedObject.cpp</itemPath>
       <itemPath>Types.cpp</itemPath>
       <itemPath>WorldManager.cpp</itemPath>

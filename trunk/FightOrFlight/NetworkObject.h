@@ -21,7 +21,7 @@ public:
 protected:
 	virtual ~NetworkObject();
 
-	virtual string getDebugInfo();
+	virtual string getDebugInfo() const;
 
 public:
 	// Return this object's net id
@@ -30,7 +30,7 @@ public:
 	// Check to see if any data is pending
 	bool isMessageAvailable() const;
 
-
+	// Make sure to drop this NetData once you are finished with it...
 	NetData* getOutStream();
 	// Used to provide network data to child classes
 	NetData* getInStream();

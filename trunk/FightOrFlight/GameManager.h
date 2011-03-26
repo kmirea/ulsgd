@@ -19,15 +19,18 @@ class GameManager : public ReferenceCountedObject
 public:
 	GameManager( u32 argc, c8** argv );
 
+protected:
 	virtual ~GameManager();
 
+public:
 	bool run();
 
 	NetworkManager* getNetworkManager() const;
 	WorldManager* getWorldManager() const;
 	GUIManager* getGUIManager() const;
 	SoundManager* getSoundManager() const;
-	
+
+	void createObject();
 	void createObject( NETID NetID );
 	void destroyObject( NETID NetID );
 

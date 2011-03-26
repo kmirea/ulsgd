@@ -4,12 +4,13 @@
 NetworkObject::NetworkObject( NetworkManager* Net, NETID NetID ) : ReferenceCountedObject(),
 		Manager(Net), net_id(NetID), OutStream(NULL), InStream(NULL), MessageAvailable(false)
 {
+	Manager->grab();
 	InStream = Manager->getUpdateData( net_id );
 }
 
 NetworkObject::~NetworkObject()
 {
-	
+	Manager->drop();
 }
 
 NETID NetworkObject::getNetID() const
@@ -21,6 +22,7 @@ bool NetworkObject::isMessageAvailable() const
 {
 	return MessageAvailable;
 }
+
 
 NetData* NetworkObject::getOutStream()
 {
@@ -36,20 +38,24 @@ void NetworkObject::update()
 		InStream = NULL;
 	}
 	InStream = Manager->getUpdateData( net_id );
+	InStream->grab();
 }
 
 NetData* NetworkObject::getInStream()
 {
-	return InStream;
+	NetData* ret = InStream;
+	InStream = NULL;
+	return ret;
 }
 
 void NetworkObject::sendData( NetData* Out )
 {
 	OutStream = Out;
+	OutStream->grab();
 	MessageAvailable = true;
 }
 
-string NetworkObject::getDebugInfo()
+string NetworkObject::getDebugInfo() const
 {
 	return string("NetworkObject");
 }
