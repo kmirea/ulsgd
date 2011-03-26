@@ -19,11 +19,11 @@ NetworkManager::NetworkManager( GameManager* game, E_MANAGER_MODE mode ) : Refer
 	{
 	case EMM_CLIENT:
 		server_name->host = NULL;
-		netinterface = enet_host_create( server_name, 2, 0, 0 );
+		netinterface = enet_host_create( NULL, 1, 0, 0 );
 		break;
 	case EMM_SERVER:
 		server_name->host = ENET_HOST_ANY;
-		netinterface = enet_host_create( server_name, 2, 0, 0 );
+		netinterface = enet_host_create( server_name, 10, 0, 0 );
 		isConnected = true;
 		break;
 	default:
@@ -79,18 +79,54 @@ void NetworkManager::update()
 			break;
 		}
 	}
+
+	NetData* data;
+	while( (data = getMessage( IncomingData )) != NULL )
+	{
+		MessageList[data->net_id].push( data );
+	}
 }
 
 void NetworkManager::sendLocalData()
 {
-	
+	deque<u8> OutStream;
+
+	for( u32 i=0; i<Game->getEntityList().size(); i++ )
+	{
+		if( Game->getEntityList()[i]->getNetworkObject()->isMessageAvailable() )
+		{
+			NetData* OutData = Game->getEntityList()[i]->getNetworkObject()->getOutStream();
+			deque<u8> streambuffer = makeSyncMessage( OutData );
+			for( ; streambuffer.size() > 0; )
+			{
+				OutStream.push_back( streambuffer.front() );
+				streambuffer.pop_front();
+			}
+			OutData->drop();
+		}
+	}
+
+	u32 StreamSize = OutStream.size();
+	u8 Buffer[StreamSize];
+	for( u32 i=0; i<StreamSize; i++ )
+	{
+		Buffer[i] = OutStream.front();
+		OutStream.pop_front();
+	}
+
+	ENetPacket* packet = enet_packet_create( (void*)Buffer, StreamSize, ENET_PACKET_FLAG_RELIABLE );
+
+	for( u32 i=0; i<PeerList.size(); i++ )
+		enet_peer_send( PeerList[i], 0, packet );
+
+	enet_host_flush( netinterface );
 }
 
 bool NetworkManager::setConnectionAddress( ENetAddress& Address )
 {
 	server_name->host = Address.host;
 
-	PeerList.push_back( enet_host_connect( netinterface, server_name, 2 ) );
+	PeerList.push_back( enet_host_connect( netinterface, server_name, 0 ) );
 
 	if( PeerList.back() == NULL )
 	{
@@ -103,20 +139,23 @@ bool NetworkManager::setConnectionAddress( ENetAddress& Address )
 	if( enet_host_service( netinterface, &event, 5000 ) > 0 && event.type == ENET_EVENT_TYPE_CONNECT )
 	{
 		cerr << "Connection was succesful. Syncing with peer..." << endl;
-		return isConnected = true;
+		isConnected = true;
 	}
 	else if( event.type != ENET_EVENT_TYPE_CONNECT )
 	{
 		enet_peer_reset( PeerList.back() );
 		cerr << "Connection was unsuccesful..." << endl;
-		return isConnected = false;
+		isConnected = false;
 	}
 	else
 	{
 		enet_peer_reset( PeerList.back() );
 		cerr << "Connection timed out..." << endl;
-		return isConnected = false;
+		isConnected = false;
 	}
+
+	enet_host_flush(netinterface);
+	return isConnected;
 }
 
 NetData* NetworkManager::getUpdateData( NETID NetObject )
@@ -130,6 +169,11 @@ NetData* NetworkManager::getUpdateData( NETID NetObject )
 	}
 
 	return UpdateData;
+}
+
+NETID NetworkManager::getNextNETID()
+{
+	return next_id_counter++;
 }
 
 string NetworkManager::getDebugInfo() const

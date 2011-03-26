@@ -24,7 +24,7 @@ GameManager::GameManager( u32 argc, c8** argv ) : ReferenceCountedObject()
 		string serverip;
 		
 		cout << "Please specify server IP: " << endl;
-		//cin >> serverip;
+		cin >> serverip;
 
 		ENetAddress Address;
 		enet_address_set_host( &Address, "localhost" );
@@ -70,6 +70,11 @@ GUIManager* GameManager::getGUIManager() const
 SoundManager* GameManager::getSoundManager() const
 {
 	return Sound;
+}
+
+void GameManager::createObject()
+{
+	createObject( Network->getNextNETID() );
 }
 
 void GameManager::createObject( NETID NetID )

@@ -10,10 +10,21 @@
 
 #include "ReferenceCountedObject.h"
 
+class WorldManager;
 
 class PhysicsObject : public ReferenceCountedObject
 {
+public:
+	PhysicsObject( WorldManager* World );
+protected:
+	virtual ~PhysicsObject();
+
+public:
+protected:
+	virtual string getDebugInfo() const;
 	
+private:
+	WorldManager* World;
 };
 
 #endif	/* PHYSICSOBJECT_H */

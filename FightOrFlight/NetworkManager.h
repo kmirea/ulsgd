@@ -48,6 +48,8 @@ public:
 
 	NetData* getUpdateData( NETID NetObject );
 
+	NETID getNextNETID();
+
 private:
 	GameManager* Game;
 	const E_MANAGER_MODE Mode;

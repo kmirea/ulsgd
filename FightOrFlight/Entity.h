@@ -33,6 +33,8 @@ protected:
 private:
 	NetworkObject* Network;
 	PhysicsObject* Physics;
+
+	GameManager* Game;
 };
 
 #endif	/* ENTITY_H */
