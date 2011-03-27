@@ -11,6 +11,11 @@ Entity::Entity(GameManager* game, NETID netid) : ReferenceCountedObject(),
 	Physics->grab();
 }
 
+Entity::Entity(GameManager* Game, NETID NetID, PhysicsObject* physics )
+{
+
+}
+
 Entity::~Entity()
 {
 

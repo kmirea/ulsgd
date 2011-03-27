@@ -12,10 +12,22 @@
 
 class WorldManager;
 
+struct PhysicsObjectCreationStruct
+{
+	string MeshName;
+	string CollisionName;
+	string Mass;
+	f32 Position [3];
+	f32 Rotation [3];
+	f32 Scale	 [3];
+	f32 LinearVelocity [3];
+	f32 AngularVelocity[3];
+};
+
 class PhysicsObject : public ReferenceCountedObject
 {
 public:
-	PhysicsObject( WorldManager* World );
+	PhysicsObject( WorldManager* World, PhysicsObjectCreationStruct* POCS = NULL );
 protected:
 	virtual ~PhysicsObject();
 

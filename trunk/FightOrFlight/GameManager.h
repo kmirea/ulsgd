@@ -30,13 +30,15 @@ public:
 	GUIManager* getGUIManager() const;
 	SoundManager* getSoundManager() const;
 
-	void createObject();
 	void createObject( NETID NetID );
 	void destroyObject( NETID NetID );
 
 	const vector<Entity*>& getEntityList() const;
+	Entity* getClientEntity() const;
 
 protected:
+	bool loadScene( string filename );
+	
 	virtual string getDebugInfo() const;
 	
 private:
