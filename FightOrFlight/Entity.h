@@ -17,6 +17,7 @@ class Entity : public ReferenceCountedObject
 {
 public:
 	Entity( GameManager* Game, NETID NetID );
+	Entity( GameManager* Game, NETID NetID, PhysicsObject* Physics );
 
 protected:
 	~Entity();

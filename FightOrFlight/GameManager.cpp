@@ -1,5 +1,4 @@
 #include <enet/enet.h>
-
 #include "GameManager.h"
 
 GameManager::GameManager( u32 argc, c8** argv ) : ReferenceCountedObject()
@@ -10,6 +9,12 @@ GameManager::GameManager( u32 argc, c8** argv ) : ReferenceCountedObject()
 		{
 			Network = new NetworkManager( this, EMM_SERVER );
 			World = new WorldManager( this, EMM_SERVER );
+
+			if( !loadScene(argv[2]) )
+			{
+				cerr << "Please specify a valid scene file..." << endl;
+				exit(EXIT_FAILURE);
+			}
 		}
 		else
 		{
@@ -72,11 +77,6 @@ SoundManager* GameManager::getSoundManager() const
 	return Sound;
 }
 
-void GameManager::createObject()
-{
-	createObject( Network->getNextNETID() );
-}
-
 void GameManager::createObject( NETID NetID )
 {
 
@@ -95,4 +95,16 @@ string GameManager::getDebugInfo() const
 const vector<Entity*>& GameManager::getEntityList() const
 {
 	return EntityList;
+}
+
+bool GameManager::loadScene(string filename)
+{
+	ifstream File (filename.c_str());
+
+	if( !File )
+	{
+		cerr << "Could not load file " << filename << endl;
+	}
+
+	
 }

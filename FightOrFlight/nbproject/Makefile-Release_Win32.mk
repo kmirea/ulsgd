@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/NetworkManager.o \
 	${OBJECTDIR}/NetworkObject.o \
 	${OBJECTDIR}/WorldManager.o \
+	${OBJECTDIR}/Client.o \
 	${OBJECTDIR}/NetProtocolStruct.o \
 	${OBJECTDIR}/PhysicsObject.o \
 	${OBJECTDIR}/Entity.o \
@@ -98,6 +99,11 @@ ${OBJECTDIR}/WorldManager.o: WorldManager.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/WorldManager.o WorldManager.cpp
+
+${OBJECTDIR}/Client.o: Client.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Client.o Client.cpp
 
 ${OBJECTDIR}/NetProtocolStruct.o: NetProtocolStruct.cpp 
 	${MKDIR} -p ${OBJECTDIR}

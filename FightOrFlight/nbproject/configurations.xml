@@ -5,7 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
-      <itemPath>ClientObject.h</itemPath>
+      <itemPath>Client.h</itemPath>
       <itemPath>Entity.h</itemPath>
       <itemPath>GUIManager.h</itemPath>
       <itemPath>GameManager.h</itemPath>
@@ -28,6 +28,7 @@
                    displayName="Source Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
+      <itemPath>Client.cpp</itemPath>
       <itemPath>Entity.cpp</itemPath>
       <itemPath>GameManager.cpp</itemPath>
       <itemPath>NetProtocolStruct.cpp</itemPath>

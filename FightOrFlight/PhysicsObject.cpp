@@ -1,6 +1,6 @@
 #include "PhysicsObject.h"
 
-PhysicsObject::PhysicsObject(WorldManager* world) : ReferenceCountedObject(),
+PhysicsObject::PhysicsObject(WorldManager* world, PhysicsObjectCreationStruct* POCS) : ReferenceCountedObject(),
 		World(world)
 {
 	

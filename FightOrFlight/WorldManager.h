@@ -25,6 +25,9 @@ public:
 	bool run();
 	void update();
 
+	irr::IrrlichtDevice* getIrrlichtDriver() const;
+	irrBulletWorld* getIrrBulletDriver() const;
+	
 protected:
 	virtual string getDebugInfo() const;
 
