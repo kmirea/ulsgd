@@ -16,7 +16,7 @@ struct PhysicsObjectCreationStruct
 {
 	string MeshName;
 	string CollisionName;
-	string Mass;
+	f32 Mass;
 	f32 Position [3];
 	f32 Rotation [3];
 	f32 Scale	 [3];

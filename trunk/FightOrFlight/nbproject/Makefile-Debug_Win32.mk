@@ -42,8 +42,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/Client.o \
 	${OBJECTDIR}/NetProtocolStruct.o \
 	${OBJECTDIR}/PhysicsObject.o \
-	${OBJECTDIR}/Entity.o \
-	${OBJECTDIR}/ReferenceCountedObject.o
+	${OBJECTDIR}/ReferenceCountedObject.o \
+	${OBJECTDIR}/Entity.o
 
 
 # C Compiler Flags
@@ -115,15 +115,15 @@ ${OBJECTDIR}/PhysicsObject.o: PhysicsObject.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/PhysicsObject.o PhysicsObject.cpp
 
-${OBJECTDIR}/Entity.o: Entity.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/Entity.o Entity.cpp
-
 ${OBJECTDIR}/ReferenceCountedObject.o: ReferenceCountedObject.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/ReferenceCountedObject.o ReferenceCountedObject.cpp
+
+${OBJECTDIR}/Entity.o: Entity.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/Entity.o Entity.cpp
 
 # Subprojects
 .build-subprojects:

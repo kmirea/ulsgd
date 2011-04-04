@@ -22,31 +22,65 @@ WorldManager::WorldManager(GameManager* game, E_MANAGER_MODE mode) :
 	}
 	else if ( Mode == EMM_SERVER )
 	{
-
+		Irrlicht = irr::createDevice( irr::video::EDT_NULL );
 	}
 	else
 	{
 		cerr << "Invalid World Service State, exiting..." << endl;
 		exit(EXIT_FAILURE);
 	}
+
+	irrBullet = new
+#ifdef DEBUG
+			irrBulletWorld( Irrlicht, true, true );
+#else
+			irrBulletWorld( Irrlicht, true, false);
+#endif
+
+	Timer.start_timer();
 }
 
 WorldManager::~WorldManager()
 {
+	Timer.stop_timer();
+	
+	delete irrBullet;
 
+	Irrlicht->closeDevice();
 }
 
 void WorldManager::update()
 {
-	
+	irr::video::IVideoDriver* video = Irrlicht->getVideoDriver();
+	irr::scene::ISceneManager* scene = Irrlicht->getSceneManager();
+	irr::gui::IGUIEnvironment* gui = Irrlicht->getGUIEnvironment();
+
+	video->beginScene( true, true, irr::video::SColor(255,0,0,0) );
+
+	irrBullet->stepSimulation( Timer.tick()*0.001f, 120 );
+
+#ifdef DEBUG
+	irrBullet->debugDrawWorld( true );
+	irrBullet->debugDrawProperties( true );
+#endif
+
+	scene->drawAll();
+	gui->drawAll();
+
+	video->endScene();
 }
 
 bool WorldManager::run()
 {
-	return true;
+	return Irrlicht->run();
 }
 
 string WorldManager::getDebugInfo() const
 {
 	return string("WorldManager");
+}
+
+void WorldManager::setClient( Client* ClientEntity )
+{
+	Irrlicht->setEventReceiver( ClientEntity );
 }

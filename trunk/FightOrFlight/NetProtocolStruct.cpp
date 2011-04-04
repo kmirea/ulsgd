@@ -178,7 +178,12 @@ NetData* getMessage( deque<u8>& Data )
 
 deque<u8> makeSyncMessage( NetData* Data )
 {
-
+	deque<u8> ret;
+	if( Data != NULL )
+	{
+		
+	}
+	return ret;
 }
 
 deque<u8> makeCreateMessage( NetData* Data )

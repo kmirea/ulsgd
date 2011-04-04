@@ -11,6 +11,8 @@
 #include "ReferenceCountedObject.h"
 #include "NetworkManager.h"
 
+#include "Client.h"
+
 #include <irrlicht/irrlicht.h>
 #include <irrBullet/irrbullet.h>
 
@@ -27,6 +29,8 @@ public:
 
 	irr::IrrlichtDevice* getIrrlichtDriver() const;
 	irrBulletWorld* getIrrBulletDriver() const;
+
+	void setClient( Client* ClientEntity );
 	
 protected:
 	virtual string getDebugInfo() const;
@@ -37,6 +41,8 @@ private:
 
 	irr::IrrlichtDevice* Irrlicht;
 	irrBulletWorld* irrBullet;
+
+	TimerObject Timer;
 };
 
 #endif	/* WORLDMANAGER_H */

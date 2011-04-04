@@ -7,18 +7,27 @@ Entity::Entity(GameManager* game, NETID netid) : ReferenceCountedObject(),
 		Network( new NetworkObject( game->getNetworkManager(), netid) ),
 		Physics( new PhysicsObject( game->getWorldManager()) )
 {
+	Game->grab();
 	Network->grab();
 	Physics->grab();
 }
 
-Entity::Entity(GameManager* Game, NETID NetID, PhysicsObject* physics )
-{
+Entity::Entity(GameManager* game, NETID NetID, PhysicsObject* physics ) :
+		ReferenceCountedObject(), Game(game),
+		Network( new NetworkObject (game->getNetworkManager(), NetID) ),
+		Physics(physics)
 
+{
+	Game->grab();
+	Network->grab();
+	Physics->grab();
 }
 
 Entity::~Entity()
 {
-
+	Game->drop();
+	Network->drop();
+	Physics->drop();
 }
 
 NetworkObject* Entity::getNetworkObject() const

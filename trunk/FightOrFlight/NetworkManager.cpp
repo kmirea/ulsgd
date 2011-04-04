@@ -80,6 +80,9 @@ void NetworkManager::update()
 		}
 	}
 
+	if( PeerList.size() == 0 && Mode == EMM_CLIENT )
+		isConnected = false;
+	
 	NetData* data;
 	while( (data = getMessage( IncomingData )) != NULL )
 	{
@@ -89,37 +92,40 @@ void NetworkManager::update()
 
 void NetworkManager::sendLocalData()
 {
-	deque<u8> OutStream;
-
-	for( u32 i=0; i<Game->getEntityList().size(); i++ )
+	if( PeerList.size() > 0 )
 	{
-		if( Game->getEntityList()[i]->getNetworkObject()->isMessageAvailable() )
+		deque<u8> OutStream;
+
+		for( u32 i=0; i<Game->getEntityList().size(); i++ )
 		{
-			NetData* OutData = Game->getEntityList()[i]->getNetworkObject()->getOutStream();
-			deque<u8> streambuffer = makeSyncMessage( OutData );
-			for( ; streambuffer.size() > 0; )
+			if( Game->getEntityList()[i]->getNetworkObject()->isMessageAvailable() )
 			{
-				OutStream.push_back( streambuffer.front() );
-				streambuffer.pop_front();
+				NetData* OutData = Game->getEntityList()[i]->getNetworkObject()->getOutStream();
+				deque<u8> streambuffer = makeSyncMessage( OutData );
+				while( streambuffer.size() > 0 )
+				{
+					OutStream.push_back( streambuffer.front() );
+					streambuffer.pop_front();
+				}
+				OutData->drop();
 			}
-			OutData->drop();
 		}
+
+		u32 StreamSize = OutStream.size();
+		u8 Buffer[StreamSize];
+		for( u32 i=0; i<StreamSize; i++ )
+		{
+			Buffer[i] = OutStream.front();
+			OutStream.pop_front();
+		}
+
+		ENetPacket* packet = enet_packet_create( (void*)Buffer, StreamSize, ENET_PACKET_FLAG_RELIABLE );
+
+		for( u32 i=0; i<PeerList.size(); i++ )
+			enet_peer_send( PeerList[i], 0, packet );
+
+		enet_host_flush( netinterface );
 	}
-
-	u32 StreamSize = OutStream.size();
-	u8 Buffer[StreamSize];
-	for( u32 i=0; i<StreamSize; i++ )
-	{
-		Buffer[i] = OutStream.front();
-		OutStream.pop_front();
-	}
-
-	ENetPacket* packet = enet_packet_create( (void*)Buffer, StreamSize, ENET_PACKET_FLAG_RELIABLE );
-
-	for( u32 i=0; i<PeerList.size(); i++ )
-		enet_peer_send( PeerList[i], 0, packet );
-
-	enet_host_flush( netinterface );
 }
 
 bool NetworkManager::setConnectionAddress( ENetAddress& Address )
