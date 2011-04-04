@@ -69,11 +69,14 @@ public:
 	// used for passing object creation commands
 	struct Message_Create
 	{
-		// Object Type
-		// Object Parent NetID
-		// Initial position/rotation matrix
-		// Initial velocity matrix
-		// Initial accelleration matrix
+		c8 Meshname [16];
+		NETID ParentID;
+		f32 Mass;
+		f32 Position [3];
+		f32 Rotation [3];
+		f32 Scale [3];
+		f32 LinearVelocity [3];
+		f32 AngularVelocity [3];
 	} Create;
 
 	struct Message_Destroy

@@ -37,6 +37,7 @@ public:
 	Entity* getClientEntity() const;
 
 protected:
+	void createSceneObject( PhysicsObjectCreationStruct POCS );
 	bool loadScene( string filename );
 	
 	virtual string getDebugInfo() const;
@@ -50,6 +51,8 @@ private:
 	
 	vector<Entity*> EntityList;
 
+	string ScenarioName;
+	string ScenarioDescrip;
 };
 
 #endif	/* GAMEMANAGER_H */
