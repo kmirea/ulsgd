@@ -83,7 +83,7 @@ INSTALL_DIR = /usr/local/lib
 sharedlib install: SHARED_LIB = libIrrlicht.so
 staticlib sharedlib: LDFLAGS += --no-export-all-symbols --add-stdcall-alias
 sharedlib: LDFLAGS += `pkg-config --libs x11 xxf86vm GL`
-staticlib sharedlib: CXXINCS += `pkg-config --cflags x11 xxf86vm GL`
+staticlib sharedlib: CXXINCS += `pkg-config --cflags x11 xxf86vm gl`
 
 #OSX specific options
 staticlib_osx sharedlib_osx install_osx: SYSTEM = MacOSX
