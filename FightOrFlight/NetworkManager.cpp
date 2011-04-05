@@ -52,6 +52,7 @@ void NetworkManager::update()
 		switch( event.type )
 		{
 		case ENET_EVENT_TYPE_CONNECT:
+			// TODO : entity creation syncing to new peers
 			cout << "Added peer" << endl;
 			PeerList.push_back( event.peer );
 			break;
@@ -87,45 +88,46 @@ void NetworkManager::update()
 	while( (data = getMessage( IncomingData )) != NULL )
 	{
 		MessageList[data->net_id].push( data );
+		if( data->MsgType == ENMT_CREATE )
+		{
+			Game->createObject( data->net_id );
+		}
 	}
 }
 
 void NetworkManager::sendLocalData()
 {
-	if( PeerList.size() > 0 )
+	deque<u8> OutStream;
+
+	for( u32 i=0; i<Game->getEntityList().size(); i++ )
 	{
-		deque<u8> OutStream;
-
-		for( u32 i=0; i<Game->getEntityList().size(); i++ )
+		if( Game->getEntityList()[i]->getNetworkObject()->isMessageAvailable() )
 		{
-			if( Game->getEntityList()[i]->getNetworkObject()->isMessageAvailable() )
+			NetData* OutData = Game->getEntityList()[i]->getNetworkObject()->getOutStream();
+			deque<u8> streambuffer = makeSyncMessage( OutData );
+			while( streambuffer.size() > 0 )
 			{
-				NetData* OutData = Game->getEntityList()[i]->getNetworkObject()->getOutStream();
-				deque<u8> streambuffer = makeSyncMessage( OutData );
-				while( streambuffer.size() > 0 )
-				{
-					OutStream.push_back( streambuffer.front() );
-					streambuffer.pop_front();
-				}
-				OutData->drop();
+				OutStream.push_back( streambuffer.front() );
+				streambuffer.pop_front();
 			}
+			OutData->drop();
 		}
-
-		u32 StreamSize = OutStream.size();
-		u8 Buffer[StreamSize];
-		for( u32 i=0; i<StreamSize; i++ )
-		{
-			Buffer[i] = OutStream.front();
-			OutStream.pop_front();
-		}
-
-		ENetPacket* packet = enet_packet_create( (void*)Buffer, StreamSize, ENET_PACKET_FLAG_RELIABLE );
-
-		for( u32 i=0; i<PeerList.size(); i++ )
-			enet_peer_send( PeerList[i], 0, packet );
-
-		enet_host_flush( netinterface );
 	}
+
+	u32 StreamSize = OutStream.size();
+	u8 Buffer[StreamSize];
+	for( u32 i=0; i<StreamSize; i++ )
+	{
+		Buffer[i] = OutStream.front();
+		OutStream.pop_front();
+	}
+
+	ENetPacket* packet = enet_packet_create( (void*)Buffer, StreamSize, ENET_PACKET_FLAG_RELIABLE );
+
+	for( u32 i=0; i<PeerList.size(); i++ )
+		enet_peer_send( PeerList[i], 0, packet );
+
+	enet_host_flush( netinterface );
 }
 
 bool NetworkManager::setConnectionAddress( ENetAddress& Address )

@@ -3,17 +3,18 @@
 
 Client::Client( GameManager* Game, NETID NetID ) : Entity( Game, NetID )
 {
-
+	// TODO
 }
 
 Client::~Client()
 {
-
+	// TODO
 }
 
 bool Client::OnEvent( const irr::SEvent& Event )
 {
-	return false;
+	// TODO
+	return true;
 }
 
 string Client::getDebugInfo() const

@@ -44,6 +44,7 @@ protected:
 	
 private:
 
+	E_MANAGER_MODE Mode;
 	NetworkManager* Network;
 	WorldManager* World;
 	GUIManager* GUI;

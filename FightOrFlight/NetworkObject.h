@@ -37,7 +37,6 @@ public:
 	
 	virtual void update();
 	
-protected:
 	// Used to allow child classes to send network updates
 	void sendData( NetData* );
 	
