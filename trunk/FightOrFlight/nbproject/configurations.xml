@@ -62,19 +62,19 @@
       </toolsSet>
       <compileType>
         <cTool>
-          <commandLine>`pkg-config --cflags irrBullet cAudio enet`</commandLine>
+          <commandLine>`pkg-config --cflags irrBullet enet`</commandLine>
           <preprocessorList>
             <Elem>DEBUG</Elem>
           </preprocessorList>
         </cTool>
         <ccTool>
-          <commandLine>`pkg-config --cflags irrBullet cAudio enet`</commandLine>
+          <commandLine>`pkg-config --cflags irrBullet enet`</commandLine>
           <preprocessorList>
             <Elem>DEBUG</Elem>
           </preprocessorList>
         </ccTool>
         <linkerTool>
-          <commandLine>`pkg-config --libs irrBullet cAudio enet`</commandLine>
+          <commandLine>`pkg-config --libs irrBullet enet`</commandLine>
         </linkerTool>
       </compileType>
     </conf>

@@ -1,0 +1,49 @@
+test_scene
+
+scene_descrip
+	A simple test scenario to ensure the protocols are all working
+/scene_descrip
+
+entity
+	test_cube
+	test_cube
+	1
+	0	0	0
+	0	0	0
+	1	1	1
+	0	0	0
+	0	0	0
+/entity
+
+entity
+	test_cube
+	test_cube
+	1
+	10	10	0
+	0	0	0
+	1	1	1
+	0	0	0
+	0	0	0
+/entity
+
+entity
+	test_cube
+	test_cube
+	1
+	10	0	10
+	0	0	0
+	1	1	1
+	0	0	0
+	0	0	0
+/entity
+
+entity
+	test_cube
+	test_cube
+	1
+	0	10	10
+	0	0	0
+	1	1	1
+	0	0	0
+	0	0	0
+/entity
