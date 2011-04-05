@@ -10,8 +10,9 @@ GameManager::GameManager( u32 argc, c8** argv ) : ReferenceCountedObject()
 	{
 		if( string(argv[1]) == string("--server") )
 		{
-			Network = new NetworkManager( this, EMM_SERVER );
-			World = new WorldManager( this, EMM_SERVER );
+			Mode = EMM_SERVER;
+			Network = new NetworkManager( this, Mode );
+			World = new WorldManager( this, Mode );
 
 			if( !loadScene( string(argv[2]) ) )
 			{
@@ -27,7 +28,8 @@ GameManager::GameManager( u32 argc, c8** argv ) : ReferenceCountedObject()
 	}
 	else
 	{
-		Network = new NetworkManager( this, EMM_CLIENT );
+		Mode = EMM_CLIENT;
+		Network = new NetworkManager( this, Mode );
 		
 		string serverip;
 		
@@ -39,7 +41,7 @@ GameManager::GameManager( u32 argc, c8** argv ) : ReferenceCountedObject()
 
 		Network->setConnectionAddress( Address );
 
-		World = new WorldManager( this, EMM_CLIENT );
+		World = new WorldManager( this, Mode );
 	}
 //	GUI = new GUIManager( this );
 //	Sound = new SoundManager( this );
@@ -103,7 +105,7 @@ void GameManager::createObject( NETID NetID )
 
 	data->drop();
 
-	EntityList.push_back( new Entity( this, NetID, new PhysicsObject( World, &POCS ) ) );
+	EntityList.push_back( new Entity( this, NetID) );
 }
 
 void GameManager::destroyObject( NETID NetID )
@@ -135,7 +137,7 @@ const vector<Entity*>& GameManager::getEntityList() const
 
 void GameManager::createSceneObject( PhysicsObjectCreationStruct POCS )
 {
-	EntityList.push_back( new Entity( this, Network->getNextNETID(), new PhysicsObject(World, &POCS) ) );
+	EntityList.push_back( new Entity( this, Mode, Network->getNextNETID(), new PhysicsObject(World, &POCS) ) );
 }
 
 bool GameManager::loadScene(string filename)

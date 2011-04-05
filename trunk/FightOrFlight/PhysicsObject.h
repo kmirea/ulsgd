@@ -32,6 +32,8 @@ protected:
 	virtual ~PhysicsObject();
 
 public:
+	void update();
+	
 protected:
 	virtual string getDebugInfo() const;
 	

@@ -18,7 +18,7 @@ int main(int argc, char** argv)
 {
 	GameManager* Game = new GameManager( argc, argv );
 	Game->grab();
-
+	
 	while( Game->run() )
 	{
 		Game->getNetworkManager()->update();

@@ -3,12 +3,12 @@
 
 NetData::NetData() : ReferenceCountedObject()
 {
-	
+	// TODO
 }
 
 NetData::~NetData()
 {
-
+	// TODO
 }
 
 string NetData::getDebugInfo() const
@@ -181,19 +181,19 @@ deque<u8> makeSyncMessage( NetData* Data )
 	deque<u8> ret;
 	if( Data != NULL )
 	{
-		
+		// TODO
 	}
 	return ret;
 }
 
 deque<u8> makeCreateMessage( NetData* Data )
 {
-
+	// TODO
 }
 
 deque<u8> makeDestroyMessage( NetData* Data )
 {
-
+	// TODO
 }
 
 deque<u8> makeRawMessage( const u8* data, u32 size )

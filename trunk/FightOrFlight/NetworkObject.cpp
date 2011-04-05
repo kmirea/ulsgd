@@ -23,7 +23,6 @@ bool NetworkObject::isMessageAvailable() const
 	return MessageAvailable;
 }
 
-
 NetData* NetworkObject::getOutStream()
 {
 	MessageAvailable = false;

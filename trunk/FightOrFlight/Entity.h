@@ -10,6 +10,7 @@
 
 #include "NetworkObject.h"
 #include "PhysicsObject.h"
+#include "NetworkManager.h"
 
 class GameManager;
 
@@ -17,7 +18,7 @@ class Entity : public ReferenceCountedObject
 {
 public:
 	Entity( GameManager* Game, NETID NetID );
-	Entity( GameManager* Game, NETID NetID, PhysicsObject* Physics );
+	Entity( GameManager* Game, E_MANAGER_MODE Mode, NETID NetID, PhysicsObject* Physics );
 
 protected:
 	~Entity();
@@ -28,6 +29,8 @@ public:
 
 	virtual void update();
 
+	virtual void syncCreate() const;
+	
 protected:
 	virtual string getDebugInfo() const;
 
