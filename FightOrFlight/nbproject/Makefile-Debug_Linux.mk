@@ -47,11 +47,11 @@ OBJECTFILES= \
 
 
 # C Compiler Flags
-CFLAGS=`pkg-config --cflags irrBullet cAudio enet` 
+CFLAGS=`pkg-config --cflags irrBullet enet` 
 
 # CC Compiler Flags
-CCFLAGS=`pkg-config --cflags irrBullet cAudio enet` 
-CXXFLAGS=`pkg-config --cflags irrBullet cAudio enet` 
+CCFLAGS=`pkg-config --cflags irrBullet enet` 
+CXXFLAGS=`pkg-config --cflags irrBullet enet` 
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -68,7 +68,7 @@ LDLIBSOPTIONS=
 
 dist/Debug_Linux/GNU-Linux-x86/fightorflight: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug_Linux/GNU-Linux-x86
-	${LINK.cc} `pkg-config --libs irrBullet cAudio enet` -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/fightorflight  ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} `pkg-config --libs irrBullet enet` -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/fightorflight  ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/Types.o: Types.cpp 
 	${MKDIR} -p ${OBJECTDIR}
