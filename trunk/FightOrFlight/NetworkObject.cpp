@@ -37,7 +37,8 @@ void NetworkObject::update()
 		InStream = NULL;
 	}
 	InStream = Manager->getUpdateData( net_id );
-	InStream->grab();
+	if( InStream != NULL )
+		InStream->grab();
 }
 
 NetData* NetworkObject::getInStream()
