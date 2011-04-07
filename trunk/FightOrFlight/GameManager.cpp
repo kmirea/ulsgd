@@ -43,17 +43,21 @@ GameManager::GameManager( u32 argc, c8** argv ) : ReferenceCountedObject()
 
 		World = new WorldManager( this, Mode );
 	}
+
+	Network->grab();
+	World->grab();
+
+	getTimer()->start();
 //	GUI = new GUIManager( this );
 //	Sound = new SoundManager( this );
 }
 
 GameManager::~GameManager()
 {
-	Network->drop();
-
 	for( u32 i=0; i<EntityList.size(); i++ )
 		EntityList[i]->drop();
 
+	Network->drop();
 	World->drop();
 }
 
@@ -137,7 +141,8 @@ const vector<Entity*>& GameManager::getEntityList() const
 
 void GameManager::createSceneObject( PhysicsObjectCreationStruct POCS )
 {
-	EntityList.push_back( new Entity( this, Mode, Network->getNextNETID(), new PhysicsObject(World, &POCS) ) );
+	EntityList.push_back( new Entity( this, Mode, Network->getNextNETID(), new PhysicsObject(World, POCS) ) );
+	EntityList.back()->grab();
 }
 
 bool GameManager::loadScene(string filename)
@@ -184,4 +189,9 @@ bool GameManager::loadScene(string filename)
 	}
 
 	return true;
+}
+
+irr::ITimer* GameManager::getTimer()
+{
+	return Timer;
 }

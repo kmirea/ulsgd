@@ -27,18 +27,20 @@ struct PhysicsObjectCreationStruct
 class PhysicsObject : public ReferenceCountedObject
 {
 public:
-	PhysicsObject( WorldManager* World, PhysicsObjectCreationStruct* POCS = NULL );
+	PhysicsObject( WorldManager* World, PhysicsObjectCreationStruct& POCS );
 protected:
 	virtual ~PhysicsObject();
 
 public:
 	void update();
+	const PhysicsObjectCreationStruct& getLocalData() const;
 	
 protected:
 	virtual string getDebugInfo() const;
 	
 private:
 	WorldManager* World;
+	PhysicsObjectCreationStruct LocalData;
 };
 
 #endif	/* PHYSICSOBJECT_H */

@@ -15,7 +15,6 @@
 #define Message_End 0x81	// 1000 0001b
 
 typedef s32 NETID;
-typedef u8	ACKID;
 
 enum E_NET_MESSAGE_TYPE
 {
@@ -46,23 +45,26 @@ public:
 	{
 		struct Sync_Calibrate
 		{
-			// old_position/rotation matrix
-			// old_velocity matrix
-			// old_accelleration matrix
+			f32 Position [3];
+			f32 Rotation [3];
+			f32 LinearVelocity [3];
+			f32 AngularVelocity [3];
 		} Calibrate;
 		
 		struct Sync_ForceUpdate
 		{
-			// new_position/rotation matrix
-			// new_velocity matrix
-			// new_accelleration matrix
+			f32 Position [3];
+			f32 Rotation [3];
+			f32 LinearVelocity [3];
+			f32 AngularVelocity [3];
 		} ForceUpdate;
 
 		struct Sync_RelUpdate
 		{
-			// rel_position/rotation matrix
-			// new_velocity matrix
-			// new _accelleration matrix
+			f32 Position [3];
+			f32 Rotation [3];
+			f32 LinearVelocity [3];
+			f32 AngularVelocity [3];
 		} Relative;
 	} Sync;
 
@@ -70,7 +72,6 @@ public:
 	struct Message_Create
 	{
 		c8 Meshname [16];
-		NETID ParentID;
 		f32 Mass;
 		f32 Position [3];
 		f32 Rotation [3];
@@ -84,8 +85,6 @@ public:
 		// Destroy Type
 	} Destroy;
 
-	ACKID Acknowledge;
-
 	u8 MessageEnd;
 
 protected:
@@ -97,8 +96,6 @@ protected:
 inline bool operator< ( const NetData&A, const NetData& B );
 
 // Helper functions
-deque<u8> makeAckMessage( NetData& OrigMessage );
-
 NetData* getMessage( deque<u8>& Data );
 
 deque<u8> makeSyncMessage( NetData* );

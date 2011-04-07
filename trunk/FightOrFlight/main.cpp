@@ -14,11 +14,21 @@ using namespace std;
 /*
  * 
  */
+GameManager* Game = NULL;
+
+void killserver()
+{
+	if( Game )
+		Game->drop();
+}
+
 int main(int argc, char** argv)
 {
-	GameManager* Game = new GameManager( argc, argv );
+	Game = new GameManager( argc, argv );
 	Game->grab();
-	
+
+	atexit( killserver );
+
 	while( Game->run() )
 	{
 		Game->getNetworkManager()->update();
@@ -32,8 +42,6 @@ int main(int argc, char** argv)
 
 		Game->getNetworkManager()->sendLocalData();
 	}
-
-	Game->drop();
 	
 	return EXIT_SUCCESS;
 }

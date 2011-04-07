@@ -41,8 +41,6 @@ private:
 
 	irr::IrrlichtDevice* Irrlicht;
 	irrBulletWorld* irrBullet;
-
-	TimerObject Timer;
 };
 
 #endif	/* WORLDMANAGER_H */

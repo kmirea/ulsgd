@@ -35,7 +35,7 @@ public:
 
 	const vector<Entity*>& getEntityList() const;
 	Entity* getClientEntity() const;
-
+	irr::ITimer* getTimer();
 protected:
 	void createSceneObject( PhysicsObjectCreationStruct POCS );
 	bool loadScene( string filename );
@@ -54,6 +54,8 @@ private:
 
 	string ScenarioName;
 	string ScenarioDescrip;
+
+	irr::ITimer* Timer;
 };
 
 #endif	/* GAMEMANAGER_H */
