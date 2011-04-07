@@ -8,7 +8,7 @@
         <configurationname>GizmoSimple</configurationname>
       </gizmo_options>
       <runprofile version="6">
-        <args>--server media/missions/test_scene</args>
+        <args></args>
         <rundir>/home/chris/Source/sgd/trunk/FightOrFlight/.</rundir>
         <buildfirst>true</buildfirst>
         <console-type>0</console-type>
@@ -58,6 +58,21 @@
         <buildfirst>true</buildfirst>
         <console-type>0</console-type>
         <terminal-type>0</terminal-type>
+        <remove-instrumentation>0</remove-instrumentation>
+        <environment>
+        </environment>
+      </runprofile>
+    </conf>
+    <conf name="Debug_Linux_Server" type="1">
+      <gizmo_options version="3">
+        <configurationname>GizmoSimple</configurationname>
+      </gizmo_options>
+      <runprofile version="6">
+        <args>--server media/missions/test_scene</args>
+        <rundir>/home/chris/Source/sgd/trunk/FightOrFlight/.</rundir>
+        <buildfirst>true</buildfirst>
+        <console-type>0</console-type>
+        <terminal-type>2</terminal-type>
         <remove-instrumentation>0</remove-instrumentation>
         <environment>
         </environment>

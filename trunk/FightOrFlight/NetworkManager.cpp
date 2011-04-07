@@ -84,6 +84,31 @@ void NetworkManager::update()
 			// TODO : entity creation syncing to new peers
 			cout << "Added peer" << endl;
 			PeerList.push_back( event.peer );
+			if( Mode == EMM_SERVER )
+			{
+				deque<u8> syncdata;
+				deque<u8> tempdata;
+				for( u32 i=0; i<Game->getEntityList().size(); i++ )
+				{
+					Game->getEntityList()[i]->syncCreate();
+					tempdata = makeCreateMessage( Game->getEntityList()[i]->getNetworkObject()->getOutStream() );
+					while( tempdata.size() > 0 )
+					{
+						syncdata.push_back( tempdata.front() );
+						tempdata.pop_front();
+					}
+				}
+				u8 Buffer [syncdata.size()];
+				for( u32 i=0; i<syncdata.size(); i++ )
+				{
+					Buffer[i] = syncdata[i];
+				}
+				ENetPacket* packet = enet_packet_create( (void*)Buffer, syncdata.size(), ENET_PACKET_FLAG_RELIABLE );
+
+				enet_peer_send( PeerList.back(), 0, packet );
+
+				enet_host_flush( netinterface );
+			}
 			break;
 		case ENET_EVENT_TYPE_RECEIVE:
 //			cout << "Got new data" << endl;
@@ -116,8 +141,11 @@ void NetworkManager::update()
 	NetData* data;
 	while( (data = getMessage( IncomingData )) != NULL )
 	{
+		if( data->MsgType == ENMT_PING )
+			continue;
 		cout << "Decoded a message..." << endl;
 
+		MessageList[data->net_id];
 		MessageList[data->net_id].push( data );
 
 		if( data->MsgType == ENMT_CREATE )

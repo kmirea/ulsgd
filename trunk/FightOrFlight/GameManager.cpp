@@ -193,5 +193,5 @@ bool GameManager::loadScene(string filename)
 
 irr::ITimer* GameManager::getTimer()
 {
-	return Timer;
+	return World->getIrrlichtDriver()->getTimer();
 }

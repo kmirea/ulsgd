@@ -46,11 +46,6 @@ Entity::Entity(GameManager* game, E_MANAGER_MODE Mode, NETID NetID, PhysicsObjec
 	Game->grab();
 	Network->grab();
 	Physics->grab();
-
-	if( Mode == EMM_SERVER )
-	{
-		syncCreate();
-	}
 }
 
 Entity::~Entity()
@@ -90,13 +85,7 @@ void Entity::syncCreate() const
 	data->MsgTime = Game->getTimer()->getTime();
 	data->MsgType = ENMT_CREATE;
 
-	for( u32 i=0; i<16; i++ )
-	{
-		if( i< Physics->getLocalData().MeshName.size() )
-			data->Create.Meshname[i] = Physics->getLocalData().MeshName.c_str()[i];
-		else
-			data->Create.Meshname[i] = 0;
-	}
+	strncpy( data->Create.Meshname, Physics->getLocalData().MeshName.c_str(), 15 );
 
 	data->Create.Mass = Physics->getLocalData().Mass;
 

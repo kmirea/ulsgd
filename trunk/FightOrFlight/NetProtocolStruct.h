@@ -93,14 +93,16 @@ protected:
 	virtual string getDebugInfo() const;
 };
 
+#define MAX_BUF_SIZE sizeof(u8)+sizeof(NETID)+sizeof(u32)+sizeof(E_NET_MESSAGE_TYPE)+sizeof(NetData::Message_Sync)
+
 inline bool operator< ( const NetData&A, const NetData& B );
 
 // Helper functions
 NetData* getMessage( deque<u8>& Data );
 
 deque<u8> makeSyncMessage( NetData* );
-deque<u8> makeCreateMessage( /*...*/ );
-deque<u8> makeDestroyMessage( /*...*/ );
+deque<u8> makeCreateMessage( NetData* Data );
+deque<u8> makeDestroyMessage( NetData* Data );
 
 deque<u8> makeRawMessage( const u8* );
 
