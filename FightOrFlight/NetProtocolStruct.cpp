@@ -3,12 +3,12 @@
 
 NetData::NetData() : ReferenceCountedObject()
 {
-	// TODO
+
 }
 
 NetData::~NetData()
 {
-	// TODO
+	
 }
 
 string NetData::getDebugInfo() const
@@ -21,66 +21,20 @@ inline bool operator< ( const NetData& A, const NetData& B )
 	if( A.MsgType < B.MsgType )
 		return true;
 
-	if( A.MsgType > B.MsgType )
+	else if( A.MsgType > B.MsgType )
 		return false;
 
-	if( A.MsgType == B.MsgType )
+	else if( A.MsgType == B.MsgType )
 	{
 		if( A.MsgTime < B.MsgTime )
 			return true;
-		if( A.MsgTime > B.MsgTime )
+		else if( A.MsgTime > B.MsgTime )
 			return false;
-		if( A.MsgTime == B.MsgTime )
-		{
-			if( A.Acknowledge < B.Acknowledge )
-				return true;
-			else return false;
-		}
+		else return false;
 	}
 }
 
 // Helper functions
-deque<u8> makeAckMessage( NetData& Orig )
-{
-	deque<u8> msg;
-
-	const u32 BufferSize = 128;
-	u8 Buffer [BufferSize] = {0};
-
-	u32 BufferIndex = 0;
-
-	Buffer[BufferIndex++] = Message_Begin;
-
-	NETID temp_netid = Orig.net_id;
-	memcpy( (void*)(Buffer+BufferIndex), (void*)(&temp_netid), sizeof(temp_netid) );
-
-	BufferIndex+=sizeof(temp_netid);
-
-	u32 temp_time = Orig.MsgTime;
-	memcpy( (void*)(Buffer+BufferIndex), (void*)(&temp_time), sizeof(temp_time) );
-
-	BufferIndex+=sizeof(temp_time);
-
-	Buffer[BufferIndex++] = (u8)(Orig.MsgType);
-
-	Buffer[BufferIndex++] = 0;
-	Buffer[BufferIndex++] = 0;
-	Buffer[BufferIndex++] = 0;
-
-	ACKID temp_ack =  Orig.Acknowledge;
-	memcpy( (void*)(Buffer+BufferIndex), (void*)(temp_ack), sizeof(temp_ack) );
-
-	BufferIndex+=sizeof(temp_ack);
-	Buffer[BufferIndex++] = Message_End;
-
-	for( u32 i=0; i<BufferIndex; i++ )
-	{
-		msg.push_back( Buffer[i] );
-	}
-
-	return msg;
-}
-
 NetData* getMessage( deque<u8>& Data )
 {
 	NetData* Out;
@@ -151,16 +105,6 @@ NetData* getMessage( deque<u8>& Data )
 			return NULL;
 		}
 		
-		memcpy( (void*)(Out+NetIndex), (void*)(Buffer+DataIndex), sizeof( ACKID ) );
-		NetIndex += sizeof(ACKID);
-		DataIndex += sizeof(ACKID);
-
-		if( DataIndex > Data.size() )
-		{
-			Out->drop();
-			return NULL;
-		}
-
 		Out->MessageEnd = Message_End;
 
 		for( u32 i=DataIndex; i>0; i++ )
@@ -178,22 +122,68 @@ NetData* getMessage( deque<u8>& Data )
 
 deque<u8> makeSyncMessage( NetData* Data )
 {
-	deque<u8> ret;
-	if( Data != NULL )
+	deque<u8> Output;
+	if( Data != NULL && Data->MsgType == ENMT_SYNC )
 	{
-		// TODO
+		u8 Buffer [sizeof(NetData)];
+		ptr Index = 0;
+
+		Buffer[Index++] = Data->MessageStart;
+
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->net_id), Index+=sizeof(NETID) );
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->MsgTime), Index+=sizeof(u32) );
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->MsgType), Index+=sizeof(E_NET_MESSAGE_TYPE) );
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->Sync), Index+=sizeof(NetData::Message_Sync) );
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->MessageEnd), Index++ );
+
+		for( u32 i=0; i<Index; i++ )
+			Output.push_back( Buffer[i] );
 	}
-	return ret;
+	return Output;
 }
 
 deque<u8> makeCreateMessage( NetData* Data )
 {
-	// TODO
+	deque<u8> Output;
+	if( Data != NULL && Data->MsgType == ENMT_CREATE )
+	{
+		u8 Buffer [sizeof(NetData)];
+		ptr Index = 0;
+
+		Buffer[Index++] = Data->MessageStart;
+
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->net_id), Index+=sizeof(NETID) );
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->MsgTime), Index+=sizeof(u32) );
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->MsgType), Index+=sizeof(E_NET_MESSAGE_TYPE) );
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->Create), Index+=sizeof(NetData::Message_Create) );
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->MessageEnd), Index++ );
+
+		for( u32 i=0; i<Index; i++ )
+			Output.push_back( Buffer[i] );
+	}
+	return Output;
 }
 
 deque<u8> makeDestroyMessage( NetData* Data )
 {
-	// TODO
+	deque<u8> Output;
+	if( Data != NULL && Data->MsgType == ENMT_DESTROY )
+	{
+		u8 Buffer [sizeof(NetData)];
+		ptr Index = 0;
+
+		Buffer[Index++] = Data->MessageStart;
+
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->net_id), Index+=sizeof(NETID) );
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->MsgTime), Index+=sizeof(u32) );
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->MsgType), Index+=sizeof(E_NET_MESSAGE_TYPE) );
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->Destroy), Index+=sizeof(NetData::Message_Destroy) );
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->MessageEnd), Index++ );
+
+		for( u32 i=0; i<Index; i++ )
+			Output.push_back( Buffer[i] );
+	}
+	return Output;
 }
 
 deque<u8> makeRawMessage( const u8* data, u32 size )

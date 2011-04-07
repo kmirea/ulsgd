@@ -30,7 +30,7 @@ Entity::Entity(GameManager* game, NETID netid) : ReferenceCountedObject(),
 		exit(EXIT_FAILURE);
 	}
 
-	Physics = new PhysicsObject( Game->getWorldManager(), &pocs );
+	Physics = new PhysicsObject( Game->getWorldManager(), pocs );
 
 	Game->grab();
 	Network->grab();
@@ -83,5 +83,33 @@ string Entity::getDebugInfo() const
 
 void Entity::syncCreate() const
 {
-	// TODO
+	NetData* data = new NetData();
+	
+	data->MessageStart = Message_Begin;
+	data->net_id = Network->getNetID();
+	data->MsgTime = Game->getTimer()->getTime();
+	data->MsgType = ENMT_CREATE;
+
+	for( u32 i=0; i<16; i++ )
+	{
+		if( i< Physics->getLocalData().MeshName.size() )
+			data->Create.Meshname[i] = Physics->getLocalData().MeshName.c_str()[i];
+		else
+			data->Create.Meshname[i] = 0;
+	}
+
+	data->Create.Mass = Physics->getLocalData().Mass;
+
+	for( u32 i=0; i<3; i++ )
+	{
+			data->Create.Position[i] = Physics->getLocalData().Position[i];
+			data->Create.Rotation[i] = Physics->getLocalData().Rotation[i];
+			data->Create.Scale[i] = Physics->getLocalData().Scale[i];
+			data->Create.LinearVelocity[i] = Physics->getLocalData().LinearVelocity[i];
+			data->Create.AngularVelocity[i] = Physics->getLocalData().AngularVelocity[i];
+	}
+
+	data->MessageEnd = Message_End;
+
+	Network->sendData( data );
 }

@@ -1,3 +1,4 @@
+#include "GameManager.h"
 #include "WorldManager.h"
 #include "PhysicsObject.h"
 
@@ -36,14 +37,10 @@ WorldManager::WorldManager(GameManager* game, E_MANAGER_MODE mode) :
 #else
 			irrBulletWorld( Irrlicht, true, false);
 #endif
-
-	Timer.start_timer();
 }
 
 WorldManager::~WorldManager()
 {
-	Timer.stop_timer();
-	
 	delete irrBullet;
 
 	Irrlicht->closeDevice();
@@ -57,7 +54,7 @@ void WorldManager::update()
 
 	video->beginScene( true, true, irr::video::SColor(255,0,0,0) );
 
-	irrBullet->stepSimulation( Timer.tick()*0.001f, 120 );
+	irrBullet->stepSimulation( Game->getTimer()->getTime()*0.001f, 120 );
 
 #ifdef DEBUG
 	irrBullet->debugDrawWorld( true );

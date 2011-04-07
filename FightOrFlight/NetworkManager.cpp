@@ -33,6 +33,35 @@ NetworkManager::NetworkManager( GameManager* game, E_MANAGER_MODE mode ) : Refer
 
 NetworkManager::~NetworkManager()
 {
+	ENetEvent event;
+
+	for( u32 i=0; i<PeerList.size(); i++ )
+	{
+		enet_peer_disconnect( PeerList[i], 0 );
+		bool disconnect = false;
+		while( enet_host_service( netinterface, &event, 3000) > 0 )
+		{
+			switch( event.type )
+			{
+			case ENET_EVENT_TYPE_RECEIVE:
+				enet_packet_destroy(event.packet);
+				break;
+			case ENET_EVENT_TYPE_DISCONNECT:
+				cout << "Disconnection suceeded." << endl;
+				disconnect = true;
+				break;
+			}
+
+			if( disconnect )
+			{
+				disconnect = false;
+				break;
+			}
+
+			enet_peer_reset( PeerList[i] );
+		}
+
+	}
 	enet_host_destroy( netinterface );
 	enet_deinitialize();
 	delete server_name;
@@ -57,7 +86,7 @@ void NetworkManager::update()
 			PeerList.push_back( event.peer );
 			break;
 		case ENET_EVENT_TYPE_RECEIVE:
-			cout << "Got new data" << endl;
+//			cout << "Got new data" << endl;
 			for( u32 i=0; i<event.packet->dataLength; i++ )
 			{
 				IncomingData.push_back( event.packet->data[i] );
@@ -87,7 +116,10 @@ void NetworkManager::update()
 	NetData* data;
 	while( (data = getMessage( IncomingData )) != NULL )
 	{
+		cout << "Decoded a message..." << endl;
+
 		MessageList[data->net_id].push( data );
+
 		if( data->MsgType == ENMT_CREATE )
 		{
 			Game->createObject( data->net_id );
@@ -97,8 +129,8 @@ void NetworkManager::update()
 
 void NetworkManager::sendLocalData()
 {
-	deque<u8> OutStream;
-
+	deque<u8> OutgoingData;
+	
 	for( u32 i=0; i<Game->getEntityList().size(); i++ )
 	{
 		if( Game->getEntityList()[i]->getNetworkObject()->isMessageAvailable() )
@@ -107,19 +139,19 @@ void NetworkManager::sendLocalData()
 			deque<u8> streambuffer = makeSyncMessage( OutData );
 			while( streambuffer.size() > 0 )
 			{
-				OutStream.push_back( streambuffer.front() );
+				OutgoingData.push_back( streambuffer.front() );
 				streambuffer.pop_front();
 			}
 			OutData->drop();
 		}
 	}
 
-	u32 StreamSize = OutStream.size();
+	u32 StreamSize = OutgoingData.size();
 	u8 Buffer[StreamSize];
 	for( u32 i=0; i<StreamSize; i++ )
 	{
-		Buffer[i] = OutStream.front();
-		OutStream.pop_front();
+		Buffer[i] = OutgoingData.front();
+		OutgoingData.pop_front();
 	}
 
 	ENetPacket* packet = enet_packet_create( (void*)Buffer, StreamSize, ENET_PACKET_FLAG_RELIABLE );

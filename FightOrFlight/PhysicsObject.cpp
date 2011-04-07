@@ -1,9 +1,9 @@
 #include "PhysicsObject.h"
 
-PhysicsObject::PhysicsObject(WorldManager* world, PhysicsObjectCreationStruct* POCS) : ReferenceCountedObject(),
-		World(world)
+PhysicsObject::PhysicsObject(WorldManager* world, PhysicsObjectCreationStruct& POCS) : ReferenceCountedObject(),
+		World(world), LocalData(POCS)
 {
-	// TODO
+	cout << getDebugInfo() << endl;
 }
 
 PhysicsObject::~PhysicsObject()
@@ -19,4 +19,9 @@ string PhysicsObject::getDebugInfo() const
 void PhysicsObject::update()
 {
 	// TODO
+}
+
+const PhysicsObjectCreationStruct& PhysicsObject::getLocalData() const
+{
+	return LocalData;
 }

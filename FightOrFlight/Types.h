@@ -121,17 +121,6 @@ struct tptr
     T *operator->() const { return PTR; }
 };
 
-class TimerObject
-{
-	timeval start_time, end_time, tick_time;
-public:
-	ptr start_timer();
-	ptr stop_timer();
-	ptr tick();
-	ptr get_start_time() const;
-	ptr get_end_time() const;
-};
-
 #ifdef LITTLE_ENDIAN
 
 #define TO_BIG_ENDIAN_16(x) (x>>8) | (x<<8)
