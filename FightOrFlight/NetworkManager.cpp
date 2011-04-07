@@ -138,14 +138,13 @@ void NetworkManager::update()
 	if( PeerList.size() == 0 && Mode == EMM_CLIENT )
 		isConnected = false;
 	
-	NetData* data;
+	NetData* data = NULL;
 	while( (data = getMessage( IncomingData )) != NULL )
 	{
 		if( data->MsgType == ENMT_PING )
 			continue;
 		cout << "Decoded a message..." << endl;
 
-		MessageList[data->net_id];
 		MessageList[data->net_id].push( data );
 
 		if( data->MsgType == ENMT_CREATE )

@@ -8,7 +8,8 @@ Entity::Entity(GameManager* game, NETID netid) : ReferenceCountedObject(),
 {
 	PhysicsObjectCreationStruct pocs;
 
-	NetData* data = Network->getInStream();\
+	Network->update();
+	NetData* data = Network->getInStream();
 
 	if( data != NULL && data->MsgType == ENMT_CREATE )
 	{
