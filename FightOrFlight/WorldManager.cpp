@@ -81,3 +81,13 @@ void WorldManager::setClient( Client* ClientEntity )
 {
 	Irrlicht->setEventReceiver( ClientEntity );
 }
+
+irr::IrrlichtDevice* WorldManager::getIrrlichtDriver() const
+{
+	return Irrlicht;
+}
+
+irrBulletWorld* WorldManager::getIrrBulletDriver() const
+{
+	return irrBullet;
+}

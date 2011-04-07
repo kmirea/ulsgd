@@ -16,6 +16,7 @@
                 <confElem>Release_Linux</confElem>
                 <confElem>Debug_Win32</confElem>
                 <confElem>Release_Win32</confElem>
+                <confElem>Debug_Linux_Server</confElem>
             </confList>
         </data>
     </configuration>

@@ -54,8 +54,6 @@ private:
 
 	string ScenarioName;
 	string ScenarioDescrip;
-
-	irr::ITimer* Timer;
 };
 
 #endif	/* GAMEMANAGER_H */

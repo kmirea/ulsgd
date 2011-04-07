@@ -132,5 +132,29 @@
       <compileType>
       </compileType>
     </conf>
+    <conf name="Debug_Linux_Server" type="1">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <compilerSet>GNU|GNU</compilerSet>
+        <platform>2</platform>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <commandLine>`pkg-config --cflags irrBullet enet`</commandLine>
+          <preprocessorList>
+            <Elem>DEBUG</Elem>
+          </preprocessorList>
+        </cTool>
+        <ccTool>
+          <commandLine>`pkg-config --cflags irrBullet enet`</commandLine>
+          <preprocessorList>
+            <Elem>DEBUG</Elem>
+          </preprocessorList>
+        </ccTool>
+        <linkerTool>
+          <commandLine>`pkg-config --libs irrBullet enet`</commandLine>
+        </linkerTool>
+      </compileType>
+    </conf>
   </confs>
 </configurationDescriptor>
