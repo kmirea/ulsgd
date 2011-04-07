@@ -88,28 +88,7 @@ SoundManager* GameManager::getSoundManager() const
 
 void GameManager::createObject( NETID NetID )
 {
-	PhysicsObjectCreationStruct POCS;
-
-	NetData* data = Network->getUpdateData( NetID );
-	data->grab();
-
-	assert( data->MsgType == ENMT_CREATE );
-
-	POCS.MeshName = data->Create.Meshname;
-	POCS.CollisionName = POCS.MeshName + string("_col");
-	POCS.Mass = data->Create.Mass;
-	for( u32 i=0; i<3; i++ )
-	{
-		POCS.Position[i] = data->Create.Position[i];
-		POCS.Rotation[i] = data->Create.Rotation[i];
-		POCS.Scale[i] = data->Create.Scale[i];
-		POCS.LinearVelocity[i] = data->Create.LinearVelocity[i];
-		POCS.AngularVelocity[i] = data->Create.AngularVelocity[i];
-	}
-
-	data->drop();
-
-	EntityList.push_back( new Entity( this, NetID) );
+	EntityList.push_back( new Entity( this, NetID ) );
 }
 
 void GameManager::destroyObject( NETID NetID )

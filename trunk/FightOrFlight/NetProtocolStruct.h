@@ -93,7 +93,7 @@ protected:
 	virtual string getDebugInfo() const;
 };
 
-#define MAX_BUF_SIZE sizeof(u8)+sizeof(NETID)+sizeof(u32)+sizeof(E_NET_MESSAGE_TYPE)+sizeof(NetData::Message_Sync)
+#define MAX_BUF_SIZE sizeof(u8)+sizeof(NETID)+sizeof(u32)+sizeof(E_NET_MESSAGE_TYPE)+sizeof(NetData::Message_Sync) + sizeof(u8)
 
 inline bool operator< ( const NetData&A, const NetData& B );
 

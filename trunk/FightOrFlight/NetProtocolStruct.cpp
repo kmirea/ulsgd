@@ -88,10 +88,15 @@ NetData* getMessage( deque<u8>& Data )
 			DataIndex += sizeof(NetData::Message_Destroy);
 			break;
 		}
+
+		if( DataIndex > Data.size() )
+		{
+			Out->drop();
+			return NULL;
+		}
 		
 		Out->MessageEnd = Buffer[DataIndex++];
-		
-		if( Out->MessageEnd != Message_End );
+		if( (u32)(Out->MessageEnd) != (u32)(Message_End) )
 		{
 			Out->drop();
 			Out = NULL;
@@ -152,8 +157,9 @@ deque<u8> makeCreateMessage( NetData* Data )
 		Index+=sizeof(E_NET_MESSAGE_TYPE);
 		memcpy( (void*)(Buffer+Index), (void*)&(Data->Create), sizeof(NetData::Message_Create) );
 		Index+=sizeof(NetData::Message_Create);
-		memcpy( (void*)(Buffer+Index), (void*)&(Data->MessageEnd), Index++ );
-
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->MessageEnd), sizeof(u8) );
+		Index+=sizeof(u8);
+		
 		for( u32 i=0; i<Index; i++ )
 			Output.push_back( Buffer[i] );
 
