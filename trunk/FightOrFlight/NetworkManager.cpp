@@ -13,7 +13,7 @@ NetworkManager::NetworkManager( GameManager* game, E_MANAGER_MODE mode ) : Refer
 
 	server_name = new ENetAddress();
 
-	server_name->port = 12345;
+	server_name->port = 25000;
 
 	switch( Mode )
 	{

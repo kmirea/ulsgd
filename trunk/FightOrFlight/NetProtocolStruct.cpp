@@ -163,8 +163,6 @@ deque<u8> makeCreateMessage( NetData* Data )
 		for( u32 i=0; i<Index; i++ )
 			Output.push_back( Buffer[i] );
 
-		Output.push_back( '\0' );
-
 		Data->drop();
 	}
 	return Output;
