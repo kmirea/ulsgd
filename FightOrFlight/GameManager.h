@@ -36,6 +36,9 @@ public:
 	const vector<Entity*>& getEntityList() const;
 	Entity* getClientEntity() const;
 	irr::ITimer* getTimer();
+
+	void endGame();
+
 protected:
 	void createSceneObject( PhysicsObjectCreationStruct POCS );
 	bool loadScene( string filename );

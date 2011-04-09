@@ -54,11 +54,6 @@ GameManager::GameManager( u32 argc, c8** argv ) : ReferenceCountedObject()
 
 GameManager::~GameManager()
 {
-	for( u32 i=0; i<EntityList.size(); i++ )
-		EntityList[i]->drop();
-
-	Network->drop();
-	World->drop();
 }
 
 bool GameManager::run()
@@ -89,6 +84,7 @@ SoundManager* GameManager::getSoundManager() const
 void GameManager::createObject( NETID NetID )
 {
 	EntityList.push_back( new Entity( this, NetID ) );
+	EntityList.back()->grab();
 }
 
 void GameManager::destroyObject( NETID NetID )
@@ -173,4 +169,13 @@ bool GameManager::loadScene(string filename)
 irr::ITimer* GameManager::getTimer()
 {
 	return World->getIrrlichtDriver()->getTimer();
+}
+
+void GameManager::endGame()
+{
+	for( u32 i=0; i<EntityList.size(); i++ )
+		EntityList[i]->drop();
+
+	Network->drop();
+	World->drop();
 }

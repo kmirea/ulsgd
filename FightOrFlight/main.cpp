@@ -18,8 +18,8 @@ GameManager* Game = NULL;
 
 void killserver()
 {
-	if( Game )
-		Game->drop();
+	Game->endGame();
+	Game->drop();
 }
 
 int main(int argc, char** argv)
