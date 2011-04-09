@@ -17,11 +17,11 @@ RANLIB=ranlib
 CC=gcc
 CCC=g++
 CXX=g++
-FC=
+FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
+CND_PLATFORM=MinGW-Windows
 CND_CONF=Debug_Win32
 CND_DISTDIR=dist
 
@@ -60,70 +60,70 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=-Llib -lirrBullet -lBulletSoftBody -lBulletDynamics -lBulletCollision -lBulletMultiThreaded -lConvexDecomposition -lBulletSoftBodySolvers_CPU -lGIMPACTUtils -lLinearMath -lenet -lws2_32 -lwinmm -lIrrlicht.dll
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Debug_Win32.mk dist/Debug_Win32/GNU-Linux-x86/fightorflight
+	"${MAKE}"  -f nbproject/Makefile-Debug_Win32.mk dist/Debug_Win32/MinGW-Windows/fightorflight.exe
 
-dist/Debug_Win32/GNU-Linux-x86/fightorflight: ${OBJECTFILES}
-	${MKDIR} -p dist/Debug_Win32/GNU-Linux-x86
+dist/Debug_Win32/MinGW-Windows/fightorflight.exe: ${OBJECTFILES}
+	${MKDIR} -p dist/Debug_Win32/MinGW-Windows
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/fightorflight ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/Types.o: Types.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/Types.o Types.cpp
+	$(COMPILE.cc) -g -DDEBUG -Iinclude -Iinclude/bullet -MMD -MP -MF $@.d -o ${OBJECTDIR}/Types.o Types.cpp
 
 ${OBJECTDIR}/GameManager.o: GameManager.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/GameManager.o GameManager.cpp
+	$(COMPILE.cc) -g -DDEBUG -Iinclude -Iinclude/bullet -MMD -MP -MF $@.d -o ${OBJECTDIR}/GameManager.o GameManager.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -DDEBUG -Iinclude -Iinclude/bullet -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 ${OBJECTDIR}/NetworkManager.o: NetworkManager.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkManager.o NetworkManager.cpp
+	$(COMPILE.cc) -g -DDEBUG -Iinclude -Iinclude/bullet -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkManager.o NetworkManager.cpp
 
 ${OBJECTDIR}/NetworkObject.o: NetworkObject.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkObject.o NetworkObject.cpp
+	$(COMPILE.cc) -g -DDEBUG -Iinclude -Iinclude/bullet -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkObject.o NetworkObject.cpp
 
 ${OBJECTDIR}/WorldManager.o: WorldManager.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/WorldManager.o WorldManager.cpp
+	$(COMPILE.cc) -g -DDEBUG -Iinclude -Iinclude/bullet -MMD -MP -MF $@.d -o ${OBJECTDIR}/WorldManager.o WorldManager.cpp
 
 ${OBJECTDIR}/Client.o: Client.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/Client.o Client.cpp
+	$(COMPILE.cc) -g -DDEBUG -Iinclude -Iinclude/bullet -MMD -MP -MF $@.d -o ${OBJECTDIR}/Client.o Client.cpp
 
 ${OBJECTDIR}/NetProtocolStruct.o: NetProtocolStruct.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetProtocolStruct.o NetProtocolStruct.cpp
+	$(COMPILE.cc) -g -DDEBUG -Iinclude -Iinclude/bullet -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetProtocolStruct.o NetProtocolStruct.cpp
 
 ${OBJECTDIR}/PhysicsObject.o: PhysicsObject.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/PhysicsObject.o PhysicsObject.cpp
+	$(COMPILE.cc) -g -DDEBUG -Iinclude -Iinclude/bullet -MMD -MP -MF $@.d -o ${OBJECTDIR}/PhysicsObject.o PhysicsObject.cpp
 
 ${OBJECTDIR}/ReferenceCountedObject.o: ReferenceCountedObject.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/ReferenceCountedObject.o ReferenceCountedObject.cpp
+	$(COMPILE.cc) -g -DDEBUG -Iinclude -Iinclude/bullet -MMD -MP -MF $@.d -o ${OBJECTDIR}/ReferenceCountedObject.o ReferenceCountedObject.cpp
 
 ${OBJECTDIR}/Entity.o: Entity.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/Entity.o Entity.cpp
+	$(COMPILE.cc) -g -DDEBUG -Iinclude -Iinclude/bullet -MMD -MP -MF $@.d -o ${OBJECTDIR}/Entity.o Entity.cpp
 
 # Subprojects
 .build-subprojects:
@@ -131,7 +131,7 @@ ${OBJECTDIR}/Entity.o: Entity.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Debug_Win32
-	${RM} dist/Debug_Win32/GNU-Linux-x86/fightorflight
+	${RM} dist/Debug_Win32/MinGW-Windows/fightorflight.exe
 
 # Subprojects
 .clean-subprojects:
