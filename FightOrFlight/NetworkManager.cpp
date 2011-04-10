@@ -76,12 +76,13 @@ void NetworkManager::update()
 {
 	ENetEvent event;
 
-	while( enet_host_service( netinterface, &event, 500 ) > 0 )
+	u32 curr_time = Game->getTimer()->getTime();
+	u32 target_time = curr_time + 50;
+	while( enet_host_service( netinterface, &event, target_time - curr_time ) > 0 )
 	{
 		switch( event.type )
 		{
 		case ENET_EVENT_TYPE_CONNECT:
-			// TODO : entity creation syncing to new peers
 			cout << "Added peer" << endl;
 			PeerList.push_back( event.peer );
 			if( Mode == EMM_SERVER )
@@ -111,7 +112,6 @@ void NetworkManager::update()
 			}
 			break;
 		case ENET_EVENT_TYPE_RECEIVE:
-//			cout << "Got new data" << endl;
 			for( u32 i=0; i<event.packet->dataLength; i++ )
 			{
 				IncomingData.push_back( event.packet->data[i] );
@@ -133,6 +133,7 @@ void NetworkManager::update()
 			cout << "No Event\r";
 			break;
 		}
+		curr_time = Game->getTimer()->getTime();
 	}
 
 	if( PeerList.size() == 0 && Mode == EMM_CLIENT )
@@ -208,17 +209,10 @@ bool NetworkManager::setConnectionAddress( ENetAddress& Address )
 		cerr << "Connection was succesful. Syncing with peer..." << endl;
 		isConnected = true;
 	}
-	else if( event.type != ENET_EVENT_TYPE_CONNECT )
-	{
-		enet_peer_reset( PeerList.back() );
-		cerr << "Connection was unsuccesful..." << endl;
-		isConnected = false;
-	}
 	else
 	{
 		enet_peer_reset( PeerList.back() );
-		cerr << "Connection timed out..." << endl;
-		isConnected = false;
+		cerr << "Connection was unsuccesful..." << endl;
 	}
 
 	enet_host_flush(netinterface);
