@@ -31,13 +31,14 @@ GameManager::GameManager( u32 argc, c8** argv ) : ReferenceCountedObject()
 		Mode = EMM_CLIENT;
 		Network = new NetworkManager( this, Mode );
 		
-		string serverip;
+//		string serverip;
 		
-		cout << "Please specify server IP: " << endl;
-		cin >> serverip;
+//		cout << "Please specify server IP: " << endl;
+//		cin >> serverip;
 
 		ENetAddress Address;
-		enet_address_set_host( &Address, "localhost" );
+		Address.host = ENET_HOST_BROADCAST;
+//		enet_address_set_host( &Address, "localhost" );
 
 		Network->setConnectionAddress( Address );
 
