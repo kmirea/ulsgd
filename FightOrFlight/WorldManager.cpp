@@ -17,7 +17,7 @@ WorldManager::WorldManager(GameManager* game, E_MANAGER_MODE mode) :
 		 * VSync (true, optional)
 		 * Event Receiver (Need to use the client for this one)
 		 */
-		Irrlicht = irr::createDevice( irr::video::EDT_BURNINGSVIDEO,
+		Irrlicht = irr::createDevice( irr::video::EDT_OPENGL,
 									 irr::core::dimension2d<u32>(800, 600), 32,
 									 false, true, true, NULL );
 	}

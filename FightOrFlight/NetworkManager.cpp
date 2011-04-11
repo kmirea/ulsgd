@@ -2,6 +2,10 @@
 #include "GameManager.h"
 #include <enet/enet.h>
 
+#define MAX_NETWORK_DOWN 1048576/8
+#define MAX_NETWORK_UP 262144/8
+#define NETWORK_PORT 25000
+
 NetworkManager::NetworkManager( GameManager* game, E_MANAGER_MODE mode ) : ReferenceCountedObject(),
 		Game(game), Mode(mode), isConnected(false)
 {
@@ -13,13 +17,13 @@ NetworkManager::NetworkManager( GameManager* game, E_MANAGER_MODE mode ) : Refer
 
 	server_name = new ENetAddress();
 
-	server_name->port = 25000;
+	server_name->port = NETWORK_PORT;
 
 	switch( Mode )
 	{
 	case EMM_CLIENT:
 		server_name->host = NULL;
-		netinterface = enet_host_create( NULL, 1, 0, 0 );
+		netinterface = enet_host_create( NULL, 1, MAX_NETWORK_DOWN, MAX_NETWORK_UP );
 		break;
 	case EMM_SERVER:
 		server_name->host = ENET_HOST_ANY;

@@ -9,6 +9,8 @@
 #define	PHYSICSOBJECT_H
 
 #include "ReferenceCountedObject.h"
+#include <irrlicht/irrlicht.h>
+#include <irrBullet/irrbullet.h>
 
 class WorldManager;
 
@@ -41,6 +43,10 @@ protected:
 private:
 	WorldManager* World;
 	PhysicsObjectCreationStruct LocalData;
+
+	irr::scene::ISceneNode* Mesh;
+	IRigidBody* Coll;
+	IGImpactMeshShape* CollMesh;
 };
 
 #endif	/* PHYSICSOBJECT_H */
