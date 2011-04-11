@@ -1,5 +1,5 @@
 # Exported from Wings 3D 1.2
-mtllib test_cube_coll.mtl
+mtllib test_cube.mtl
 o cube1
 #8 vertices, 6 faces
 v -1.00000000 -1.00000000 1.00000000
