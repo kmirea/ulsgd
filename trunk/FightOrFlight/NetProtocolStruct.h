@@ -43,29 +43,10 @@ public:
 	// used for passing updates to existing objects.
 	struct Message_Sync
 	{
-		struct Sync_Calibrate
-		{
-			f32 Position [3];
-			f32 Rotation [3];
-			f32 LinearVelocity [3];
-			f32 AngularVelocity [3];
-		} Calibrate;
-		
-		struct Sync_ForceUpdate
-		{
-			f32 Position [3];
-			f32 Rotation [3];
-			f32 LinearVelocity [3];
-			f32 AngularVelocity [3];
-		} ForceUpdate;
-
-		struct Sync_RelUpdate
-		{
-			f32 Position [3];
-			f32 Rotation [3];
-			f32 LinearVelocity [3];
-			f32 AngularVelocity [3];
-		} Relative;
+		f32 Position [3];
+		f32 Rotation [3];
+		f32 LinearVelocity [3];
+		f32 AngularVelocity [3];
 	} Sync;
 
 	// used for passing object creation commands
@@ -93,7 +74,7 @@ protected:
 	virtual string getDebugInfo() const;
 };
 
-#define MAX_BUF_SIZE sizeof(u8)+sizeof(NETID)+sizeof(u32)+sizeof(E_NET_MESSAGE_TYPE)+sizeof(NetData::Message_Sync) + sizeof(u8)
+#define MAX_BUF_SIZE sizeof(u8)+sizeof(NETID)+sizeof(u32)+sizeof(E_NET_MESSAGE_TYPE)+sizeof(NetData::Message_Create) + sizeof(u8)
 
 inline bool operator< ( const NetData&A, const NetData& B );
 

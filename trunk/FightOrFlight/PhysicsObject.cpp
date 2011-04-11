@@ -2,7 +2,7 @@
 #include "WorldManager.h"
 
 PhysicsObject::PhysicsObject(WorldManager* world, PhysicsObjectCreationStruct& POCS) : ReferenceCountedObject(),
-		World(world), LocalData(POCS), Mesh(NULL), Coll(NULL), CollMesh(NULL)
+		World(world), LocalData(POCS), DrawMesh(NULL), Body(NULL), CollMesh(NULL)
 {
 	cout << getDebugInfo() << endl;
 
@@ -16,18 +16,24 @@ PhysicsObject::PhysicsObject(WorldManager* world, PhysicsObjectCreationStruct& P
 	irr::core::vector3df linvel (LocalData.LinearVelocity[0],LocalData.LinearVelocity[1],LocalData.LinearVelocity[2]);
 	irr::core::vector3df angvel (LocalData.AngularVelocity[0],LocalData.AngularVelocity[1],LocalData.AngularVelocity[2]);
 
-	Mesh = World->getIrrlichtDriver()->getSceneManager()->addMeshSceneNode(mesh, NULL, 0, position, rotation, scale, true);
-	Mesh->setMaterialTexture(0,tex);
-	Mesh->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-	CollMesh = new IGImpactMeshShape(Mesh,collmesh,LocalData.Mass);
-	Coll = World->getIrrBulletDriver()->addRigidBody(CollMesh);
+	DrawMesh = World->getIrrlichtDriver()->getSceneManager()->addMeshSceneNode(mesh, NULL, 0, position, rotation, scale, true);
+	DrawMesh->setMaterialTexture(0,tex);
+	DrawMesh->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+	CollMesh = new IGImpactMeshShape(DrawMesh,collmesh,LocalData.Mass);
+	Body = World->getIrrBulletDriver()->addRigidBody(CollMesh);
 
-	Coll->setLinearVelocity(linvel);
-	Coll->setAngularVelocity(angvel);
+	Body->setLinearVelocity(linvel);
+	Body->setAngularVelocity(angvel);
+
+	Body->setActivationState( EAS_DISABLE_DEACTIVATION );
+
+	if( LocalData.MeshName != string("bullet") && LocalData.MeshName != string("missile") )
+		World->addAffector( this );
 }
 
 PhysicsObject::~PhysicsObject()
 {
+	World->getIrrBulletDriver()->removeCollisionObject( Body, true );
 }
 
 string PhysicsObject::getDebugInfo() const
@@ -37,10 +43,54 @@ string PhysicsObject::getDebugInfo() const
 
 void PhysicsObject::update()
 {
-	// TODO
+	LocalData.Position[0] = DrawMesh->getPosition().X;
+	LocalData.Position[1] = DrawMesh->getPosition().Y;
+	LocalData.Position[2] = DrawMesh->getPosition().Z;
+
+	LocalData.Rotation[0] = DrawMesh->getRotation().X;
+	LocalData.Rotation[1] = DrawMesh->getRotation().Y;
+	LocalData.Rotation[2] = DrawMesh->getRotation().Z;
+	
+	LocalData.LinearVelocity[0] = Body->getLinearVelocity().X;
+	LocalData.LinearVelocity[1] = Body->getLinearVelocity().Y;
+	LocalData.LinearVelocity[2] = Body->getLinearVelocity().Z;
+
+	LocalData.AngularVelocity[0] = Body->getAngularVelocity().X;
+	LocalData.AngularVelocity[1] = Body->getAngularVelocity().Y;
+	LocalData.AngularVelocity[2] = Body->getAngularVelocity().Z;
+}
+
+void PhysicsObject::update(NetData* InStream)
+{
+	irr::core::vector3df pos (InStream->Sync.Position[0], InStream->Sync.Position[1], InStream->Sync.Position[2]);
+	irr::core::vector3df rot (InStream->Sync.Rotation[0], InStream->Sync.Rotation[1], InStream->Sync.Rotation[2]);
+	irr::core::vector3df linvel (InStream->Sync.LinearVelocity[0], InStream->Sync.LinearVelocity[1], InStream->Sync.LinearVelocity[2]);
+	irr::core::vector3df angvel (InStream->Sync.AngularVelocity[0], InStream->Sync.AngularVelocity[1], InStream->Sync.AngularVelocity[2]);
+
+	DrawMesh->setPosition( pos );
+	DrawMesh->setRotation( rot );
+	Body->setLinearVelocity( linvel );
+	Body->setAngularVelocity( angvel );
+
+	update();
 }
 
 const PhysicsObjectCreationStruct& PhysicsObject::getLocalData() const
 {
 	return LocalData;
+}
+
+irr::scene::ISceneNode* PhysicsObject::getDrawMesh() const
+{
+	return DrawMesh;
+}
+
+IRigidBody* PhysicsObject::getBody() const
+{
+	return Body;
+}
+
+IGImpactMeshShape* PhysicsObject::getCollisionMesh() const
+{
+	return CollMesh;
 }

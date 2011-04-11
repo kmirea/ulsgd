@@ -17,7 +17,7 @@ class GameManager;
 class Entity : public ReferenceCountedObject
 {
 public:
-	Entity( GameManager* Game, NETID NetID );
+	Entity( GameManager* Game, E_MANAGER_MODE Mode, NETID NetID );
 	Entity( GameManager* Game, E_MANAGER_MODE Mode, NETID NetID, PhysicsObject* Physics );
 
 protected:
@@ -39,6 +39,9 @@ private:
 	PhysicsObject* Physics;
 
 	GameManager* Game;
+	E_MANAGER_MODE Mode;
+
+	u32 time_for_next_update;
 };
 
 #endif	/* ENTITY_H */

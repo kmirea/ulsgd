@@ -18,10 +18,10 @@ entity
 entity
 	test_cube
 	test_cube
-	1
-	10	10	0
+	10
+	20	20	0
 	0	0	0
-	1	1	1
+	2.154435	2.154435	2.154435
 	0	0	0
 	0	0	0
 /entity
@@ -29,10 +29,10 @@ entity
 entity
 	test_cube
 	test_cube
-	1
+	8
 	10	0	10
 	0	0	0
-	1	1	1
+	2	2	2
 	0	0	0
 	0	0	0
 /entity
@@ -44,6 +44,6 @@ entity
 	0	10	10
 	0	0	0
 	1	1	1
-	0	0	0
-	0	0	0
+	-5	-5	0
+	1	1	-1
 /entity

@@ -95,5 +95,17 @@ irrBulletWorld* WorldManager::getIrrBulletDriver() const
 
 void WorldManager::addAffector(PhysicsObject* Physics) const
 {
-
+	if(Physics)
+	{
+		for( u32 i=0; i<Game->getEntityList().size(); i++ )
+		{
+			Entity* temp = Game->getEntityList()[i];
+			temp->getPhysicsObject()->getBody()->addAffector( new ICollisionObjectAffectorAttract(Physics->getDrawMesh(), 0.1) );
+		}
+		for( u32 i=0; i<Game->getEntityList().size(); i++ )
+		{
+			Entity* temp = Game->getEntityList()[i];
+			Physics->getBody()->addAffector( new ICollisionObjectAffectorAttract( temp->getPhysicsObject()->getDrawMesh(), 0.1) );
+		}
+	}
 }

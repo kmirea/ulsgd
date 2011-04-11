@@ -174,7 +174,6 @@ void NetworkManager::sendLocalData()
 				OutgoingData.push_back( streambuffer.front() );
 				streambuffer.pop_front();
 			}
-			OutData->drop();
 		}
 	}
 
