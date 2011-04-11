@@ -13,6 +13,7 @@
 #include <irrBullet/irrbullet.h>
 
 class WorldManager;
+class NetData;
 
 struct PhysicsObjectCreationStruct
 {
@@ -35,7 +36,13 @@ protected:
 
 public:
 	void update();
+	void update(NetData* InStream);
+
 	const PhysicsObjectCreationStruct& getLocalData() const;
+
+	irr::scene::ISceneNode* getDrawMesh() const;
+	IRigidBody* getBody() const;
+	IGImpactMeshShape* getCollisionMesh() const;
 	
 protected:
 	virtual string getDebugInfo() const;
@@ -44,8 +51,8 @@ private:
 	WorldManager* World;
 	PhysicsObjectCreationStruct LocalData;
 
-	irr::scene::ISceneNode* Mesh;
-	IRigidBody* Coll;
+	irr::scene::ISceneNode* DrawMesh;
+	IRigidBody* Body;
 	IGImpactMeshShape* CollMesh;
 };
 

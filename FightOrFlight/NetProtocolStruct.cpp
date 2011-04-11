@@ -122,19 +122,26 @@ deque<u8> makeSyncMessage( NetData* Data )
 	deque<u8> Output;
 	if( Data != NULL && Data->MsgType == ENMT_SYNC )
 	{
-		u8 Buffer [sizeof(NetData)];
+		u8 Buffer [MAX_BUF_SIZE] = {0};
 		ptr Index = 0;
 
 		Buffer[Index++] = Data->MessageStart;
 
-		memcpy( (void*)(Buffer+Index), (void*)&(Data->net_id), Index+=sizeof(NETID) );
-		memcpy( (void*)(Buffer+Index), (void*)&(Data->MsgTime), Index+=sizeof(u32) );
-		memcpy( (void*)(Buffer+Index), (void*)&(Data->MsgType), Index+=sizeof(E_NET_MESSAGE_TYPE) );
-		memcpy( (void*)(Buffer+Index), (void*)&(Data->Sync), Index+=sizeof(NetData::Message_Sync) );
-		memcpy( (void*)(Buffer+Index), (void*)&(Data->MessageEnd), Index++ );
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->net_id), sizeof(NETID) );
+		Index+=sizeof(NETID);
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->MsgTime), sizeof(u32) );
+		Index+=sizeof(u32);
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->MsgType), sizeof(E_NET_MESSAGE_TYPE) );
+		Index+=sizeof(E_NET_MESSAGE_TYPE);
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->Sync), sizeof(NetData::Message_Sync) );
+		Index+=sizeof(NetData::Message_Sync);
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->MessageEnd), sizeof(u8) );
+		Index+=sizeof(u8);
 
 		for( u32 i=0; i<Index; i++ )
 			Output.push_back( Buffer[i] );
+
+		Data->drop();
 	}
 	return Output;
 }
@@ -178,14 +185,21 @@ deque<u8> makeDestroyMessage( NetData* Data )
 
 		Buffer[Index++] = Data->MessageStart;
 
-		memcpy( (void*)(Buffer+Index), (void*)&(Data->net_id), Index+=sizeof(NETID) );
-		memcpy( (void*)(Buffer+Index), (void*)&(Data->MsgTime), Index+=sizeof(u32) );
-		memcpy( (void*)(Buffer+Index), (void*)&(Data->MsgType), Index+=sizeof(E_NET_MESSAGE_TYPE) );
-		memcpy( (void*)(Buffer+Index), (void*)&(Data->Destroy), Index+=sizeof(NetData::Message_Destroy) );
-		memcpy( (void*)(Buffer+Index), (void*)&(Data->MessageEnd), Index++ );
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->net_id), sizeof(NETID) );
+		Index+=sizeof(NETID);
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->MsgTime), sizeof(u32) );
+		Index+=sizeof(u32);
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->MsgType), sizeof(E_NET_MESSAGE_TYPE) );
+		Index+=sizeof(E_NET_MESSAGE_TYPE);
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->Destroy), sizeof(NetData::Message_Destroy) );
+		Index+=sizeof(NetData::Message_Destroy);
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->MessageEnd), sizeof(u8) );
+		Index+=sizeof(u8);
 
 		for( u32 i=0; i<Index; i++ )
 			Output.push_back( Buffer[i] );
+
+		Data->drop();
 	}
 	return Output;
 }

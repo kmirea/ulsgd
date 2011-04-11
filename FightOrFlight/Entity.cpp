@@ -2,8 +2,10 @@
 
 #include "GameManager.h"
 
-Entity::Entity(GameManager* game, NETID netid) : ReferenceCountedObject(),
-		Game(game),
+#define MAX_SYNC_TIME 500
+
+Entity::Entity(GameManager* game, E_MANAGER_MODE mode, NETID netid) : ReferenceCountedObject(),
+		Game(game), Mode(mode),
 		Network( new NetworkObject( game->getNetworkManager(), netid) )
 {
 	PhysicsObjectCreationStruct pocs;
@@ -35,10 +37,14 @@ Entity::Entity(GameManager* game, NETID netid) : ReferenceCountedObject(),
 	Game->grab();
 	Network->grab();
 	Physics->grab();
+
+	time_for_next_update = Game->getTimer()->getTime() + MAX_SYNC_TIME;
+
+
 }
 
-Entity::Entity(GameManager* game, E_MANAGER_MODE Mode, NETID NetID, PhysicsObject* physics ) :
-		ReferenceCountedObject(), Game(game),
+Entity::Entity(GameManager* game, E_MANAGER_MODE mode, NETID NetID, PhysicsObject* physics ) :
+		ReferenceCountedObject(), Game(game), Mode(mode),
 		Network( new NetworkObject (game->getNetworkManager(), NetID) ),
 		Physics(physics)
 
@@ -67,8 +73,42 @@ PhysicsObject* Entity::getPhysicsObject() const
 
 void Entity::update()
 {
+	NetData* Update = NULL;
+	if( Mode == EMM_SERVER && (Physics->getBody()->getCollisionFlags() != ECF_NO_CONTACT_RESPONSE) 
+			|| time_for_next_update == Game->getTimer()->getTime() )
+	{
+		time_for_next_update = Game->getTimer()->getTime() + MAX_SYNC_TIME;
+		Update = new NetData();
+		Update->grab();
+		Update->MessageStart = Message_Begin;
+		Update->MsgTime = Game->getTimer()->getTime();
+		Update->MsgType = ENMT_SYNC;
+		Update->net_id = Network->getNetID();
+		Update->MessageEnd = Message_End;
+		
+		for( u32 i=0; i<3; i++ )
+		{
+			Update->Sync.Position[i] = Physics->getLocalData().Position[i];
+			Update->Sync.Rotation[i] = Physics->getLocalData().Rotation[i];
+			Update->Sync.LinearVelocity[i] = Physics->getLocalData().LinearVelocity[i];
+			Update->Sync.AngularVelocity[i] = Physics->getLocalData().AngularVelocity[i];
+		}
+	}
+
 	Network->update();
-	Physics->update();
+
+	if( Mode == EMM_CLIENT && (Update = Network->getInStream()) != NULL )
+	{
+		Physics->update( Update );
+	}
+	else
+		Physics->update();
+
+	if( Update && Mode == EMM_SERVER )
+	{
+		Network->sendData( Update );
+		Update->drop();
+	}
 }
 
 string Entity::getDebugInfo() const

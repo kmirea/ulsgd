@@ -1,7 +1,7 @@
 #include "Client.h"
 
 
-Client::Client( GameManager* Game, NETID NetID ) : Entity( Game, NetID )
+Client::Client( GameManager* Game, NETID NetID ) : Entity( Game, EMM_CLIENT, NetID )
 {
 	// TODO
 }

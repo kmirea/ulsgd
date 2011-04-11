@@ -3,9 +3,6 @@
 
 GameManager::GameManager( u32 argc, c8** argv ) : ReferenceCountedObject()
 {
-#ifdef DEBUG
-	system("pwd");
-#endif
 	if( argc > 2 )
 	{
 		if( string(argv[1]) == string("--server") )
@@ -87,7 +84,20 @@ SoundManager* GameManager::getSoundManager() const
 
 void GameManager::createObject( NETID NetID )
 {
-	EntityList.push_back( new Entity( this, NetID ) );
+	for( u32 i=0; i<EntityList.size(); i++ )
+	{
+		if( EntityList[i]->getNetworkObject()->getNetID() == NetID )
+			return;
+	}
+	EntityList.push_back( new Entity( this, Mode, NetID ) );
+	EntityList.back()->grab();
+	if( Mode == EMM_SERVER )
+		EntityList.back()->syncCreate();
+}
+
+void GameManager::createSceneObject( PhysicsObjectCreationStruct POCS )
+{
+	EntityList.push_back( new Entity( this, Mode, Network->getNextNETID(), new PhysicsObject(World, POCS) ) );
 	EntityList.back()->grab();
 }
 
@@ -116,12 +126,6 @@ string GameManager::getDebugInfo() const
 const vector<Entity*>& GameManager::getEntityList() const
 {
 	return EntityList;
-}
-
-void GameManager::createSceneObject( PhysicsObjectCreationStruct POCS )
-{
-	EntityList.push_back( new Entity( this, Mode, Network->getNextNETID(), new PhysicsObject(World, POCS) ) );
-	EntityList.back()->grab();
 }
 
 bool GameManager::loadScene(string filename)
