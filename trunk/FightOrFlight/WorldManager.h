@@ -31,6 +31,8 @@ public:
 	irrBulletWorld* getIrrBulletDriver() const;
 
 	void setClient( Client* ClientEntity );
+
+	void addAffector( PhysicsObject* Physics ) const;
 	
 protected:
 	virtual string getDebugInfo() const;

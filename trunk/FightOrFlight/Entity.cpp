@@ -13,7 +13,7 @@ Entity::Entity(GameManager* game, NETID netid) : ReferenceCountedObject(),
 	if( data != NULL && data->MsgType == ENMT_CREATE )
 	{
 		pocs.MeshName = data->Create.Meshname;
-		pocs.CollisionName = pocs.MeshName + string("_col");
+		pocs.CollisionName = pocs.MeshName;
 		pocs.Mass = data->Create.Mass;
 		for( u32 i=0; i<3; i++ )
 		{
