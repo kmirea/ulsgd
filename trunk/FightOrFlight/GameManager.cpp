@@ -43,6 +43,9 @@ GameManager::GameManager( u32 argc, c8** argv ) : ReferenceCountedObject()
 		Network->setConnectionAddress( Address );
 
 		World = new WorldManager( this, Mode );
+#ifdef DEBUG
+		World->getIrrlichtDriver()->getSceneManager()->addCameraSceneNodeFPS();
+#endif
 	}
 
 	Network->grab();
