@@ -81,7 +81,7 @@ void NetworkManager::update()
 	ENetEvent event;
 
 	u32 curr_time = Game->getTimer()->getTime();
-	u32 target_time = curr_time + 50;
+	u32 target_time = curr_time + 10;
 	while( enet_host_service( netinterface, &event, target_time - curr_time ) > 0 )
 	{
 		switch( event.type )

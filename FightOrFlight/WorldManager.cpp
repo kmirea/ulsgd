@@ -37,6 +37,7 @@ WorldManager::WorldManager(GameManager* game, E_MANAGER_MODE mode) :
 #else
 			irrBulletWorld( Irrlicht, true, false);
 #endif
+	irrBullet->setGravity( irr::core::vector3df(0,0,0) );
 }
 
 WorldManager::~WorldManager()
@@ -90,4 +91,9 @@ irr::IrrlichtDevice* WorldManager::getIrrlichtDriver() const
 irrBulletWorld* WorldManager::getIrrBulletDriver() const
 {
 	return irrBullet;
+}
+
+void WorldManager::addAffector(PhysicsObject* Physics) const
+{
+
 }
