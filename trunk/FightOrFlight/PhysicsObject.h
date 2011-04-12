@@ -30,13 +30,12 @@ struct PhysicsObjectCreationStruct
 class PhysicsObject : public ReferenceCountedObject
 {
 public:
-	PhysicsObject( WorldManager* World, PhysicsObjectCreationStruct& POCS );
+	PhysicsObject( WorldManager* World, const PhysicsObjectCreationStruct& POCS );
 protected:
 	virtual ~PhysicsObject();
 
 public:
-	void update();
-	void update(NetData* InStream);
+	void update( NetData* InStream = NULL );
 
 	const PhysicsObjectCreationStruct& getLocalData() const;
 

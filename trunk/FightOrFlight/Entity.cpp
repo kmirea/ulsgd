@@ -74,8 +74,8 @@ PhysicsObject* Entity::getPhysicsObject() const
 void Entity::update()
 {
 	NetData* Update = NULL;
-	if( Mode == EMM_SERVER && (Physics->getBody()->getCollisionFlags() != ECF_NO_CONTACT_RESPONSE) 
-			|| time_for_next_update == Game->getTimer()->getTime() )
+	if( Mode == EMM_SERVER && (time_for_next_update <= Game->getTimer()->getTime()
+			|| Physics->getBody()->getCollisionFlags() != ECF_NO_CONTACT_RESPONSE ) )
 	{
 		time_for_next_update = Game->getTimer()->getTime() + MAX_SYNC_TIME;
 		Update = new NetData();
@@ -97,14 +97,9 @@ void Entity::update()
 
 	Network->update();
 
-	if( Mode == EMM_CLIENT && (Update = Network->getInStream()) != NULL )
-	{
-		Physics->update( Update );
-	}
-	else
-		Physics->update();
+	Physics->update( Network->getInStream() );
 
-	if( Update && Mode == EMM_SERVER )
+	if( Update )
 	{
 		Network->sendData( Update );
 		Update->drop();

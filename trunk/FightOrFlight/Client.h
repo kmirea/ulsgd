@@ -23,9 +23,18 @@ protected:
 
 public:
 	bool OnEvent( const irr::SEvent& Event );
+	void update();
 
 protected:
 	virtual string getDebugInfo() const;
+
+private:
+	irr::scene::ISceneNode* camera_target;
+	irr::scene::ISceneNode* camera_up;
+	irr::scene::ISceneNode* camera_side;
+	irr::scene::ICameraSceneNode* client_camera;
+
+	bool send_update;
 };
 
 #endif	/* CLIENTOBJECT_H */

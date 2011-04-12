@@ -1,7 +1,7 @@
 #include <enet/enet.h>
 #include "GameManager.h"
 
-GameManager::GameManager( u32 argc, c8** argv ) : ReferenceCountedObject()
+GameManager::GameManager( u32 argc, c8** argv ) : ReferenceCountedObject(), ClientEntity(NULL)
 {
 	if( argc > 2 )
 	{
@@ -27,22 +27,13 @@ GameManager::GameManager( u32 argc, c8** argv ) : ReferenceCountedObject()
 	{
 		Mode = EMM_CLIENT;
 		Network = new NetworkManager( this, Mode );
-		
-//		string serverip;
-		
-//		cout << "Please specify server IP: " << endl;
-//		cin >> serverip;
 
 		ENetAddress Address;
-		Address.host = ENET_HOST_BROADCAST;
-//		enet_address_set_host( &Address, "localhost" );
+		Address.host = ENET_HOST_BROADCAST;\
 
 		Network->setConnectionAddress( Address );
 
 		World = new WorldManager( this, Mode );
-#ifdef DEBUG
-		World->getIrrlichtDriver()->getSceneManager()->addCameraSceneNodeFPS();
-#endif
 	}
 
 	Network->grab();
@@ -93,6 +84,14 @@ void GameManager::createObject( NETID NetID )
 	EntityList.back()->grab();
 	if( Mode == EMM_SERVER )
 		EntityList.back()->syncCreate();
+}
+
+void GameManager::createClientObject(NETID NetID)
+{
+	EntityList.push_back( ClientEntity = new Client(this, NetID) );
+	ClientEntity->grab();
+
+	World->getIrrlichtDriver()->setEventReceiver( ClientEntity );
 }
 
 void GameManager::createSceneObject( PhysicsObjectCreationStruct POCS )
@@ -148,8 +147,9 @@ bool GameManager::loadScene(string filename)
 
 		if( temp == "scene_descrip" )
 		{
+			File >> temp;
 			std::getline( File, ScenarioDescrip );
-			File >> temp >> temp;
+			File >> temp;
 			continue;
 		}
 		if( temp == "entity" )
@@ -169,6 +169,30 @@ bool GameManager::loadScene(string filename)
 			
 			continue;
 		}
+		if( temp == "client" )
+		{
+			File >> ClientCreationStruct.MeshName
+					>> ClientCreationStruct.CollisionName
+					>> ClientCreationStruct.Mass
+					>> ClientCreationStruct.Position[0]
+					>> ClientCreationStruct.Position[1]
+					>> ClientCreationStruct.Position[2]
+					>> ClientCreationStruct.Rotation[0]
+					>> ClientCreationStruct.Rotation[1]
+					>> ClientCreationStruct.Rotation[2]
+					>> ClientCreationStruct.Scale[0]
+					>> ClientCreationStruct.Scale[1]
+					>> ClientCreationStruct.Scale[2]
+					>> ClientCreationStruct.LinearVelocity[0]
+					>> ClientCreationStruct.LinearVelocity[1]
+					>> ClientCreationStruct.LinearVelocity[2]
+					>> ClientCreationStruct.AngularVelocity[0]
+					>> ClientCreationStruct.AngularVelocity[1]
+					>> ClientCreationStruct.AngularVelocity[2]
+					>> temp;
+			cout << "Filled Client Creation Struct" << endl;
+			break;
+		}
 	}
 
 	return true;
@@ -184,6 +208,19 @@ void GameManager::endGame()
 	for( u32 i=0; i<EntityList.size(); i++ )
 		EntityList[i]->drop();
 
+	if( ClientEntity )
+		ClientEntity->drop();
+
 	Network->drop();
 	World->drop();
+}
+
+const PhysicsObjectCreationStruct& GameManager::getClientPOCS() const
+{
+	return ClientCreationStruct;
+}
+
+Client* GameManager::getClientObject() const
+{
+	return ClientEntity;
 }
