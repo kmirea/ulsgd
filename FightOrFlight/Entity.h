@@ -29,19 +29,17 @@ public:
 
 	virtual void update();
 
-	virtual void syncCreate() const;
+	void syncCreate() const;
 	
 protected:
 	virtual string getDebugInfo() const;
 
-private:
+	u32 time_for_next_update;
 	NetworkObject* Network;
 	PhysicsObject* Physics;
 
 	GameManager* Game;
 	E_MANAGER_MODE Mode;
-
-	u32 time_for_next_update;
 };
 
 #endif	/* ENTITY_H */

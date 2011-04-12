@@ -24,6 +24,7 @@ NetworkManager::NetworkManager( GameManager* game, E_MANAGER_MODE mode ) : Refer
 	case EMM_CLIENT:
 		server_name->host = NULL;
 		netinterface = enet_host_create( NULL, 1, MAX_NETWORK_DOWN, MAX_NETWORK_UP );
+		FirstConnect = false;
 		break;
 	case EMM_SERVER:
 		server_name->host = ENET_HOST_ANY;
@@ -91,9 +92,27 @@ void NetworkManager::update()
 			PeerList.push_back( event.peer );
 			if( Mode == EMM_SERVER )
 			{
+				{	// make the client's object and send it first before anything
+					Game->createSceneObject( Game->getClientPOCS() );
+					Game->getEntityList().back()->syncCreate();
+
+					deque<u8> clientcreate = makeCreateMessage( Game->getEntityList().back()->getNetworkObject()->getOutStream() );
+					u32 StreamSize = clientcreate.size();
+					u8 Buffer[StreamSize];
+					for( u32 i=0; i<StreamSize; i++ )
+					{
+						Buffer[i] = clientcreate.front();
+						clientcreate.pop_front();
+					}
+					ENetPacket* packet = enet_packet_create( (void*)Buffer, StreamSize, ENET_PACKET_FLAG_RELIABLE );
+					for( u32 i=0; i<PeerList.size(); i++ )
+						enet_peer_send( PeerList[i], 0, packet );
+					enet_host_flush( netinterface );
+				}
+
 				deque<u8> syncdata;
 				deque<u8> tempdata;
-				for( u32 i=0; i<Game->getEntityList().size(); i++ )
+				for( u32 i=0; i<Game->getEntityList().size()-1; i++ )
 				{
 					Game->getEntityList()[i]->syncCreate();
 					tempdata = makeCreateMessage( Game->getEntityList()[i]->getNetworkObject()->getOutStream() );
@@ -154,6 +173,12 @@ void NetworkManager::update()
 
 		if( data->MsgType == ENMT_CREATE )
 		{
+			if( Mode == EMM_CLIENT && FirstConnect )
+			{
+				Game->createClientObject( data->net_id );
+				FirstConnect = false;
+				continue;
+			}
 			Game->createObject( data->net_id );
 		}
 	}
@@ -174,6 +199,17 @@ void NetworkManager::sendLocalData()
 				OutgoingData.push_back( streambuffer.front() );
 				streambuffer.pop_front();
 			}
+		}
+	}
+
+	if( Mode == EMM_CLIENT && Game->getClientObject()->getNetworkObject()->isMessageAvailable() )
+	{
+		NetData* OutData = Game->getClientObject()->getNetworkObject()->getOutStream();
+		deque<u8> streambuffer = makeSyncMessage( OutData );
+		while( streambuffer.size() > 0 )
+		{
+			OutgoingData.push_back( streambuffer.front() );
+			streambuffer.pop_back();
 		}
 	}
 
@@ -211,6 +247,7 @@ bool NetworkManager::setConnectionAddress( ENetAddress& Address )
 	{
 		cerr << "Connection was succesful. Syncing with peer..." << endl;
 		isConnected = true;
+		FirstConnect = true;
 	}
 	else
 	{

@@ -100,12 +100,12 @@ void WorldManager::addAffector(PhysicsObject* Physics) const
 		for( u32 i=0; i<Game->getEntityList().size(); i++ )
 		{
 			Entity* temp = Game->getEntityList()[i];
-			temp->getPhysicsObject()->getBody()->addAffector( new ICollisionObjectAffectorAttract(Physics->getDrawMesh(), 0.1) );
+			temp->getPhysicsObject()->getBody()->addAffector( new ICollisionObjectAffectorAttract(Physics->getDrawMesh(), 0.001) );
 		}
 		for( u32 i=0; i<Game->getEntityList().size(); i++ )
 		{
 			Entity* temp = Game->getEntityList()[i];
-			Physics->getBody()->addAffector( new ICollisionObjectAffectorAttract( temp->getPhysicsObject()->getDrawMesh(), 0.1) );
+			Physics->getBody()->addAffector( new ICollisionObjectAffectorAttract( temp->getPhysicsObject()->getDrawMesh(), 0.001) );
 		}
 	}
 }

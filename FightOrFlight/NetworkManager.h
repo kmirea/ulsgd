@@ -65,6 +65,7 @@ private:
 	vector<ENetPeer*> PeerList;
 
 	bool isConnected;
+	bool FirstConnect;
 };
 
 #endif	/* NETWORKMANAGER_H */

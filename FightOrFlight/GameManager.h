@@ -29,18 +29,20 @@ public:
 	WorldManager* getWorldManager() const;
 	GUIManager* getGUIManager() const;
 	SoundManager* getSoundManager() const;
-
+	Client* getClientObject() const;
+	
 	void createObject( NETID NetID );
+	void createSceneObject( PhysicsObjectCreationStruct POCS );
+	void createClientObject( NETID NetID );
 	void destroyObject( NETID NetID );
 
 	const vector<Entity*>& getEntityList() const;
-	Entity* getClientEntity() const;
+	const PhysicsObjectCreationStruct& getClientPOCS() const;
 	irr::ITimer* getTimer();
 
 	void endGame();
 
 protected:
-	void createSceneObject( PhysicsObjectCreationStruct POCS );
 	bool loadScene( string filename );
 	
 	virtual string getDebugInfo() const;
@@ -54,9 +56,12 @@ private:
 	SoundManager* Sound;
 	
 	vector<Entity*> EntityList;
+	Client* ClientEntity;
 
 	string ScenarioName;
 	string ScenarioDescrip;
+
+	PhysicsObjectCreationStruct ClientCreationStruct;
 };
 
 #endif	/* GAMEMANAGER_H */
