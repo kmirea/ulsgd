@@ -6,7 +6,8 @@
 
 Entity::Entity(GameManager* game, E_MANAGER_MODE mode, NETID netid) : ReferenceCountedObject(),
 		Game(game), Mode(mode),
-		Network( new NetworkObject( game->getNetworkManager(), netid) )
+		Network( new NetworkObject( game->getNetworkManager(), netid) ),
+		LastTick(Game->getTimer()->getTime())
 {
 	PhysicsObjectCreationStruct pocs;
 
@@ -46,7 +47,8 @@ Entity::Entity(GameManager* game, E_MANAGER_MODE mode, NETID netid) : ReferenceC
 Entity::Entity(GameManager* game, E_MANAGER_MODE mode, NETID NetID, PhysicsObject* physics ) :
 		ReferenceCountedObject(), Game(game), Mode(mode),
 		Network( new NetworkObject (game->getNetworkManager(), NetID) ),
-		Physics(physics)
+		Physics(physics),
+		LastTick(Game->getTimer()->getTime())
 
 {
 	Game->grab();
@@ -97,6 +99,15 @@ void Entity::update()
 
 	Network->update();
 
+	if( Mode == EMM_SERVER )
+	{
+		for( u32 i=0; i<Game->getEntityList().size(); i++ )
+		{
+			if( Game->getEntityList()[i] != this )
+				Game->getEntityList()[i]->applyGravity( Physics->getDrawMesh()->getPosition(), Physics->getLocalData().Mass );
+		}
+	}
+	
 	Physics->update( Network->getInStream() );
 
 	if( Update )
@@ -104,6 +115,20 @@ void Entity::update()
 		Network->sendData( Update );
 		Update->drop();
 	}
+}
+
+#define BIG_G 0.00000000006673f
+
+void Entity::applyGravity( const irr::core::vector3df& OtherPosition, f32 Mass )
+{
+	irr::core::vector3df force_vec = (OtherPosition - Physics->getDrawMesh()->getPosition()).normalize();
+	f32 distance_sqr = Physics->getDrawMesh()->getPosition().getDistanceFromSQ( OtherPosition );
+
+	f32 force = BIG_G * Mass * Physics->getLocalData().Mass / distance_sqr;
+
+	force_vec *= force * (Game->getTimer()->getTime() - LastTick)/1000.0f;
+
+	Physics->getBody()->applyCentralForce( force_vec );
 }
 
 string Entity::getDebugInfo() const

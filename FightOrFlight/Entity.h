@@ -28,6 +28,7 @@ public:
 	PhysicsObject* getPhysicsObject() const;
 
 	virtual void update();
+	virtual void applyGravity( const irr::core::vector3df& Position, f32 Mass );
 
 	void syncCreate() const;
 	
@@ -40,6 +41,8 @@ protected:
 
 	GameManager* Game;
 	E_MANAGER_MODE Mode;
+
+	u32 LastTick;
 };
 
 #endif	/* ENTITY_H */

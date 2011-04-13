@@ -18,6 +18,39 @@ entity
 entity
 	test_cube
 	test_cube
+	10000000
+	0	0	100
+	0	0	0
+	21	21	21
+	0	0	0.01
+	0	0	0
+/entity
+
+entity
+	test_cube
+	test_cube
+	10000000
+	-100	0	100
+	0	0	0
+	21	21	21
+	0	0	0
+	0	0	0
+/entity
+
+entity
+	test_cube
+	test_cube
+	10000000
+	100	0	100
+	0	0	0
+	21	21	21
+	0	0	0
+	0	0	0
+/entity
+
+entity
+	test_cube
+	test_cube
 	10
 	20	20	0
 	0	0	0

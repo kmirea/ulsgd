@@ -31,8 +31,6 @@ public:
 	irrBulletWorld* getIrrBulletDriver() const;
 
 	void setClient( Client* ClientEntity );
-
-	void addAffector( PhysicsObject* Physics ) const;
 	
 protected:
 	virtual string getDebugInfo() const;
@@ -43,6 +41,7 @@ private:
 
 	irr::IrrlichtDevice* Irrlicht;
 	irrBulletWorld* irrBullet;
+	u32 LastTime;
 };
 
 #endif	/* WORLDMANAGER_H */

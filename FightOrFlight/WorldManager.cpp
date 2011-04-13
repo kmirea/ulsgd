@@ -20,6 +20,10 @@ WorldManager::WorldManager(GameManager* game, E_MANAGER_MODE mode) :
 		Irrlicht = irr::createDevice( irr::video::EDT_OPENGL,
 									 irr::core::dimension2d<u32>(800, 600), 32,
 									 false, true, true, NULL );
+		irr::scene::ILightSceneNode* light = Irrlicht->getSceneManager()->addLightSceneNode();
+		light->setLightType( irr::video::ELT_POINT );
+		light->setRadius( 1000 );
+		light->setPosition( irr::core::vector3df(0, 500, 0) );
 	}
 	else if ( Mode == EMM_SERVER )
 	{
@@ -38,6 +42,8 @@ WorldManager::WorldManager(GameManager* game, E_MANAGER_MODE mode) :
 			irrBulletWorld( Irrlicht, true, false);
 #endif
 	irrBullet->setGravity( irr::core::vector3df(0,0,0) );
+
+	LastTime = Irrlicht->getTimer()->getTime();
 }
 
 WorldManager::~WorldManager()
@@ -49,13 +55,14 @@ WorldManager::~WorldManager()
 
 void WorldManager::update()
 {
+
 	irr::video::IVideoDriver* video = Irrlicht->getVideoDriver();
 	irr::scene::ISceneManager* scene = Irrlicht->getSceneManager();
 	irr::gui::IGUIEnvironment* gui = Irrlicht->getGUIEnvironment();
 
-	video->beginScene( true, true, irr::video::SColor(255,0,0,0) );
-
-	irrBullet->stepSimulation( Game->getTimer()->getTime()*0.001f, 120 );
+	irrBullet->stepSimulation( (Game->getTimer()->getTime()-LastTime)*0.001f, 120 );
+	
+	video->beginScene( true, true, irr::video::SColor(255,0,0,255) );
 
 #ifdef DEBUG
 	irrBullet->debugDrawWorld( true );
@@ -91,21 +98,4 @@ irr::IrrlichtDevice* WorldManager::getIrrlichtDriver() const
 irrBulletWorld* WorldManager::getIrrBulletDriver() const
 {
 	return irrBullet;
-}
-
-void WorldManager::addAffector(PhysicsObject* Physics) const
-{
-	if(Physics)
-	{
-		for( u32 i=0; i<Game->getEntityList().size(); i++ )
-		{
-			Entity* temp = Game->getEntityList()[i];
-			temp->getPhysicsObject()->getBody()->addAffector( new ICollisionObjectAffectorAttract(Physics->getDrawMesh(), 0.001) );
-		}
-		for( u32 i=0; i<Game->getEntityList().size(); i++ )
-		{
-			Entity* temp = Game->getEntityList()[i];
-			Physics->getBody()->addAffector( new ICollisionObjectAffectorAttract( temp->getPhysicsObject()->getDrawMesh(), 0.001) );
-		}
-	}
 }
