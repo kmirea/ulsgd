@@ -18,7 +18,8 @@ PhysicsObject::PhysicsObject(WorldManager* world, const PhysicsObjectCreationStr
 
 	DrawMesh = World->getIrrlichtDriver()->getSceneManager()->addMeshSceneNode(mesh, NULL, 0, position, rotation, scale, true);
 	DrawMesh->setMaterialTexture(0,tex);
-	DrawMesh->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+	DrawMesh->setMaterialFlag( irr::video::EMF_NORMALIZE_NORMALS, true );
+//	DrawMesh->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 	CollMesh = new IGImpactMeshShape(DrawMesh,collmesh,LocalData.Mass);
 	Body = World->getIrrBulletDriver()->addRigidBody(CollMesh);
 
@@ -26,9 +27,6 @@ PhysicsObject::PhysicsObject(WorldManager* world, const PhysicsObjectCreationStr
 	Body->setAngularVelocity(angvel);
 
 	Body->setActivationState( EAS_DISABLE_DEACTIVATION );
-
-	if( LocalData.MeshName != string("bullet") && LocalData.MeshName != string("missile") )
-		World->addAffector( this );
 }
 
 PhysicsObject::~PhysicsObject()
@@ -55,6 +53,9 @@ void PhysicsObject::update( NetData* InStream )
 		Body->setLinearVelocity( linvel );
 		Body->setAngularVelocity( angvel );
 	}
+
+	Body->updateObject();
+	DrawMesh->updateAbsolutePosition();
 
 	LocalData.Position[0] = DrawMesh->getPosition().X;
 	LocalData.Position[1] = DrawMesh->getPosition().Y;

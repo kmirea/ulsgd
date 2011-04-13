@@ -91,7 +91,7 @@ void GameManager::createClientObject(NETID NetID)
 	EntityList.push_back( ClientEntity = new Client(this, NetID) );
 	ClientEntity->grab();
 
-	World->getIrrlichtDriver()->setEventReceiver( ClientEntity );
+//	World->getIrrlichtDriver()->setEventReceiver( ClientEntity );
 }
 
 void GameManager::createSceneObject( PhysicsObjectCreationStruct POCS )
