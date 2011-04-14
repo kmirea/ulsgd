@@ -43,15 +43,26 @@ void PhysicsObject::update( NetData* InStream )
 {
 	if( InStream != NULL )
 	{
-		irr::core::vector3df pos (InStream->Sync.Position[0], InStream->Sync.Position[1], InStream->Sync.Position[2]);
-		irr::core::vector3df rot (InStream->Sync.Rotation[0], InStream->Sync.Rotation[1], InStream->Sync.Rotation[2]);
-		irr::core::vector3df linvel (InStream->Sync.LinearVelocity[0], InStream->Sync.LinearVelocity[1], InStream->Sync.LinearVelocity[2]);
-		irr::core::vector3df angvel (InStream->Sync.AngularVelocity[0], InStream->Sync.AngularVelocity[1], InStream->Sync.AngularVelocity[2]);
+		if( InStream->MsgType == ENMT_SYNC )
+		{
+			irr::core::vector3df pos (InStream->Sync.Position[0], InStream->Sync.Position[1], InStream->Sync.Position[2]);
+			irr::core::vector3df rot (InStream->Sync.Rotation[0], InStream->Sync.Rotation[1], InStream->Sync.Rotation[2]);
+			irr::core::vector3df linvel (InStream->Sync.LinearVelocity[0], InStream->Sync.LinearVelocity[1], InStream->Sync.LinearVelocity[2]);
+			irr::core::vector3df angvel (InStream->Sync.AngularVelocity[0], InStream->Sync.AngularVelocity[1], InStream->Sync.AngularVelocity[2]);
+		
+			DrawMesh->setPosition( pos );
+			DrawMesh->setRotation( rot );
+			Body->setLinearVelocity( linvel );
+			Body->setAngularVelocity( angvel );
+		}
+		else if( InStream->MsgType == ENMT_APPLY_FORCE )
+		{
+			irr::core::vector3df linvel (InStream->ApplyForce.LinearVelocity[0], InStream->ApplyForce.LinearVelocity[1], InStream->ApplyForce.LinearVelocity[2]);
+			irr::core::vector3df angvel (InStream->ApplyForce.AngularVelocity[0], InStream->ApplyForce.AngularVelocity[1], InStream->ApplyForce.AngularVelocity[2]);
 
-		DrawMesh->setPosition( pos );
-		DrawMesh->setRotation( rot );
-		Body->setLinearVelocity( linvel );
-		Body->setAngularVelocity( angvel );
+			Body->applyCentralForce( linvel );
+			Body->applyTorque( angvel );
+		}
 	}
 
 	Body->updateObject();

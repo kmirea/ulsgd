@@ -75,28 +75,6 @@ PhysicsObject* Entity::getPhysicsObject() const
 
 void Entity::update()
 {
-	NetData* Update = NULL;
-	if( Mode == EMM_SERVER && (time_for_next_update <= Game->getTimer()->getTime()
-			|| Physics->getBody()->getCollisionFlags() != ECF_NO_CONTACT_RESPONSE ) )
-	{
-		time_for_next_update = Game->getTimer()->getTime() + MAX_SYNC_TIME;
-		Update = new NetData();
-		Update->grab();
-		Update->MessageStart = Message_Begin;
-		Update->MsgTime = Game->getTimer()->getTime();
-		Update->MsgType = ENMT_SYNC;
-		Update->net_id = Network->getNetID();
-		Update->MessageEnd = Message_End;
-		
-		for( u32 i=0; i<3; i++ )
-		{
-			Update->Sync.Position[i] = Physics->getLocalData().Position[i];
-			Update->Sync.Rotation[i] = Physics->getLocalData().Rotation[i];
-			Update->Sync.LinearVelocity[i] = Physics->getLocalData().LinearVelocity[i];
-			Update->Sync.AngularVelocity[i] = Physics->getLocalData().AngularVelocity[i];
-		}
-	}
-
 	Network->update();
 
 	if( Mode == EMM_SERVER )
@@ -110,8 +88,27 @@ void Entity::update()
 	
 	Physics->update( Network->getInStream() );
 
-	if( Update )
+	NetData* Update = NULL;
+	if( Mode == EMM_SERVER && (time_for_next_update <= Game->getTimer()->getTime()
+			|| Physics->getBody()->getCollisionFlags() != ECF_NO_CONTACT_RESPONSE ) )
 	{
+		time_for_next_update = Game->getTimer()->getTime() + MAX_SYNC_TIME;
+		Update = new NetData();
+		Update->grab();
+		Update->MessageStart = Message_Begin;
+		Update->MsgTime = Game->getTimer()->getTime();
+		Update->MsgType = ENMT_SYNC;
+		Update->net_id = Network->getNetID();
+		Update->MessageEnd = Message_End;
+
+		for( u32 i=0; i<3; i++ )
+		{
+			Update->Sync.Position[i] = Physics->getLocalData().Position[i];
+			Update->Sync.Rotation[i] = Physics->getLocalData().Rotation[i];
+			Update->Sync.LinearVelocity[i] = Physics->getLocalData().LinearVelocity[i];
+			Update->Sync.AngularVelocity[i] = Physics->getLocalData().AngularVelocity[i];
+		}
+
 		Network->sendData( Update );
 		Update->drop();
 	}
