@@ -35,6 +35,8 @@ private:
 	irr::scene::ICameraSceneNode* client_camera;
 
 	bool send_update;
+	irr::core::vector3df update_linvel;
+	irr::core::vector3df update_angvel;
 };
 
 #endif	/* CLIENTOBJECT_H */

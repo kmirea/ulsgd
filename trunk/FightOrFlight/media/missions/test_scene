@@ -31,7 +31,7 @@ entity
 	test_cube
 	10000000
 	-100	0	100
-	0	0	0
+	-20	-20	0
 	21	21	21
 	0	0	0
 	0	0	0
@@ -71,10 +71,10 @@ entity
 /entity
 
 client
-	test_tetra
-	test_tetra
+	test_cube
+	test_cube
 	2
-	-20	-20	-20
+	0	0	0
 	1	1	1
 	1	1	1
 	0	0	0

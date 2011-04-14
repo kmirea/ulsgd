@@ -79,6 +79,10 @@ NetData* getMessage( deque<u8>& Data )
 			memcpy( (void*)&(Out->Sync), (void*)(Buffer+DataIndex), sizeof(NetData::Message_Sync) );
 			DataIndex += sizeof(NetData::Message_Sync);
 			break;
+		case ENMT_APPLY_FORCE:
+			memcpy( (void*)&(Out->ApplyForce), (void*)(Buffer+DataIndex), sizeof(NetData::Message_Apply_Force) );
+			DataIndex += sizeof(NetData::Message_Apply_Force);
+			break;
 		case ENMT_CREATE:
 			memcpy( (void*)&(Out->Create), (void*)(Buffer+DataIndex), sizeof( NetData::Message_Create) );
 			DataIndex += sizeof( NetData::Message_Create);
@@ -135,6 +139,35 @@ deque<u8> makeSyncMessage( NetData* Data )
 		Index+=sizeof(E_NET_MESSAGE_TYPE);
 		memcpy( (void*)(Buffer+Index), (void*)&(Data->Sync), sizeof(NetData::Message_Sync) );
 		Index+=sizeof(NetData::Message_Sync);
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->MessageEnd), sizeof(u8) );
+		Index+=sizeof(u8);
+
+		for( u32 i=0; i<Index; i++ )
+			Output.push_back( Buffer[i] );
+
+		Data->drop();
+	}
+	return Output;
+}
+
+deque<u8> makeApplyMessage( NetData* Data )
+{
+	deque<u8> Output;
+	if( Data != NULL && Data->MsgType == ENMT_APPLY_FORCE )
+	{
+		u8 Buffer [MAX_BUF_SIZE] = {0};
+		ptr Index = 0;
+
+		Buffer[Index++] = Data->MessageStart;
+
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->net_id), sizeof(NETID) );
+		Index+=sizeof(NETID);
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->MsgTime), sizeof(u32) );
+		Index+=sizeof(u32);
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->MsgType), sizeof(E_NET_MESSAGE_TYPE) );
+		Index+=sizeof(E_NET_MESSAGE_TYPE);
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->ApplyForce), sizeof(NetData::Message_Apply_Force) );
+		Index+=sizeof(NetData::Message_Apply_Force);
 		memcpy( (void*)(Buffer+Index), (void*)&(Data->MessageEnd), sizeof(u8) );
 		Index+=sizeof(u8);
 
