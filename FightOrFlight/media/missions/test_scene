@@ -18,7 +18,7 @@ entity
 entity
 	test_cube
 	test_cube
-	10000000
+	1000000
 	0	0	100
 	0	0	0
 	21	21	21

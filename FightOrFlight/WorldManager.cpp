@@ -53,7 +53,7 @@ WorldManager::~WorldManager()
 	Irrlicht->closeDevice();
 }
 
-void WorldManager::update()
+void WorldManager::preUpdate()
 {
 
 	irr::video::IVideoDriver* video = Irrlicht->getVideoDriver();
@@ -63,7 +63,14 @@ void WorldManager::update()
 	irrBullet->stepSimulation( (Game->getTimer()->getTime()-LastTime)*0.001f, 120 );
 	
 	video->beginScene( true, true, irr::video::SColor(255,0,0,255) );
+}
 
+void WorldManager::postUpdate()
+{
+	irr::video::IVideoDriver* video = Irrlicht->getVideoDriver();
+	irr::scene::ISceneManager* scene = Irrlicht->getSceneManager();
+	irr::gui::IGUIEnvironment* gui = Irrlicht->getGUIEnvironment();
+	
 #ifdef DEBUG
 	irrBullet->debugDrawWorld( true );
 	irrBullet->debugDrawProperties( true );
