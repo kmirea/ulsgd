@@ -31,12 +31,14 @@ int main(int argc, char** argv)
 	{
 		Game->getNetworkManager()->update();
 
+		Game->getWorldManager()->preUpdate();
+		
 		for( u32 i=0; i<Game->getEntityList().size(); i++ )
 		{
 			Game->getEntityList()[i]->update();
 		}
 
-		Game->getWorldManager()->update();
+		Game->getWorldManager()->postUpdate();
 
 		Game->getNetworkManager()->sendLocalData();
 	}

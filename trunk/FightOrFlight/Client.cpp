@@ -5,15 +5,6 @@ irr::scene::ICameraSceneNode* debug_cam = NULL;
 
 Client::Client( GameManager* Game, NETID NetID ) : Entity( Game, EMM_CLIENT, NetID )
 {
-	camera_target = Game->getWorldManager()->getIrrlichtDriver()->getSceneManager()->addEmptySceneNode( getPhysicsObject()->getDrawMesh() );
-	camera_target->setPosition( irr::core::vector3df(0,0,1) );
-
-	camera_up = Game->getWorldManager()->getIrrlichtDriver()->getSceneManager()->addEmptySceneNode( getPhysicsObject()->getDrawMesh() );
-	camera_up->setPosition( irr::core::vector3df(0,1,0) );
-
-	camera_side = Game->getWorldManager()->getIrrlichtDriver()->getSceneManager()->addEmptySceneNode( getPhysicsObject()->getDrawMesh() );
-	camera_side->setPosition( irr::core::vector3df(1,0,0) );
-
 	client_camera = Game->getWorldManager()->getIrrlichtDriver()->getSceneManager()->addCameraSceneNode( getPhysicsObject()->getDrawMesh() );
 	client_camera->bindTargetAndRotation( true );
 
@@ -30,9 +21,14 @@ Client::~Client()
 	// TODO
 }
 
+#define accelleration 0.0001f/((Game->getTimer()->getTime() - LastTick)*0.001f)
+
 bool Client::OnEvent( const irr::SEvent& Event )
 {
 	Physics->getBody()->updateObject();
+
+	// We can do joystick input pretty darned easy here. Just need to create a
+	// calibration mechanism to pick our axis
 
 	if( Event.EventType == irr::EET_KEY_INPUT_EVENT )
 	{
@@ -42,57 +38,118 @@ bool Client::OnEvent( const irr::SEvent& Event )
 			if( Event.KeyInput.PressedDown )
 			{
 				send_update = true;
-				update_linvel += ( (camera_target->getAbsolutePosition() -
-						client_camera->getAbsolutePosition()).normalize() * (Game->getTimer()->getTime()-LastTick)/1000.0f * .5 );
-				return true;
+				update_linvel += irr::core::vector3df( 0,0,1 );
 			}
+			break;
 		case irr::KEY_DOWN:
 			if( Event.KeyInput.PressedDown )
 			{
 				send_update = true;
-				update_linvel += ( (camera_target->getAbsolutePosition() -
-						client_camera->getAbsolutePosition()).normalize() * (Game->getTimer()->getTime()-LastTick)/-1000.0f * .5 );
-				return true;
+				update_linvel += irr::core::vector3df( 0,0,-1);
 			}
+			break;
 		case irr::KEY_LEFT:
 			if( Event.KeyInput.PressedDown )
 			{
 				send_update = true;
-				update_linvel += (camera_side->getAbsolutePosition() - client_camera->getAbsolutePosition()).normalize() * (Game->getTimer()->getTime()-LastTick)*.001f * .5;
-				return true;
+				update_linvel += irr::core::vector3df(-1,0,0);
 			}
+			break;
 		case irr::KEY_RIGHT:
 			if( Event.KeyInput.PressedDown )
 			{
 				send_update = true;
-				update_linvel += ( (camera_side->getAbsolutePosition() -
-						client_camera->getAbsolutePosition()).normalize() * (Game->getTimer()->getTime()-LastTick)/-1000.0f * .5 );
-				return true;
+				update_linvel += irr::core::vector3df(1,0,0);
 			}
+			break;
+		case irr::KEY_PRIOR:
+			if( Event.KeyInput.PressedDown )
+			{
+				send_update = true;
+				update_angvel += irr::core::vector3df(0,0,-1);
+			}
+			break;
+		case irr::KEY_HOME:
+			if( Event.KeyInput.PressedDown )
+			{
+				send_update = true;
+				update_angvel += irr::core::vector3df(0,0,1);
+			}
+			break;
+		case irr::KEY_END:
+			if( Event.KeyInput.PressedDown )
+			{
+				send_update = true;
+				update_angvel += irr::core::vector3df(0,-1,0);
+			}
+			break;
+		case irr::KEY_NEXT:
+			if( Event.KeyInput.PressedDown )
+			{
+				send_update = true;
+				update_angvel += irr::core::vector3df(0,1,0);
+			}
+			break;
+		case irr::KEY_PLUS:
+			if( Event.KeyInput.PressedDown )
+			{
+				send_update = true;
+				update_angvel += irr::core::vector3df(-1,0,0);
+			}
+			break;
+		case irr::KEY_MINUS:
+			if( Event.KeyInput.PressedDown )
+			{
+				send_update = true;
+				update_angvel += irr::core::vector3df(1,0,0);
+			}
+			break;
 		}
 	}
+
+	irr::core::matrix4 mat = Physics->getDrawMesh()->getAbsoluteTransformation();
+	mat.rotateVect( update_linvel );
+	update_linvel.setLength( accelleration );
+	mat.rotateVect( update_angvel );
+	update_angvel.setLength( accelleration );
+	
 	return true;
 }
 
 void Client::update()
 {
 	Network->update();
+	NetData* input = Network->getInStream();
+	do
+	{
+		Physics->update( input );
+		Network->update();
+	} while( (input = Network->getInStream()) != NULL );;
+
+	Physics->getDrawMesh()->updateAbsolutePosition();
+
+	irr::core::vector3df target ( 0,0,1 );
+	irr::core::vector3df upvec ( 0,1,0 );
+	Physics->getDrawMesh()->getAbsoluteTransformation().rotateVect( target );
+	Physics->getDrawMesh()->getAbsoluteTransformation().rotateVect( upvec );
+	target += Physics->getDrawMesh()->getAbsolutePosition();
 	
-	Physics->update( Network->getInStream() );
+	client_camera->setTarget( target );
+	client_camera->setUpVector( upvec );
 
-//	if( send_update )
-//		Physics->getBody()->applyCentralForce( update_linvel );
-
-	Physics->update();
-
-	camera_side->updateAbsolutePosition();
-	camera_target->updateAbsolutePosition();
-	camera_up->updateAbsolutePosition();
-	client_camera->updateAbsolutePosition();
-
-	client_camera->setTarget( camera_target->getAbsolutePosition() );
-	client_camera->setUpVector( (camera_up->getAbsolutePosition() - client_camera->getAbsolutePosition()).normalize() );
-
+	if( update_angvel.getLengthSQ() == 0 )
+	{
+		update_angvel = Physics->getBody()->getAngularVelocity() * -1.0f;
+		if( update_angvel.getLengthSQ() != 0 )
+		{
+			if( update_angvel.getLengthSQ() > accelleration * accelleration )
+			{
+				update_angvel.setLength( accelleration );
+			}
+			send_update = true;
+		}
+	}
+	
 	NetData* Update = NULL;
 	if( send_update )
 	{
@@ -112,6 +169,7 @@ void Client::update()
 		Update->ApplyForce.LinearVelocity[2] = update_linvel.Z;
 
 		update_linvel = irr::core::vector3df(0,0,0);
+		update_angvel = irr::core::vector3df(0,0,0);
 
 		send_update = false;
 

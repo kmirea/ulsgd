@@ -25,7 +25,8 @@ protected:
 
 public:
 	bool run();
-	void update();
+	void preUpdate();
+	void postUpdate();
 
 	irr::IrrlichtDevice* getIrrlichtDriver() const;
 	irrBulletWorld* getIrrBulletDriver() const;
