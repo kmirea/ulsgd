@@ -3,7 +3,8 @@
 
 irr::scene::ICameraSceneNode* debug_cam = NULL;
 
-Client::Client( GameManager* Game, NETID NetID ) : Entity( Game, EMM_CLIENT, NetID )
+Client::Client( GameManager* Game, NETID NetID ) : Entity( Game, EMM_CLIENT, NetID ), update_linvel(irr::core::vector3df(0,0,0)),
+		update_angvel(irr::core::vector3df(0,0,0))
 {
 	client_camera = Game->getWorldManager()->getIrrlichtDriver()->getSceneManager()->addCameraSceneNode( getPhysicsObject()->getDrawMesh() );
 	client_camera->bindTargetAndRotation( true );
@@ -12,8 +13,6 @@ Client::Client( GameManager* Game, NETID NetID ) : Entity( Game, EMM_CLIENT, Net
 //	Game->getWorldManager()->getIrrlichtDriver()->getSceneManager()->setActiveCamera( debug_cam );
 
 	send_update = false;
-
-	update_angvel = update_linvel = irr::core::vector3df(0,0,0);
 }
 
 Client::~Client()
@@ -108,16 +107,23 @@ bool Client::OnEvent( const irr::SEvent& Event )
 	}
 
 	irr::core::matrix4 mat = Physics->getDrawMesh()->getAbsoluteTransformation();
-	mat.rotateVect( update_linvel );
-	update_linvel.setLength( accelleration );
-	mat.rotateVect( update_angvel );
-	update_angvel.setLength( accelleration );
+	if( update_linvel.getLengthSQ() != 0 )
+	{
+		mat.rotateVect( update_linvel );
+		update_linvel.setLength( accelleration );
+	}
+	if( update_angvel.getLengthSQ() != 0 )
+	{
+		mat.rotateVect( update_angvel );
+		update_angvel.setLength( accelleration );
+	}
 	
 	return true;
 }
 
 void Client::update()
 {
+
 	Network->update();
 	NetData* input = Network->getInStream();
 	do

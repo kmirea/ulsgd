@@ -2,7 +2,7 @@
 
 #include "GameManager.h"
 
-#define MAX_SYNC_TIME 500
+#define MAX_SYNC_TIME 10
 
 Entity::Entity(GameManager* game, E_MANAGER_MODE mode, NETID netid) : ReferenceCountedObject(),
 		Game(game), Mode(mode),
@@ -84,37 +84,35 @@ void Entity::update()
 		}
 	}
 
-	Network->update();
-	NetData* input = Network->getInStream();
-	do
-	{
-		Physics->update( input );
-		Network->update();
-	} while( (input = Network->getInStream()) != NULL );
 
+
+	Physics->update( input );
+	
 	NetData* Update = NULL;
-	if( Mode == EMM_SERVER && (time_for_next_update <= Game->getTimer()->getTime()
-			|| Physics->getBody()->getCollisionFlags() != ECF_NO_CONTACT_RESPONSE ) )
+	if( Mode == EMM_SERVER )
 	{
-		time_for_next_update = Game->getTimer()->getTime() + MAX_SYNC_TIME;
-		Update = new NetData();
-		Update->grab();
-		Update->MessageStart = Message_Begin;
-		Update->MsgTime = Game->getTimer()->getTime();
-		Update->MsgType = ENMT_SYNC;
-		Update->net_id = Network->getNetID();
-		Update->MessageEnd = Message_End;
-
-		for( u32 i=0; i<3; i++ )
+		if( time_for_next_update <= Game->getTimer()->getTime() )
 		{
-			Update->Sync.Position[i] = Physics->getLocalData().Position[i];
-			Update->Sync.Rotation[i] = Physics->getLocalData().Rotation[i];
-			Update->Sync.LinearVelocity[i] = Physics->getLocalData().LinearVelocity[i];
-			Update->Sync.AngularVelocity[i] = Physics->getLocalData().AngularVelocity[i];
-		}
+			time_for_next_update = Game->getTimer()->getTime() + MAX_SYNC_TIME;
+			Update = new NetData();
+			Update->grab();
+			Update->MessageStart = Message_Begin;
+			Update->MsgTime = Game->getTimer()->getTime();
+			Update->MsgType = ENMT_SYNC;
+			Update->net_id = Network->getNetID();
+			Update->MessageEnd = Message_End;
 
-		Network->sendData( Update );
-		Update->drop();
+			for( u32 i=0; i<3; i++ )
+			{
+				Update->Sync.Position[i] = Physics->getLocalData().Position[i];
+				Update->Sync.Rotation[i] = Physics->getLocalData().Rotation[i];
+				Update->Sync.LinearVelocity[i] = Physics->getLocalData().LinearVelocity[i];
+				Update->Sync.AngularVelocity[i] = Physics->getLocalData().AngularVelocity[i];
+			}
+
+			Network->sendData( Update );
+			Update->drop();
+		}
 	}
 }
 

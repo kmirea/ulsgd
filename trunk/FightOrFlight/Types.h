@@ -19,6 +19,7 @@
 #include <stack>
 #include <queue>
 #include <deque>
+#include <list>
 
 #define OPTIONHEADERTYPE u8
 
@@ -40,6 +41,7 @@ using std::map;
 using std::stack;
 using std::queue;
 using std::deque;
+using std::list;
 
 typedef char c8;
 typedef unsigned char u8;

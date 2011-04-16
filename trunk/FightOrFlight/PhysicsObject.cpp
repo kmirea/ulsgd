@@ -16,11 +16,12 @@ PhysicsObject::PhysicsObject(WorldManager* world, const PhysicsObjectCreationStr
 	irr::core::vector3df linvel (LocalData.LinearVelocity[0],LocalData.LinearVelocity[1],LocalData.LinearVelocity[2]);
 	irr::core::vector3df angvel (LocalData.AngularVelocity[0],LocalData.AngularVelocity[1],LocalData.AngularVelocity[2]);
 
-	DrawMesh = World->getIrrlichtDriver()->getSceneManager()->addMeshSceneNode(mesh, NULL, 0, position, rotation, scale, true);
+	DrawMesh = World->getIrrlichtDriver()->getSceneManager()->addMeshSceneNode(mesh, NULL, 0, position, rotation, irr::core::vector3df(1,1,1), true);
 	DrawMesh->setMaterialTexture(0,tex);
 	DrawMesh->setMaterialFlag( irr::video::EMF_NORMALIZE_NORMALS, true );
 //	DrawMesh->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 	CollMesh = new IGImpactMeshShape(DrawMesh,collmesh,LocalData.Mass);
+	CollMesh->setLocalScaling( scale, ESP_BOTH );
 	Body = World->getIrrBulletDriver()->addRigidBody(CollMesh);
 
 	Body->setLinearVelocity(linvel);
