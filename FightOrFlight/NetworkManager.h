@@ -61,7 +61,7 @@ private:
 
 	NETID next_id_counter;
 	
-	map< NETID, queue<NetData*> > MessageList;
+	map< NETID, list<NetData*> > MessageList;
 	vector<ENetPeer*> PeerList;
 
 	bool isConnected;

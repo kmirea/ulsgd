@@ -1,6 +1,7 @@
 #include "NetworkManager.h"
 #include "GameManager.h"
 #include <enet/enet.h>
+#include <list>
 
 #define MAX_NETWORK_DOWN 1048576/8
 #define MAX_NETWORK_UP 262144/8
@@ -167,20 +168,25 @@ void NetworkManager::update()
 	{
 		if( data->MsgType == ENMT_PING )
 			continue;
-		cout << "Decoded a message..." << endl;
 
-		MessageList[data->net_id].push( data );
+		MessageList[data->net_id].push_back( data );
 
 		if( data->MsgType == ENMT_CREATE )
 		{
 			if( Mode == EMM_CLIENT && FirstConnect )
 			{
+				Game->getTimer()->setTime( data->MsgTime );
 				Game->createClientObject( data->net_id );
 				FirstConnect = false;
 				continue;
 			}
 			Game->createObject( data->net_id );
 		}
+	}
+
+	for( map< NETID, list<NetData*> >::iterator itr = MessageList.begin(); itr != MessageList.end(); itr++ )
+	{
+		itr->second.sort();
 	}
 }
 

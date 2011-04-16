@@ -5,10 +5,10 @@ scene_descrip
 /scene_descrip
 
 entity
-	test_cube
-	test_cube
+	mAsteroid1
+	mAsteroid1
 	1
-	0	0	0
+	100	0	100
 	0	0	0
 	1	1	1
 	0	0	0
@@ -16,42 +16,42 @@ entity
 /entity
 
 entity
-	test_cube
-	test_cube
-	1000000
+	mAsteroid2
+	mAsteroid2
+	10000000
 	0	0	100
 	0	0	0
-	21	21	21
+	1	1	1
 	0	0	0.01
 	0	0	0
 /entity
 
 entity
-	test_cube
-	test_cube
-	10000000
+	mAsteroid3
+	mAsteroid3
+	1
 	-100	0	100
 	-20	-20	0
-	21	21	21
+	1	1	1
 	0	0	0
 	0	0	0
 /entity
 
 entity
-	test_cube
-	test_cube
-	10000000
-	100	0	100
+	sAsteroid1
+	sAsteroid1
+	1
+	200	0	100
 	0	0	0
-	21	21	21
+	1	1	1
 	0	0	0
 	0	0	0
 /entity
 
 entity
-	test_cube
-	test_cube
-	10
+	sAsteroid2
+	sAsteroid2
+	1
 	20	20	0
 	0	0	0
 	2.154435	2.154435	2.154435
@@ -60,9 +60,9 @@ entity
 /entity
 
 entity
-	test_cube
-	test_cube
-	8
+	sAsteroid3
+	sAsteroid3
+	1
 	10	0	10
 	0	0	0
 	2	2	2
