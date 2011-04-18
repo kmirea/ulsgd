@@ -186,7 +186,7 @@ void NetworkManager::update()
 
 	for( map< NETID, list<NetData*> >::iterator itr = MessageList.begin(); itr != MessageList.end(); itr++ )
 	{
-		itr->second.sort();
+		itr->second.sort( netdata_weak_ordering );
 	}
 }
 
