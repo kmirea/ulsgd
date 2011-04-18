@@ -16,6 +16,11 @@ string NetData::getDebugInfo() const
 	return string( "NetData" );
 }
 
+bool netdata_weak_ordering( const NetData* A, const NetData* B )
+{
+	return *A < *B || *A == *B;
+}
+
 inline bool operator< ( const NetData& A, const NetData& B )
 {
 	if( A.MsgType < B.MsgType )
