@@ -75,6 +75,14 @@ PhysicsObject* Entity::getPhysicsObject() const
 
 void Entity::update()
 {
+	Network->update();
+	NetData* input = Network->getInStream();
+	do
+	{
+		Physics->update( input );
+		Network->update();
+	} while( (input = Network->getInStream()) != NULL );
+
 	if( Mode == EMM_SERVER )
 	{
 		for( u32 i=0; i<Game->getEntityList().size(); i++ )
@@ -83,10 +91,6 @@ void Entity::update()
 				Game->getEntityList()[i]->applyGravity( Physics->getDrawMesh()->getPosition(), Physics->getLocalData().Mass );
 		}
 	}
-
-
-
-	Physics->update( input );
 	
 	NetData* Update = NULL;
 	if( Mode == EMM_SERVER )

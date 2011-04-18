@@ -16,29 +16,29 @@ string NetData::getDebugInfo() const
 	return string( "NetData" );
 }
 
-inline bool operator< ( const NetData* A, const NetData* B )
+inline bool operator< ( const NetData& A, const NetData& B )
 {
-	if( A->MsgType < B->MsgType )
+	if( A.MsgType < B.MsgType )
 		return true;
 
-	else if( A->MsgType > B->MsgType )
+	else if( A.MsgType > B.MsgType )
 		return false;
 
-	else if( A->MsgType == B->MsgType )
+	else if( A.MsgType == B.MsgType )
 	{
-		if( A->MsgTime < B->MsgTime )
+		if( A.MsgTime < B.MsgTime )
 			return true;
-		else if( A->MsgTime > B->MsgTime )
+		else if( A.MsgTime > B.MsgTime )
 			return false;
 		else return false;
 	}
 }
 
-inline bool operator==( const NetData* A, const NetData* B )
+inline bool operator==( const NetData& A, const NetData& B )
 {
-	if( A->MsgType != B->MsgType )
+	if( A.MsgType != B.MsgType )
 		return false;
-	if( A->MsgTime != B->MsgTime )
+	if( A.MsgTime != B.MsgTime )
 		return false;
 	return true;
 }
