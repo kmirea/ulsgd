@@ -130,7 +130,7 @@ void Client::update()
 	{
 		Physics->update( input );
 		Network->update();
-	} while( (input = Network->getInStream()) != NULL );;
+	} while( (input = Network->getInStream()) != NULL );
 
 	Physics->getDrawMesh()->updateAbsolutePosition();
 

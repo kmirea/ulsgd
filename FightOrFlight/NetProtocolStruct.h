@@ -83,8 +83,8 @@ protected:
 
 #define MAX_BUF_SIZE sizeof(u8)+sizeof(NETID)+sizeof(u32)+sizeof(E_NET_MESSAGE_TYPE)+sizeof(NetData::Message_Create) + sizeof(u8)
 
-inline bool operator< ( const NetData* A, const NetData* B );
-inline bool operator==( const NetData* A, const NetData* B );
+inline bool operator< ( const NetData& A, const NetData& B );
+inline bool operator==( const NetData& A, const NetData& B );
 
 // Helper functions
 NetData* getMessage( deque<u8>& Data );

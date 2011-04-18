@@ -276,7 +276,7 @@ NetData* NetworkManager::getUpdateData( NETID NetObject )
 	if( MessageList[NetObject].size() > 0 )
 	{
 		UpdateData = MessageList[NetObject].front();
-		MessageList[NetObject].pop();
+		MessageList[NetObject].pop_front();
 	}
 
 	return UpdateData;
