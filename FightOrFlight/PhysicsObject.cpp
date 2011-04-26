@@ -2,7 +2,7 @@
 #include "WorldManager.h"
 
 PhysicsObject::PhysicsObject(WorldManager* world, const PhysicsObjectCreationStruct& POCS) : ReferenceCountedObject(),
-		World(world), LocalData(POCS), DrawMesh(NULL), Body(NULL), CollMesh(NULL)
+		World(world), LocalData(POCS), DrawMesh(NULL), Body(NULL), CollMesh(NULL), gotLocalData(false)
 {
 	cout << getDebugInfo() << endl;
 
@@ -19,15 +19,18 @@ PhysicsObject::PhysicsObject(WorldManager* world, const PhysicsObjectCreationStr
 	DrawMesh = World->getIrrlichtDriver()->getSceneManager()->addMeshSceneNode(mesh, NULL, 0, position, rotation, irr::core::vector3df(1,1,1), true);
 	DrawMesh->setMaterialTexture(0,tex);
 	DrawMesh->setMaterialFlag( irr::video::EMF_NORMALIZE_NORMALS, true );
-//	DrawMesh->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 	CollMesh = new IGImpactMeshShape(DrawMesh,collmesh,LocalData.Mass);
 	CollMesh->setLocalScaling( scale, ESP_BOTH );
 	Body = World->getIrrBulletDriver()->addRigidBody(CollMesh);
 
+	Body->setActivationState( EAS_ACTIVE );
+	Body->setSleepingThresholds( 0.0001f, 0.0001f );
+	Body->setContactProcessingThreshold( collmesh->getBoundingBox().getExtent().getLength() * 2 );
+	
 	Body->setLinearVelocity(linvel);
 	Body->setAngularVelocity(angvel);
-
-	Body->setActivationState( EAS_DISABLE_DEACTIVATION );
+	
+	Body->setActivationState( EAS_WANTS_DEACTIVATION );
 }
 
 PhysicsObject::~PhysicsObject()
@@ -44,13 +47,15 @@ void PhysicsObject::update( NetData* InStream )
 {
 	if( InStream != NULL )
 	{
+		Body->activate();
+		
 		if( InStream->MsgType == ENMT_SYNC )
 		{
 			irr::core::vector3df pos (InStream->Sync.Position[0], InStream->Sync.Position[1], InStream->Sync.Position[2]);
 			irr::core::vector3df rot (InStream->Sync.Rotation[0], InStream->Sync.Rotation[1], InStream->Sync.Rotation[2]);
 			irr::core::vector3df linvel (InStream->Sync.LinearVelocity[0], InStream->Sync.LinearVelocity[1], InStream->Sync.LinearVelocity[2]);
 			irr::core::vector3df angvel (InStream->Sync.AngularVelocity[0], InStream->Sync.AngularVelocity[1], InStream->Sync.AngularVelocity[2]);
-		
+			
 			DrawMesh->setPosition( pos );
 			DrawMesh->setRotation( rot );
 			Body->setLinearVelocity( linvel );
@@ -68,26 +73,33 @@ void PhysicsObject::update( NetData* InStream )
 
 	Body->updateObject();
 	DrawMesh->updateAbsolutePosition();
-
-	LocalData.Position[0] = DrawMesh->getPosition().X;
-	LocalData.Position[1] = DrawMesh->getPosition().Y;
-	LocalData.Position[2] = DrawMesh->getPosition().Z;
-
-	LocalData.Rotation[0] = DrawMesh->getRotation().X;
-	LocalData.Rotation[1] = DrawMesh->getRotation().Y;
-	LocalData.Rotation[2] = DrawMesh->getRotation().Z;
-
-	LocalData.LinearVelocity[0] = Body->getLinearVelocity().X;
-	LocalData.LinearVelocity[1] = Body->getLinearVelocity().Y;
-	LocalData.LinearVelocity[2] = Body->getLinearVelocity().Z;
-
-	LocalData.AngularVelocity[0] = Body->getAngularVelocity().X;
-	LocalData.AngularVelocity[1] = Body->getAngularVelocity().Y;
-	LocalData.AngularVelocity[2] = Body->getAngularVelocity().Z;
+	
+	gotLocalData = false;
 }
 
-const PhysicsObjectCreationStruct& PhysicsObject::getLocalData() const
+const PhysicsObjectCreationStruct& PhysicsObject::getLocalData()
 {
+	if( !gotLocalData )
+	{
+		LocalData.Position[0] = DrawMesh->getPosition().X;
+		LocalData.Position[1] = DrawMesh->getPosition().Y;
+		LocalData.Position[2] = DrawMesh->getPosition().Z;
+
+		LocalData.Rotation[0] = DrawMesh->getRotation().X;
+		LocalData.Rotation[1] = DrawMesh->getRotation().Y;
+		LocalData.Rotation[2] = DrawMesh->getRotation().Z;
+
+		LocalData.LinearVelocity[0] = Body->getLinearVelocity().X;
+		LocalData.LinearVelocity[1] = Body->getLinearVelocity().Y;
+		LocalData.LinearVelocity[2] = Body->getLinearVelocity().Z;
+
+		LocalData.AngularVelocity[0] = Body->getAngularVelocity().X;
+		LocalData.AngularVelocity[1] = Body->getAngularVelocity().Y;
+		LocalData.AngularVelocity[2] = Body->getAngularVelocity().Z;
+		
+		gotLocalData = true;
+	}
+	
 	return LocalData;
 }
 
