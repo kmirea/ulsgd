@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="69">
-  <logicalFolder name="root" displayName="root" projectFiles="true">
+<configurationDescriptor version="79">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
-                   projectFiles="true"
-                   kind="SOURCE_LOGICAL_FOLDER">
+                   projectFiles="true">
       <itemPath>Client.h</itemPath>
       <itemPath>Entity.h</itemPath>
       <itemPath>GUIManager.h</itemPath>
@@ -21,13 +20,11 @@
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
-                   projectFiles="true"
-                   kind="SOURCE_LOGICAL_FOLDER">
+                   projectFiles="true">
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
-                   projectFiles="true"
-                   kind="SOURCE_LOGICAL_FOLDER">
+                   projectFiles="true">
       <itemPath>Client.cpp</itemPath>
       <itemPath>Entity.cpp</itemPath>
       <itemPath>GameManager.cpp</itemPath>
@@ -56,9 +53,8 @@
   <confs>
     <conf name="Debug_Linux" type="1">
       <toolsSet>
-        <developmentServer>localhost</developmentServer>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>GNU|GNU</compilerSet>
-        <platform>2</platform>
       </toolsSet>
       <compileType>
         <cTool>
@@ -80,9 +76,8 @@
     </conf>
     <conf name="Release_Linux" type="1">
       <toolsSet>
-        <developmentServer>localhost</developmentServer>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>GNU|GNU</compilerSet>
-        <platform>2</platform>
       </toolsSet>
       <compileType>
         <cTool>
@@ -106,9 +101,8 @@
     </conf>
     <conf name="Debug_Win32" type="1">
       <toolsSet>
-        <developmentServer>localhost</developmentServer>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>MinGW|MinGW</compilerSet>
-        <platform>3</platform>
       </toolsSet>
       <compileType>
         <cTool>
@@ -153,9 +147,8 @@
     </conf>
     <conf name="Release_Win32" type="1">
       <toolsSet>
-        <developmentServer>localhost</developmentServer>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>MinGW|MinGW</compilerSet>
-        <platform>3</platform>
       </toolsSet>
       <compileType>
         <cTool>
@@ -188,9 +181,8 @@
     </conf>
     <conf name="Debug_Linux_Server" type="1">
       <toolsSet>
-        <developmentServer>localhost</developmentServer>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>GNU|GNU</compilerSet>
-        <platform>2</platform>
       </toolsSet>
       <compileType>
         <cTool>

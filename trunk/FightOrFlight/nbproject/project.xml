@@ -12,11 +12,26 @@
             <make-dep-projects/>
             <sourceRootList/>
             <confList>
-                <confElem>Debug_Linux</confElem>
-                <confElem>Release_Linux</confElem>
-                <confElem>Debug_Win32</confElem>
-                <confElem>Release_Win32</confElem>
-                <confElem>Debug_Linux_Server</confElem>
+                <confElem>
+                    <name>Debug_Linux</name>
+                    <type>1</type>
+                </confElem>
+                <confElem>
+                    <name>Release_Linux</name>
+                    <type>1</type>
+                </confElem>
+                <confElem>
+                    <name>Debug_Win32</name>
+                    <type>1</type>
+                </confElem>
+                <confElem>
+                    <name>Release_Win32</name>
+                    <type>1</type>
+                </confElem>
+                <confElem>
+                    <name>Debug_Linux_Server</name>
+                    <type>1</type>
+                </confElem>
             </confList>
         </data>
     </configuration>
