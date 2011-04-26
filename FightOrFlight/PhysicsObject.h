@@ -37,7 +37,7 @@ protected:
 public:
 	void update( NetData* InStream = NULL );
 
-	const PhysicsObjectCreationStruct& getLocalData() const;
+	const PhysicsObjectCreationStruct& getLocalData();
 
 	irr::scene::ISceneNode* getDrawMesh() const;
 	IRigidBody* getBody() const;
@@ -53,6 +53,8 @@ private:
 	irr::scene::ISceneNode* DrawMesh;
 	IRigidBody* Body;
 	IGImpactMeshShape* CollMesh;
+	
+	bool gotLocalData;
 };
 
 #endif	/* PHYSICSOBJECT_H */
