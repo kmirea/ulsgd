@@ -17,19 +17,20 @@ RANLIB=ranlib
 CC=gcc
 CCC=g++
 CXX=g++
-FC=
+FC=gfortran
 AS=as
 
 # Macros
 CND_PLATFORM=GNU-Linux-x86
 CND_CONF=Debug_Linux
 CND_DISTDIR=dist
+CND_BUILDDIR=build
 
 # Include project Makefile
 include Makefile
 
 # Object Directory
-OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
+OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
@@ -64,10 +65,10 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Debug_Linux.mk dist/Debug_Linux/GNU-Linux-x86/fightorflight
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/fightorflight
 
-dist/Debug_Linux/GNU-Linux-x86/fightorflight: ${OBJECTFILES}
-	${MKDIR} -p dist/Debug_Linux/GNU-Linux-x86
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/fightorflight: ${OBJECTFILES}
+	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} `pkg-config --libs irrBullet enet` -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/fightorflight  ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/Types.o: Types.cpp 
@@ -130,8 +131,8 @@ ${OBJECTDIR}/Entity.o: Entity.cpp
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
-	${RM} -r build/Debug_Linux
-	${RM} dist/Debug_Linux/GNU-Linux-x86/fightorflight
+	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/fightorflight
 
 # Subprojects
 .clean-subprojects:
