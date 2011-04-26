@@ -1,3 +1,7 @@
+#include <irrlicht/EDriverTypes.h>
+#include <irrlicht/IrrlichtDevice.h>
+#include <irrlicht/irrArray.h>
+
 #include "GameManager.h"
 #include "WorldManager.h"
 #include "PhysicsObject.h"
@@ -24,6 +28,9 @@ WorldManager::WorldManager(GameManager* game, E_MANAGER_MODE mode) :
 		light->setLightType( irr::video::ELT_POINT );
 		light->setRadius( 1000 );
 		light->setPosition( irr::core::vector3df(0, 500, 0) );
+		
+		irr::core::array<irr::SJoystickInfo> joystick_info;
+		Irrlicht->activateJoysticks( joystick_info );
 	}
 	else if ( Mode == EMM_SERVER )
 	{
@@ -35,12 +42,13 @@ WorldManager::WorldManager(GameManager* game, E_MANAGER_MODE mode) :
 		exit(EXIT_FAILURE);
 	}
 
-	irrBullet = new
+	irrBullet = new	irrBulletWorld( Irrlicht, true,
 #ifdef DEBUG
-			irrBulletWorld( Irrlicht, true, true );
+		true
 #else
-			irrBulletWorld( Irrlicht, true, false);
+		false
 #endif
+			);
 	irrBullet->setGravity( irr::core::vector3df(0,0,0) );
 
 	LastTime = Irrlicht->getTimer()->getTime();
@@ -60,7 +68,8 @@ void WorldManager::preUpdate()
 	irr::scene::ISceneManager* scene = Irrlicht->getSceneManager();
 	irr::gui::IGUIEnvironment* gui = Irrlicht->getGUIEnvironment();
 
-	irrBullet->stepSimulation( (Game->getTimer()->getTime()-LastTime)*0.001f, 120 );
+	irrBullet->stepSimulation( (Game->getTimer()->getTime()-LastTime)/1000.0f, 120, 1.0f/60.0f );
+	//irrBullet->stepSimulation( (Game->getTimer()->getTime()-LastTime)/1000.0f );
 	
 	video->beginScene( true, true, irr::video::SColor(255,0,0,255) );
 }
@@ -80,6 +89,8 @@ void WorldManager::postUpdate()
 	gui->drawAll();
 
 	video->endScene();
+	
+	LastTime = Game->getTimer()->getTime();
 }
 
 bool WorldManager::run()

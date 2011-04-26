@@ -40,8 +40,6 @@ Entity::Entity(GameManager* game, E_MANAGER_MODE mode, NETID netid) : ReferenceC
 	Physics->grab();
 
 	time_for_next_update = Game->getTimer()->getTime() + MAX_SYNC_TIME;
-
-
 }
 
 Entity::Entity(GameManager* game, E_MANAGER_MODE mode, NETID NetID, PhysicsObject* physics ) :
@@ -54,6 +52,9 @@ Entity::Entity(GameManager* game, E_MANAGER_MODE mode, NETID NetID, PhysicsObjec
 	Game->grab();
 	Network->grab();
 	Physics->grab();
+	
+	time_for_next_update = Game->getTimer()->getTime();
+	Physics->getBody()->activate( true );
 }
 
 Entity::~Entity()
@@ -75,6 +76,15 @@ PhysicsObject* Entity::getPhysicsObject() const
 
 void Entity::update()
 {
+	if( Mode == EMM_CLIENT )
+	{
+		if( time_for_next_update <= Game->getTimer()->getTime() )
+		{
+			Physics->getBody()->activate( true );
+			time_for_next_update = Game->getTimer()->getTime() + MAX_SYNC_TIME;
+		}
+	}
+	
 	Network->update();
 	NetData* input = Network->getInStream();
 	do
@@ -82,7 +92,8 @@ void Entity::update()
 		Physics->update( input );
 		Network->update();
 	} while( (input = Network->getInStream()) != NULL );
-
+		
+	NetData* Update = NULL;
 	if( Mode == EMM_SERVER )
 	{
 		for( u32 i=0; i<Game->getEntityList().size(); i++ )
@@ -90,14 +101,14 @@ void Entity::update()
 			if( Game->getEntityList()[i] != this )
 				Game->getEntityList()[i]->applyGravity( Physics->getDrawMesh()->getPosition(), Physics->getLocalData().Mass );
 		}
-	}
-	
-	NetData* Update = NULL;
-	if( Mode == EMM_SERVER )
-	{
+		
+		Physics->update();
+		
 		if( time_for_next_update <= Game->getTimer()->getTime() )
 		{
+			Physics->getBody()->activate( true );
 			time_for_next_update = Game->getTimer()->getTime() + MAX_SYNC_TIME;
+			
 			Update = new NetData();
 			Update->grab();
 			Update->MessageStart = Message_Begin;
@@ -106,14 +117,21 @@ void Entity::update()
 			Update->net_id = Network->getNetID();
 			Update->MessageEnd = Message_End;
 
-			for( u32 i=0; i<3; i++ )
-			{
-				Update->Sync.Position[i] = Physics->getLocalData().Position[i];
-				Update->Sync.Rotation[i] = Physics->getLocalData().Rotation[i];
-				Update->Sync.LinearVelocity[i] = Physics->getLocalData().LinearVelocity[i];
-				Update->Sync.AngularVelocity[i] = Physics->getLocalData().AngularVelocity[i];
-			}
+			Update->Sync.Position[0] = Physics->getLocalData().Position[0];
+			Update->Sync.Rotation[0] = Physics->getLocalData().Rotation[0];
+			Update->Sync.LinearVelocity[0] = Physics->getLocalData().LinearVelocity[0];
+			Update->Sync.AngularVelocity[0] = Physics->getLocalData().AngularVelocity[0];
 
+			Update->Sync.Position[1] = Physics->getLocalData().Position[1];
+			Update->Sync.Rotation[1] = Physics->getLocalData().Rotation[1];
+			Update->Sync.LinearVelocity[1] = Physics->getLocalData().LinearVelocity[1];
+			Update->Sync.AngularVelocity[1] = Physics->getLocalData().AngularVelocity[1];
+
+			Update->Sync.Position[2] = Physics->getLocalData().Position[2];
+			Update->Sync.Rotation[2] = Physics->getLocalData().Rotation[2];
+			Update->Sync.LinearVelocity[2] = Physics->getLocalData().LinearVelocity[2];
+			Update->Sync.AngularVelocity[2] = Physics->getLocalData().AngularVelocity[2];
+			
 			Network->sendData( Update );
 			Update->drop();
 		}
