@@ -29,14 +29,17 @@ protected:
 	virtual string getDebugInfo() const;
 
 private:
+	void CalculateForces();
+	
 	irr::scene::ISceneNode* camera_target;
 	irr::scene::ISceneNode* camera_up;
 	irr::scene::ISceneNode* camera_side;
 	irr::scene::ICameraSceneNode* client_camera;
 
-	bool send_update;
-	irr::core::vector3df update_linvel;
-	irr::core::vector3df update_angvel;
+	bool send_ang_update;
+	bool send_lin_update;
+	irr::core::vector3df update_lin_force;
+	irr::core::vector3df update_ang_force;
 };
 
 #endif	/* CLIENTOBJECT_H */
