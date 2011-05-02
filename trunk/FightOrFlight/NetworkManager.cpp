@@ -1,5 +1,6 @@
 #include "NetworkManager.h"
 #include "GameManager.h"
+#include "Timer.h"
 #include <enet/enet.h>
 #include <list>
 
@@ -83,7 +84,7 @@ void NetworkManager::update()
 {
 	ENetEvent event;
 
-	u32 curr_time = Game->getTimer()->getTime();
+	u32 curr_time = Game->getTimer()->getTimeMS();
 	u32 target_time = curr_time + MAX_WAIT_TIME;
 	while( enet_host_service( netinterface, &event, target_time - curr_time ) > 0 )
 	{
@@ -158,7 +159,8 @@ void NetworkManager::update()
 			cout << "No Event\r";
 			break;
 		}
-		curr_time = Game->getTimer()->getTime();
+		
+		curr_time = Game->getTimer()->getTimeMS();
 	}
 
 	if( PeerList.size() == 0 && Mode == EMM_CLIENT )
@@ -176,7 +178,7 @@ void NetworkManager::update()
 		{
 			if( Mode == EMM_CLIENT && FirstConnect )
 			{
-				Game->getTimer()->setTime( data->MsgTime );
+				Game->getTimer()->tick( data->MsgTime );
 				Game->createClientObject( data->net_id );
 				FirstConnect = false;
 				continue;

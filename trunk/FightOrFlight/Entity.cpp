@@ -6,8 +6,7 @@
 
 Entity::Entity(GameManager* game, E_MANAGER_MODE mode, NETID netid) : ReferenceCountedObject(),
 		Game(game), Mode(mode),
-		Network( new NetworkObject( game->getNetworkManager(), netid) ),
-		LastTick(Game->getTimer()->getTime())
+		Network( new NetworkObject( game->getNetworkManager(), netid) )
 {
 	PhysicsObjectCreationStruct pocs;
 
@@ -39,21 +38,20 @@ Entity::Entity(GameManager* game, E_MANAGER_MODE mode, NETID netid) : ReferenceC
 	Network->grab();
 	Physics->grab();
 
-	time_for_next_update = Game->getTimer()->getTime() + MAX_SYNC_TIME;
+	time_for_next_update = Game->getTimer()->getTimeMS() + MAX_SYNC_TIME;
 }
 
 Entity::Entity(GameManager* game, E_MANAGER_MODE mode, NETID NetID, PhysicsObject* physics ) :
 		ReferenceCountedObject(), Game(game), Mode(mode),
 		Network( new NetworkObject (game->getNetworkManager(), NetID) ),
-		Physics(physics),
-		LastTick(Game->getTimer()->getTime())
+		Physics(physics)
 
 {
 	Game->grab();
 	Network->grab();
 	Physics->grab();
 	
-	time_for_next_update = Game->getTimer()->getTime();
+	time_for_next_update = Game->getTimer()->getTimeMS();
 	Physics->getBody()->activate( true );
 }
 
@@ -78,10 +76,10 @@ void Entity::update()
 {
 	if( Mode == EMM_CLIENT )
 	{
-		if( time_for_next_update <= Game->getTimer()->getTime() )
+		if( time_for_next_update <= Game->getTimer()->getTimeMS() )
 		{
 			Physics->getBody()->activate( true );
-			time_for_next_update = Game->getTimer()->getTime() + MAX_SYNC_TIME;
+			time_for_next_update = Game->getTimer()->getTimeMS() + MAX_SYNC_TIME;
 		}
 	}
 	
@@ -104,15 +102,15 @@ void Entity::update()
 		
 		Physics->update();
 		
-		if( time_for_next_update <= Game->getTimer()->getTime() )
+		if( time_for_next_update <= Game->getTimer()->getTimeMS() )
 		{
 			Physics->getBody()->activate( true );
-			time_for_next_update = Game->getTimer()->getTime() + MAX_SYNC_TIME;
+			time_for_next_update = Game->getTimer()->getTimeMS() + MAX_SYNC_TIME;
 			
 			Update = new NetData();
 			Update->grab();
 			Update->MessageStart = Message_Begin;
-			Update->MsgTime = Game->getTimer()->getTime();
+			Update->MsgTime = Game->getTimer()->getTimeMS();
 			Update->MsgType = ENMT_SYNC;
 			Update->net_id = Network->getNetID();
 			Update->MessageEnd = Message_End;
@@ -147,7 +145,7 @@ void Entity::applyGravity( const irr::core::vector3df& OtherPosition, f32 Mass )
 
 	f32 force = BIG_G * Mass * Physics->getLocalData().Mass / distance_sqr;
 
-	force_vec *= force * (Game->getTimer()->getTime() - LastTick)/1000.0f;
+	force_vec *= force * (Game->getTimer()->getTickS());
 
 	Physics->getBody()->applyCentralForce( force_vec );
 }
@@ -163,7 +161,7 @@ void Entity::syncCreate() const
 	
 	data->MessageStart = Message_Begin;
 	data->net_id = Network->getNetID();
-	data->MsgTime = Game->getTimer()->getTime();
+	data->MsgTime = Game->getTimer()->getTimeMS();
 	data->MsgType = ENMT_CREATE;
 
 	strncpy( data->Create.Meshname, Physics->getLocalData().MeshName.c_str(), 15 );

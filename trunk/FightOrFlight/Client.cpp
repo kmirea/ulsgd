@@ -23,7 +23,7 @@ Client::~Client()
 	// TODO
 }
 
-#define accell(x) x/((Game->getTimer()->getTime() - LastTick)*0.001f)
+#define accell(x) x/Game->getTimer()->getTimeS()
 #define lin_accell 1.0f
 #define ang_accell 0.1f
 
@@ -91,7 +91,7 @@ void Client::update()
 	
 	if( update_ang_force.getLengthSQ() == 0 && !send_ang_update )
 	{
-		f32 dt = (Game->getTimer()->getTime() - LastTick)*.001f;
+		f32 dt = (Game->getTimer()->getTimeS());
 		if( dt <= 0.0f )
 		{
 			dt = 0.0001f;
@@ -106,7 +106,7 @@ void Client::update()
 		Update = new NetData();
 		Update->grab();
 		Update->MessageStart = Message_Begin;
-		Update->MsgTime = Game->getTimer()->getTime();
+		Update->MsgTime = Game->getTimer()->getTimeMS();
 		Update->MsgType = ENMT_APPLY_FORCE;
 		Update->net_id = Network->getNetID();
 		Update->MessageEnd = Message_End;
@@ -126,8 +126,6 @@ void Client::update()
 		Network->sendData( Update );
 		Update->drop();
 	}
-	
-	LastTick = Game->getTimer()->getTime();
 }
 
 string Client::getDebugInfo() const
@@ -153,7 +151,7 @@ void Client::CalculateForces()
 		mat.rotateVect( update_ang_force );
 	}
 	
-	f32 dt = (Game->getTimer()->getTime() - LastTick)*.001f;
+	f32 dt = (Game->getTimer()->getTimeS());
 	irr::core::vector3df al, vil, vfl, aa, via, vfa;
 	al = update_lin_force / Physics->getLocalData().Mass;
 	vil = Physics->getBody()->getLinearVelocity();

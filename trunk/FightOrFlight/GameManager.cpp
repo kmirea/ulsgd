@@ -11,6 +11,9 @@ GameManager::GameManager( u32 argc, c8** argv ) : ReferenceCountedObject(), Clie
 			Network = new NetworkManager( this, Mode );
 			World = new WorldManager( this, Mode );
 
+			Clock = new Timer( this );
+			Clock->grab();
+			
 			if( !loadScene( string(argv[2]) ) )
 			{
 				cerr << "Please specify a valid scene file..." << endl;
@@ -34,12 +37,12 @@ GameManager::GameManager( u32 argc, c8** argv ) : ReferenceCountedObject(), Clie
 		Network->setConnectionAddress( Address );
 
 		World = new WorldManager( this, Mode );
+		Clock = new Timer( this );
+		Clock->grab();
 	}
 
 	Network->grab();
 	World->grab();
-
-	getTimer()->start();
 //	GUI = new GUIManager( this );
 //	Sound = new SoundManager( this );
 }
@@ -50,6 +53,8 @@ GameManager::~GameManager()
 
 bool GameManager::run()
 {
+	Clock->tick();
+	
 	return ( World->run() && Network->run() );
 }
 
@@ -198,9 +203,9 @@ bool GameManager::loadScene(string filename)
 	return true;
 }
 
-irr::ITimer* GameManager::getTimer()
+Timer* GameManager::getTimer() const
 {
-	return World->getIrrlichtDriver()->getTimer();
+	return Clock;
 }
 
 void GameManager::endGame()

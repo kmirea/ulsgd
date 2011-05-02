@@ -42,6 +42,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/WorldManager.o \
 	${OBJECTDIR}/Client.o \
 	${OBJECTDIR}/NetProtocolStruct.o \
+	${OBJECTDIR}/Timer.o \
 	${OBJECTDIR}/PhysicsObject.o \
 	${OBJECTDIR}/ReferenceCountedObject.o \
 	${OBJECTDIR}/Entity.o
@@ -110,6 +111,11 @@ ${OBJECTDIR}/NetProtocolStruct.o: NetProtocolStruct.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetProtocolStruct.o NetProtocolStruct.cpp
+
+${OBJECTDIR}/Timer.o: Timer.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Timer.o Timer.cpp
 
 ${OBJECTDIR}/PhysicsObject.o: PhysicsObject.cpp 
 	${MKDIR} -p ${OBJECTDIR}
