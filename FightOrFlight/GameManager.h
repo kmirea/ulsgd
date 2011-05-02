@@ -13,6 +13,7 @@
 #include "GUIManager.h"
 #include "Entity.h"
 #include "SoundManager.h"
+#include "Timer.h"
 
 class GameManager : public ReferenceCountedObject
 {
@@ -38,7 +39,7 @@ public:
 
 	const vector<Entity*>& getEntityList() const;
 	const PhysicsObjectCreationStruct& getClientPOCS() const;
-	irr::ITimer* getTimer();
+	Timer* getTimer() const;
 
 	void endGame();
 
@@ -60,6 +61,8 @@ private:
 
 	string ScenarioName;
 	string ScenarioDescrip;
+	
+	Timer* Clock;
 
 	PhysicsObjectCreationStruct ClientCreationStruct;
 };

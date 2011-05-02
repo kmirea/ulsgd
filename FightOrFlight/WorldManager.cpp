@@ -50,8 +50,6 @@ WorldManager::WorldManager(GameManager* game, E_MANAGER_MODE mode) :
 #endif
 			);
 	irrBullet->setGravity( irr::core::vector3df(0,0,0) );
-
-	LastTime = Irrlicht->getTimer()->getTime();
 }
 
 WorldManager::~WorldManager()
@@ -68,7 +66,7 @@ void WorldManager::preUpdate()
 	irr::scene::ISceneManager* scene = Irrlicht->getSceneManager();
 	irr::gui::IGUIEnvironment* gui = Irrlicht->getGUIEnvironment();
 
-	irrBullet->stepSimulation( (Game->getTimer()->getTime()-LastTime)/1000.0f, 120, 1.0f/60.0f );
+	irrBullet->stepSimulation( Game->getTimer()->getTickS(), 120, 1.0f/60.0f );
 	//irrBullet->stepSimulation( (Game->getTimer()->getTime()-LastTime)/1000.0f );
 	
 	video->beginScene( true, true, irr::video::SColor(255,0,0,255) );
@@ -89,8 +87,6 @@ void WorldManager::postUpdate()
 	gui->drawAll();
 
 	video->endScene();
-	
-	LastTime = Game->getTimer()->getTime();
 }
 
 bool WorldManager::run()
