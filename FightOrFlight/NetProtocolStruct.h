@@ -20,7 +20,7 @@ enum E_NET_MESSAGE_TYPE
 {
 	ENMT_PING=0,
 	ENMT_SYNC,
-	ENMT_APPLY_FORCE,
+	ENMT_INPUT,
 	ENMT_CREATE,
 	ENMT_DESTROY,
 
@@ -50,11 +50,15 @@ public:
 		f32 AngularVelocity [3];
 	} Sync;
 
-	struct Message_Apply_Force
+	struct Message_Input
 	{
-		f32 LinearVelocity [3];
-		f32 AngularVelocity[3];
-	} ApplyForce;
+		f32 AXIS_Pitch;
+		f32 AXIS_Yaw;
+		f32 AXIS_Roll;
+		f32 AXIS_Throttle;
+		
+		bool Trigger;
+	} Input;
 
 	// used for passing object creation commands
 	struct Message_Create
@@ -91,7 +95,7 @@ inline bool operator==( const NetData& A, const NetData& B );
 NetData* getMessage( deque<u8>& Data );
 
 deque<u8> makeSyncMessage( NetData* Data );
-deque<u8> makeApplyMessage( NetData* Data );
+deque<u8> makeInputMessage( NetData* Data );
 deque<u8> makeCreateMessage( NetData* Data );
 deque<u8> makeDestroyMessage( NetData* Data );
 

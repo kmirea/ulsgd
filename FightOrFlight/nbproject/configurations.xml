@@ -15,7 +15,6 @@
       <itemPath>ReferenceCountedObject.h</itemPath>
       <itemPath>SoundManager.h</itemPath>
       <itemPath>SoundObject.h</itemPath>
-      <itemPath>Timer.cpp</itemPath>
       <itemPath>Timer.h</itemPath>
       <itemPath>Types.h</itemPath>
       <itemPath>WorldManager.h</itemPath>
@@ -35,6 +34,7 @@
       <itemPath>NetworkObject.cpp</itemPath>
       <itemPath>PhysicsObject.cpp</itemPath>
       <itemPath>ReferenceCountedObject.cpp</itemPath>
+      <itemPath>Timer.cpp</itemPath>
       <itemPath>Types.cpp</itemPath>
       <itemPath>WorldManager.cpp</itemPath>
       <itemPath>main.cpp</itemPath>

@@ -33,16 +33,19 @@ public:
 	void syncCreate() const;
 	
 protected:
+	void CalculateForces( const NetData::Message_Input& );
+	void CalculateSlowDown();
+	
 	virtual string getDebugInfo() const;
-
-	u32 time_for_next_update;
+	
 	NetworkObject* Network;
 	PhysicsObject* Physics;
 
 	GameManager* Game;
 	E_MANAGER_MODE Mode;
 
-	u32 LastTick;
+	u32 TimeForNextTrigger;
+	u32 time_for_next_update;
 };
 
 #endif	/* ENTITY_H */
