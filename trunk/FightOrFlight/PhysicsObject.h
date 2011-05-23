@@ -35,7 +35,7 @@ protected:
 	virtual ~PhysicsObject();
 
 public:
-	void update( NetData* InStream = NULL );
+	void update();
 
 	const PhysicsObjectCreationStruct& getLocalData();
 

@@ -36,10 +36,9 @@ private:
 	irr::scene::ISceneNode* camera_side;
 	irr::scene::ICameraSceneNode* client_camera;
 
-	bool send_ang_update;
-	bool send_lin_update;
-	irr::core::vector3df update_lin_force;
-	irr::core::vector3df update_ang_force;
+	NetData::Message_Input InputData;
+	
+	bool SendUpdate;
 };
 
 #endif	/* CLIENTOBJECT_H */

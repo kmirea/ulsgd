@@ -205,8 +205,8 @@ void NetworkManager::sendLocalData()
 			deque<u8> streambuffer;
 			if( OutData->MsgType == ENMT_SYNC )
 				streambuffer = makeSyncMessage( OutData );
-			else if( OutData->MsgType == ENMT_APPLY_FORCE )
-				streambuffer = makeApplyMessage( OutData );
+			else if( OutData->MsgType == ENMT_INPUT )
+				streambuffer = makeInputMessage( OutData );
 			while( streambuffer.size() > 0 )
 			{
 				OutgoingData.push_back( streambuffer.front() );

@@ -93,9 +93,9 @@ NetData* getMessage( deque<u8>& Data )
 			memcpy( (void*)&(Out->Sync), (void*)(Buffer+DataIndex), sizeof(NetData::Message_Sync) );
 			DataIndex += sizeof(NetData::Message_Sync);
 			break;
-		case ENMT_APPLY_FORCE:
-			memcpy( (void*)&(Out->ApplyForce), (void*)(Buffer+DataIndex), sizeof(NetData::Message_Apply_Force) );
-			DataIndex += sizeof(NetData::Message_Apply_Force);
+		case ENMT_INPUT:
+			memcpy( (void*)&(Out->Input), (void*)(Buffer+DataIndex), sizeof(NetData::Message_Input) );
+			DataIndex += sizeof(NetData::Message_Input);
 			break;
 		case ENMT_CREATE:
 			memcpy( (void*)&(Out->Create), (void*)(Buffer+DataIndex), sizeof( NetData::Message_Create) );
@@ -164,10 +164,10 @@ deque<u8> makeSyncMessage( NetData* Data )
 	return Output;
 }
 
-deque<u8> makeApplyMessage( NetData* Data )
+deque<u8> makeInputMessage( NetData* Data )
 {
 	deque<u8> Output;
-	if( Data != NULL && Data->MsgType == ENMT_APPLY_FORCE )
+	if( Data != NULL && Data->MsgType == ENMT_INPUT )
 	{
 		u8 Buffer [MAX_BUF_SIZE] = {0};
 		ptr Index = 0;
@@ -180,8 +180,8 @@ deque<u8> makeApplyMessage( NetData* Data )
 		Index+=sizeof(u32);
 		memcpy( (void*)(Buffer+Index), (void*)&(Data->MsgType), sizeof(E_NET_MESSAGE_TYPE) );
 		Index+=sizeof(E_NET_MESSAGE_TYPE);
-		memcpy( (void*)(Buffer+Index), (void*)&(Data->ApplyForce), sizeof(NetData::Message_Apply_Force) );
-		Index+=sizeof(NetData::Message_Apply_Force);
+		memcpy( (void*)(Buffer+Index), (void*)&(Data->Input), sizeof(NetData::Message_Input) );
+		Index+=sizeof(NetData::Message_Input);
 		memcpy( (void*)(Buffer+Index), (void*)&(Data->MessageEnd), sizeof(u8) );
 		Index+=sizeof(u8);
 
