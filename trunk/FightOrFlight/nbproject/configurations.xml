@@ -51,6 +51,8 @@
       <itemPath>Makefile</itemPath>
       <itemPath>media/missions/test_scene</itemPath>
     </logicalFolder>
+    <itemPath>SceneLoader.cpp</itemPath>
+    <itemPath>SceneLoader.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
