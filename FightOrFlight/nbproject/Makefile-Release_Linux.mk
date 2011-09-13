@@ -41,6 +41,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/NetworkObject.o \
 	${OBJECTDIR}/WorldManager.o \
 	${OBJECTDIR}/Client.o \
+	${OBJECTDIR}/SceneLoader.o \
 	${OBJECTDIR}/NetProtocolStruct.o \
 	${OBJECTDIR}/Timer.o \
 	${OBJECTDIR}/PhysicsObject.o \
@@ -106,6 +107,11 @@ ${OBJECTDIR}/Client.o: Client.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Client.o Client.cpp
+
+${OBJECTDIR}/SceneLoader.o: SceneLoader.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/SceneLoader.o SceneLoader.cpp
 
 ${OBJECTDIR}/NetProtocolStruct.o: NetProtocolStruct.cpp 
 	${MKDIR} -p ${OBJECTDIR}
