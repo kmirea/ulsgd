@@ -1,5 +1,5 @@
 #Chaz Louviere
-#Why not play a rousing game of Minesweeper?
+#Why not play a waksfhgkglrousing game of Minesweeper?
 
 grid = []
 	
