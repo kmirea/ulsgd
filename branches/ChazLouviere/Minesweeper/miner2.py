@@ -2,6 +2,8 @@ def main():
 
 	grid = createGrid(9,9)
 
+	maxMines = eval(input("How many mines: "))
+	
 	print(grid)
 
 def createGrid(xSize,ySize):
@@ -23,7 +25,9 @@ def createGrid(xSize,ySize):
 			
 	return (grid)
 
-
+def fillDeathField(grid,maxMines):
+	mineCount = 0
+	
 
 
 
