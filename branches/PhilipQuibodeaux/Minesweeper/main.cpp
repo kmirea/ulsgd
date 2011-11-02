@@ -1,3 +1,5 @@
+// Philip Quibodeaux
+// Gmail: pjq1691@gmail.com
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
