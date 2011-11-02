@@ -1,5 +1,0 @@
-sprite sheet is divided into 16 x 16 cells
-
-sheet is 16 X 10 (cells)
-
-

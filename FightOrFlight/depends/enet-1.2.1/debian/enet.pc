@@ -1,9 +1,0 @@
-prefix=/usr
-exec_prefix=${prefix}
-libdir=${exec_prefix}/lib
-includedir=${prefix}/include
-
-Name: enet 
-Description: an UDP networking library
-Version: 1.2.1
-Libs: -L${libdir} -lenet
