@@ -1,3 +1,5 @@
+// Philip Quibodeaux
+// Gmail: pjq1691@gmail.com
 #ifndef MINESWEEPER_H_INCLUDED
 #define MINESWEEPER_H_INCLUDED
 

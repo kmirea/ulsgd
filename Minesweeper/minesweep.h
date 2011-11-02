@@ -1,3 +1,5 @@
+// Philip Quibodeaux
+// Gmail: pjq1691@gmail.com
 #ifndef MINESWEEP_H_INCLUDED
 #define MINESWEEP_H_INCLUDED
 
