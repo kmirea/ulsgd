@@ -1,0 +1,8 @@
+.res PADDLE_IMG
+.image "resources/Paddle.png"
+.res ARROW_LEFT_IMG
+.image "resources/Arrow_left.png"
+.res ARROW_RIGHT_IMG
+.image "resources/Arrow_right.png"
+.res BALL_IMG
+.image "resources/Ball.png"

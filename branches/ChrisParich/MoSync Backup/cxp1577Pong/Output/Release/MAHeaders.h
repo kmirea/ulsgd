@@ -1,0 +1,9 @@
+#define PADDLE_IMG 1
+#define ARROW_LEFT_IMG 2
+#define ARROW_RIGHT_IMG 3
+#define BALL_IMG 4
+#define ARROW_LEFT 5
+#define ARROW_RIGHT 6
+#define PADDLE_P1 7
+#define PADDLE_P2 8
+#define BALL 9

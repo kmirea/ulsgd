@@ -1,0 +1,21 @@
+rebuild-needed = false
+variant = Android/Android\\ 2.x Release Non-finalizer 
+success = true
+timestamp = 1326815885461
+
+[files]
+.mosyncproject.local = 1326815516881
+.mosyncproject = 1326815516879
+main.cpp = 1326815742677
+.cproject = 1326815463074
+.project = 1326815463077
+
+[dependencies]
+/MyHelloWorld/Output/Release/main.s = /MyHelloWorld/MoSync/include/maassert.h, /MyHelloWorld/MoSync/include/maapi_defs.h, /MyHelloWorld/MoSync/include/MAUtil/Environment.h, /MyHelloWorld/MoSync/include/mactype.h, /MyHelloWorld/MoSync/include/maapi.h, /MyHelloWorld/MoSync/include/mavsprintf.h, /MyHelloWorld/main.cpp, /MyHelloWorld/MoSync/include/ma.h, /MyHelloWorld/MoSync/include/conprint.h, /MyHelloWorld/MoSync/include/MAUtil/Vector.h, /MyHelloWorld/MoSync/include/MAUtil/ListenerSet.h, /MyHelloWorld/MoSync/include/MAUtil/Moblet.h, /MyHelloWorld/MoSync/include/maarg.h, /MyHelloWorld/MoSync/include/mastring.h
+/MyHelloWorld/main.cpp = /MyHelloWorld/Output/Release/main.s
+
+[build-properties]
+build.prefs:additional.libraries/Debug = MAUtilD.lib
+template.id = project.moblet
+build.prefs:additional.libraries = MAUtil.lib
+

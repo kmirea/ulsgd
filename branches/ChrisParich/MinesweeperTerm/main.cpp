@@ -11,82 +11,236 @@
 #include <ctime>
 using namespace std;
 
-/*
- * 
- */
+struct Cell
+{
+	bool isSeen;
+	bool isFlag;
+	int adjacentMineCount;	// -1 is a mine
+};
 
-typedef unsigned int u32;
-typedef int s32;
+vector< vector<Cell> > MineField;
+int NumMines;
 
-vector< vector<bool> > Map;
-
-void GenerateMap( u32 X, u32 Y, u32 mines );
-bool SelectCoord( u32 X, u32 Y );
+void fillField();
+bool markCell( int Row, int Column, bool SetFlag = false );	// Returns true if cell mark did not cause game over.
+bool printField(); // Returns true if game has not ended.
 
 int main()
 {
-	bool isFinished = false;
-	bool isWon = true;
+	cout << "Welcome to MineSweeper!" << endl 
+			<< "This game is limited to a field of 10x10 cells." << endl
+			<< "You may play with as few as 1 or as many as 99 mines." << endl
+			<< "\tPlease specify the number of mines you would like to play with: ";
+	cin >> NumMines;
 	
-	u32 mineCount;
-	u32 xDim, yDim;
-	
-	cout << "Please select X and Y Dimensions: " << endl;
-	cout << "X: ";
-	cin >> xDim;
-	cout << "Y: ";
-	cin >> yDim;
-	
-	cout << "How many mines would you like? ";
-	cin >> mineCount;
-	
-	if( xDim * yDim <= mineCount )
+	while( NumMines <=0 || NumMines >=100 )
 	{
-		cout << "Too many mines, or too small a map :(" << endl;
-		cout << "Restarting..." << endl;
-		return main();
+		cout << "Wrong number of mines, please try again: ";
+		cin >> NumMines;
 	}
 	
-	cout << "Generating Map..." << endl;
+	fillField();
 	
-	GenerateMap( xDim, yDim, mineCount );
-	
-	while( !isFinished )
+	while( printField() )
 	{
+		int Row = 0, Col = 0;
+		cout << "Select Row: ";
+		cin >> Row;
+		cout << "Select Column: ";
+		cin >> Col;
+		int sel = 0;
+		while( sel !=1 && sel != 2 )
+		{
+			cout << "Select: " << endl
+				<< "\t(1) Flag Cell" << endl
+				<< "\t(2) Uncover Cell" << endl;
+			cin >> sel;
+		}
 		
+		if( !markCell(Row, Col, sel==1?true:false) )
+		{
+			printField();
+			cout << "Aww, too bad :(" << endl;
+			break;
+		}
 	}
 	
-	bool playagain = false;
+	char replay=0;
 	
-	if( isWon )
-		cout << "You Won! ";
-	else
-		cout << "Too bad. ";
-	cout << "The game has finished. Would you like to play again (y/n)? ";
+	while( replay !='y' && replay!='n' )
+	{
+		cout << "Game over. Play again? (y/n): ";
+		cin >> replay;
+	}
 	
+	if( replay == 'y' )
+		return main();
 	return 0;
 }
 
-void GenerateMap( u32 X, u32 Y, u32 mines )
+void fillField()
 {
-	Map.resize(X, false);
-	for( u32 i=0; i<Map.size(); i++ )
-		Map[i].resize(Y, false);
+	int CurMineCount = 0;
 	
-	for( u32 i=0; i<Map.size(); i++ )
+	for( int Row=0; Row<10; Row++ )
 	{
-		for( u32 j=0; j<Map[i].size(); j++ )
+		MineField.push_back( vector<Cell>() );
+		for( int Col=0; Col<10; Col++ )
 		{
-			Map[i][j] = rand()%2;
-			if( Map[i][j] )
-				mines--;
-			if( mines == 0 )
-				return;
+			MineField[Row].push_back( Cell() );
+			MineField[Row][Col].isFlag = false;
+			MineField[Row][Col].isSeen = false;
+		}
+	}
+	
+	while( CurMineCount < NumMines )
+	{
+		int X = rand()%10, Y = rand()%10;
+		
+		if( MineField[X][Y].adjacentMineCount != -1 )
+		{
+			MineField[X][Y].adjacentMineCount = -1;
+			CurMineCount++;
+		}
+	}
+	
+	for( int Row=0; Row<10; Row++ )
+	{
+		for( int Col=0; Col<10; Col++ )
+		{
+			if( MineField[Row][Col].adjacentMineCount == -1 )
+			{
+				for( int i=0; i<8; i++ )
+				{
+					switch(i)
+					{
+					case 0:	// East
+						if( Col < 9 )
+							MineField[Row][Col+1].adjacentMineCount += MineField[Row][Col+1].adjacentMineCount>=0?1:0;
+						break;
+					case 1: // NorthEast
+						if( Row > 0 && Col < 9 )
+							MineField[Row-1][Col+1].adjacentMineCount += MineField[Row-1][Col+1].adjacentMineCount>=0?1:0;
+						break;
+					case 2: // North
+						if( Row > 0 )
+							MineField[Row-1][Col].adjacentMineCount += MineField[Row-1][Col].adjacentMineCount>=0?1:0;
+						break;
+					case 3: // NorthWest
+						if( Row > 0 && Col > 0 )
+							MineField[Row-1][Col-1].adjacentMineCount += MineField[Row-1][Col-1].adjacentMineCount>=0?1:0;
+						break;
+					case 4: // West
+						if( Col > 0 )
+							MineField[Row][Col-1].adjacentMineCount += MineField[Row][Col-1].adjacentMineCount>=0?1:0;
+						break;
+					case 5: // SouthWest
+						if( Row < 9 && Col > 0 )
+							MineField[Row+1][Col-1].adjacentMineCount += MineField[Row+1][Col-1].adjacentMineCount>=0?1:0;
+						break;
+					case 6: // South
+						if( Row < 9 )
+							MineField[Row+1][Col].adjacentMineCount += MineField[Row+1][Col].adjacentMineCount>=0?1:0;
+						break;
+					case 7: // SouthEast
+						if( Row < 9 && Col < 9 )
+							MineField[Row+1][Col+1].adjacentMineCount += MineField[Row+1][Col+1].adjacentMineCount>=0?1:0;
+						break;
+					}
+				}
+			}
 		}
 	}
 }
 
-bool SelectCoord( u32 X, u32 Y )
+bool markCell( int Row, int Column, bool SetFlag )	// Returns true if cell mark did not cause game over.
 {
 	
+}
+
+bool printField() // Returns true if game has not ended.
+{
+	bool isMineVisible = false;
+	cout << "+  0 1 2 3 4 5 6 7 8 9" << endl;
+	for( int i=0; i<11; i++ )
+	{
+		cout << ' ' << ' ';
+		for( int j=0; j<11; j++ )
+		{
+			if( i == 0 )
+			{
+				if( j == 0 )
+					cout << '+' << '-';
+				else if( j == 10 )
+					cout << '+' << endl;
+				else
+					cout << '+' << '-';
+			}
+			else if( i == 10 )
+			{
+				if( j == 0 )
+					cout << '+' << '-';
+				else if( j == 10 )
+					cout << '+' << endl;
+				else
+					cout << '+' << '-';
+			}
+			else
+			{
+				if( j == 0 )
+					cout << '+' << '-';
+				else if( j == 10 )
+					cout << '+' << endl;
+				else
+					cout << '+' << '-';
+			}
+		}
+		
+		if( i == 10 ) break;
+		
+		cout << i << ' ';
+		
+		for( int j=0; j<10; j++ )
+		{
+			
+			
+			cout << '|';
+			
+			switch( MineField[i][j].adjacentMineCount )
+			{
+			case -1:
+				if( MineField[i][j].isFlag )
+					cout << 'F';
+				else if( MineField[i][j].isSeen )
+				{
+					cout << '*';
+					isMineVisible = true;
+				}
+				else
+					cout << '#';
+				break;
+			case 0:
+				if( MineField[i][j].isFlag )
+					cout << 'F';
+				else if( MineField[i][j].isSeen )
+					cout << ' ';
+				else
+					cout << '#';
+				break;
+			default:
+				if( MineField[i][j].isFlag )
+					cout << 'F';
+				else if( MineField[i][j].isSeen )
+					cout << MineField[i][j].adjacentMineCount;
+				else
+					cout << '#';
+				break;
+			}
+			if( j == 9 )
+				cout << '|' << endl;
+		}
+	}
+	cout << "  ---------------------"<< endl;
+	
+	return !isMineVisible;
 }

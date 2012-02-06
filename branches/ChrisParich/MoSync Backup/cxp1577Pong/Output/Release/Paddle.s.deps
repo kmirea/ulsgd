@@ -1,0 +1,18 @@
+C:\MoSync\workspace27\Pong\Output\Release\Paddle.s:  \
+ C:\MoSync\workspace27\Pong\Paddle.cpp \
+  C:\MoSync\workspace27\Pong\/Paddle.h \
+  C:\MoSync\workspace27\Pong\/Types.h \
+  C:/MoSync/workspace27/Pong/Output/Release/MAHeaders.h \
+  c:/MoSync/include/MAUtil/Graphics.h c:/MoSync/include/ma.h \
+  c:/MoSync/include/maapi.h c:/MoSync/include/maapi_defs.h \
+  c:/MoSync/include/MAUtil/GraphicsOpenGL.h \
+  c:/MoSync/include/MAUtil/Graphics.h \
+  c:/MoSync/include/MAUtil/GraphicsSoftware.h \
+  C:\MoSync\workspace27\Pong\/Pong.h C:\MoSync\workspace27\Pong\/Paddle.h \
+  C:\MoSync\workspace27\Pong\/Ball.h c:/MoSync/include/MAUtil/Moblet.h \
+  c:/MoSync/include/maassert.h c:/MoSync/include/ma.h \
+  c:/MoSync/include/MAUtil/Environment.h \
+  c:/MoSync/include/MAUtil/Vector.h \
+  c:/MoSync/include/MAUtil/ListenerSet.h c:/MoSync/include/conprint.h \
+  c:/MoSync/include/maarg.h c:/MoSync/include/mastring.h \
+  c:/MoSync/include/mactype.h c:/MoSync/include/mavsprintf.h
