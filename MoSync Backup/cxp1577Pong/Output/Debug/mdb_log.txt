@@ -1,0 +1,537 @@
+PerformanceFrequency: 3579545
+StartCount: 42779485085
+c:\MoSync\bin\mdb.exe -p C:\MoSync\workspace27\Pong\Output\Debug\program -sld C:\MoSync\workspace27\Pong\Output\Debug\Sld.tab -stabs C:\MoSync\workspace27\Pong\Output\Debug\stabs.tab 
+loadSLD: 42.787282 ms
+parseStabs: 303.638591 ms
+Multiple instances of type TimerListener found.
+Multiple instances of type CloseListener found.
+Multiple instances of type ConnListener found.
+Multiple instances of type CustomEventListener found.
+Multiple instances of type ConnListener found.
+Multiple instances of type TimerListener found.
+Multiple instances of type CloseListener found.
+Multiple instances of type ConnListener found.
+Multiple instances of type CustomEventListener found.
+Multiple instances of type TimerListener found.
+Multiple instances of type CloseListener found.
+Multiple instances of type ConnListener found.
+Multiple instances of type CustomEventListener found.
+Multiple instances of type TimerListener found.
+Multiple instances of type CloseListener found.
+Multiple instances of type ConnListener found.
+Multiple instances of type CustomEventListener found.
+Multiple instances of type BasicString<wchar_t> found.
+Multiple instances of type BasicString<wchar_t> found.
+Multiple instances of type TimerListener found.
+Multiple instances of type CloseListener found.
+Multiple instances of type CustomEventListener found.
+Multiple instances of type BasicString<wchar_t> found.
+Multiple instances of type TimerListener found.
+Multiple instances of type CloseListener found.
+Multiple instances of type ConnListener found.
+Multiple instances of type CustomEventListener found.
+Multiple instances of type TimerListener found.
+Multiple instances of type CloseListener found.
+Multiple instances of type ConnListener found.
+Multiple instances of type CustomEventListener found.
+Multiple instances of type BasicString<wchar_t> found.
+Multiple instances of type CloseListener found.
+Multiple instances of type ConnListener found.
+Multiple instances of type CustomEventListener found.
+Multiple instances of type TimerListener found.
+Multiple instances of type CloseListener found.
+Multiple instances of type CustomEventListener found.
+Multiple instances of type BasicString<wchar_t> found.
+Multiple instances of type HttpConnectionListener found.
+Multiple instances of type TimerListener found.
+Multiple instances of type CloseListener found.
+Multiple instances of type ConnListener found.
+Multiple instances of type CustomEventListener found.
+Multiple instances of type BasicString<wchar_t> found.
+Multiple instances of type ConnListener found.
+Multiple instances of type BasicString<wchar_t> found.
+Multiple instances of type TimerListener found.
+Multiple instances of type ConnListener found.
+Multiple instances of type TimerListener found.
+Multiple instances of type CloseListener found.
+Multiple instances of type CustomEventListener found.
+Multiple instances of type BasicString<char> found.
+Multiple instances of type BasicString<wchar_t> found.
+resolveAll: 81.795871 ms
+remoteReadThreadFunc start
+(gdb) 
+Starting main loop...
+Command: 339-gdb-set confirm off
+339^done
+(gdb) 
+Command: 340-gdb-set width 0
+340^done
+(gdb) 
+Command: 341-gdb-set height 0
+341^done
+(gdb) 
+Command: 342-interpreter-exec console echo
+342^error,msg="Unknown console command"
+(gdb) 
+Command: 343-target-select remote localhost:50000
+sIdle = false;
+Send: $g#67
+Recv Ack
+Recv packet(1032): '000000000001ffc000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000800000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001ffffffff00000002fffffffe00000003fffffffd00000004fffffffc00000005fffffffb00000006fffffffa00000007fffffff900000008fffffff800000009fffffff70000000afffffff60000000bfffffff50000000cfffffff40000000dfffffff30000000efffffff20000000ffffffff100000010fffffff00000001f000000200000003f000000400000007f00000080000000ff00000100000001ff00000200000003ff00000400000007ff0000080000000fff0000100000001fff0000200000003fff0000400000007fff000080000000ffff000100000001ffff000200000003ffff000400000007ffff00080000000fffff00100000001fffff00200000003fffff00400000007fffff0080000000ffffff0100000001ffffff0200000003ffffff0400000007ffffff080000000fffffff100000001fffffff200000003fffffff400000007fffffff80000000ffffffefffffffdfffffffbfffffff7ffffffefffffffdfffffffbfffffff7ffffffefffffffdfff0001e370'
+Send: +
+sIdle = true;
+343^connected,addr="0x0001e370",func="crt0_startup",args=[]
+(gdb) 
+Command: 344-environment-directory
+344^error,msg="Unimplemented MI command: environment_directory"
+(gdb) 
+Command: 345-thread-info
+345^done,threads=[{id="1",target-id="The One",state="stopped",frame={addr="0x1E370",func="crt0_startup",args=[],file="crtlib.s",fullname="crtlib.s",line="1"}}],current-thread-id="1"
+(gdb) 
+Command: 346-data-list-register-names
+346^done,register-names=["zr","sp","rt","fr","d0","d1","d2","d3","d4","d5","d6","d7","i0","i1","i2","i3","r0","r1","r2","r3","r4","r5","r6","r7","r8","r9","r10","r11","r12","r13","r14","r15","k0","k1","k2","k3","k4","k5","k6","k7","k8","k9","k10","k11","k12","k13","k14","k15","k16","k17","k18","k19","k20","k21","k22","k23","k24","k25","k26","k27","k28","k29","k30","k31","k32","k33","k34","k35","k36","k37","k38","k39","k40","k41","k42","k43","k44","k45","k46","k47","k48","k49","k50","k51","k52","k53","k54","k55","k56","k57","k58","k59","k60","k61","k62","k63","k64","k65","k66","k67","k68","k69","k70","k71","k72","k73","k74","k75","k76","k77","k78","k79","k80","k81","k82","k83","k84","k85","k86","k87","k88","k89","k90","k91","k92","k93","k94","k95"]
+(gdb) 
+Command: 347-break-insert C:/MoSync/workspace27/Pong/Pong.cpp:127
+sIdle = false;
+Send: $M40000CDA,1:37#0A
+Recv Ack
+Recv packet(2): 'OK'
+Send: +
+sIdle = true;
+347^done,bkpt={number="1",type="breakpoint",disp="keep",enabled="y",addr="0xCDA",func="Pong::hitPaddle() const",file="Pong.cpp",fullname="C:/MoSync/workspace27/Pong/Pong.cpp",line="127",times="0"}
+(gdb) 
+Command: 348-break-insert C:/MoSync/workspace27/Pong/Pong.cpp:133
+sIdle = false;
+Send: $M40000D2C,1:37#FB
+Recv Ack
+Recv packet(2): 'OK'
+Send: +
+sIdle = true;
+348^done,bkpt={number="2",type="breakpoint",disp="keep",enabled="y",addr="0xD2C",func="Pong::hitPaddle() const",file="Pong.cpp",fullname="C:/MoSync/workspace27/Pong/Pong.cpp",line="133",times="0"}
+(gdb) 
+Command: 349-break-insert C:/MoSync/workspace27/Pong/Pong.cpp:126
+sIdle = false;
+Send: $M40000CC8,1:37#00
+Recv Ack
+Recv packet(2): 'OK'
+Send: +
+sIdle = true;
+349^done,bkpt={number="3",type="breakpoint",disp="keep",enabled="y",addr="0xCC8",func="Pong::hitPaddle() const",file="Pong.cpp",fullname="C:/MoSync/workspace27/Pong/Pong.cpp",line="126",times="0"}
+(gdb) 
+Command: 350-break-insert C:/MoSync/workspace27/Pong/Pong.cpp:127
+350^error,msg="A breakpoint already exists at that address"
+(gdb) 
+Command: 351-break-insert C:/MoSync/workspace27/Pong/Pong.cpp:133
+351^error,msg="A breakpoint already exists at that address"
+(gdb) 
+Command: 352-break-insert C:/MoSync/workspace27/Pong/Pong.cpp:132
+sIdle = false;
+Send: $M40000D1A,1:37#F8
+Recv Ack
+Recv packet(2): 'OK'
+Send: +
+sIdle = true;
+352^done,bkpt={number="4",type="breakpoint",disp="keep",enabled="y",addr="0xD1A",func="Pong::hitPaddle() const",file="Pong.cpp",fullname="C:/MoSync/workspace27/Pong/Pong.cpp",line="132",times="0"}
+(gdb) 
+Command: 353-break-insert C:/MoSync/workspace27/Pong/Ball.cpp:58
+sIdle = false;
+Send: $M40001582,1:37#E2
+Recv Ack
+Recv packet(2): 'OK'
+Send: +
+sIdle = true;
+353^done,bkpt={number="5",type="breakpoint",disp="keep",enabled="y",addr="0x1582",func="Ball::draw()",file="Ball.cpp",fullname="C:/MoSync/workspace27/Pong/Ball.cpp",line="58",times="0"}
+(gdb) 
+Command: 354-break-insert C:/MoSync/workspace27/Pong/Ball.cpp:76
+sIdle = false;
+Send: $M4000174E,1:37#F3
+Recv Ack
+Recv packet(2): 'OK'
+Send: +
+sIdle = true;
+354^done,bkpt={number="6",type="breakpoint",disp="keep",enabled="y",addr="0x174E",func="Ball::draw()",file="Ball.cpp",fullname="C:/MoSync/workspace27/Pong/Ball.cpp",line="76",times="0"}
+(gdb) 
+Command: 355-exec-continue
+OpQueue: 0 levels
+OpQueue: executing 1: unknown
+sRunning = true;
+Send: $c#63
+OpQueue: 1 levels
+ 1 elements:
+  1: unknown
+OpQueue: 1 levels
+ 1 elements:
+  1: unknown
+OpQueue: 1 levels
+ 2 elements:
+  1: unknown
+  2: unknown
+Recv Ack
+OpQueue: 1 levels
+ 2 elements:
+  1: unknown
+  2: unknown
+OpQueue: executing 2: unknown
+355^running
+(gdb) 
+OpQueue: 1 levels
+ 1 elements:
+  2: unknown
+OpQueue: 1 levels
+ 0 elements:
+OpQueue: 1 levels
+ 0 elements:
+Recv packet(3): 'S01'
+Send: +
+sIdle = false;
+Send: $g#67
+Recv Ack
+Recv packet(1032): '000000000001fef800000bdf0001ff20000000f00000000000000000000000000000000000000000000000000000000000008ee80001ff000001febc00000000000000000001fef800008cb000008f100000000000000000000000000000000000000000000000000000000000000000000000000000000000008c580000000000000001ffffffff00000002fffffffe00000003fffffffd00000004fffffffc00000005fffffffb00000006fffffffa00000007fffffff900000008fffffff800000009fffffff70000000afffffff60000000bfffffff50000000cfffffff40000000dfffffff30000000efffffff20000000ffffffff100000010fffffff00000001f000000200000003f000000400000007f00000080000000ff00000100000001ff00000200000003ff00000400000007ff0000080000000fff0000100000001fff0000200000003fff0000400000007fff000080000000ffff000100000001ffff000200000003ffff000400000007ffff00080000000fffff00100000001fffff00200000003fffff00400000007fffff0080000000ffffff0100000001ffffff0200000003ffffff0400000007ffffff080000000fffffff100000001fffffff200000003fffffff400000007fffffff80000000ffffffefffffffdfffffffbfffffff7ffffffefffffffdfffffffbfffffff7ffffffefffffffdfff00001582'
+Send: +
+sIdle = true;
+breakpointHit
+*stopped,reason="breakpoint-hit",thread-id="1",bkptno="5",frame={addr="0x1582",func="Ball::draw()",file="Ball.cpp",fullname="C:/MoSync/workspace27/Pong/Ball.cpp",line="58"}
+(gdb) 
+Command: 356-thread-info
+356^done,threads=[{id="1",target-id="The One",state="stopped",frame={addr="0x1582",func="Ball::draw()",args=[],file="Ball.cpp",fullname="C:/MoSync/workspace27/Pong/Ball.cpp",line="58"}}],current-thread-id="1"
+(gdb) 
+Command: 357-stack-info-depth
+sIdle = false;
+Send: $m1FEF8,108#6C
+Recv Ack
+Recv packet(528): '1e0000000e0100000000000000000000b400000028000000e88e0000f000000038ff0100df0b000040ff0100ac8e0300588c0000588c000044ff01003c0b0000588c000050ff01001c0b0000108d000070ff0100b3860300b08c000001000000000000002d090000588c0000588c0000a4ff0100d1890300a4ff01009a030000010000000100000001000000780000007800000078000000588c000000000000588c0000b0ff010025000000000000000000000096e301000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+Send: +
+sIdle = true;
+framePtr: 0x0001ff20
+retAddr: 0x00000bdf
+pc: 0x00001582
+Stack: 264 bytes (58 words) @ 0x0001fef8
+0001FEF8: 0000001E 0000010E 00000000 00000000
+0001FF08: 000000B4 00000028 00008EE8 000000F0
+0001FF18: 0001FF38 00000BDF 0001FF40 00038EAC
+0001FF28: 00008C58 00008C58 0001FF44 00000B3C
+0001FF38: 00008C58 0001FF50 00000B1C 00008D10
+0001FF48: 0001FF70 000386B3 00008CB0 00000001
+0001FF58: 00000000 0000092D 00008C58 00008C58
+0001FF68: 0001FFA4 000389D1 0001FFA4 0000039A
+0001FF78: 00000001 00000001 00000001 00000078
+0001FF88: 00000078 00000078 00008C58 00000000
+0001FF98: 00008C58 0001FFB0 00000025 00000000
+0001FFA8: 00000000 0001E396 00000000 00000000
+0001FFB8: 00000000 00000000 00000000 00000000
+0001FFC8: 00000000 00000000 00000000 00000000
+0001FFD8: 00000000 00000000
+357^done,depth="7"
+(gdb) 
+Command: 358-stack-list-frames 0 7
+358^done,stack=[frame={level="0",addr="0x1582",func="Ball::draw()",args=[],file="Ball.cpp",fullname="C:/MoSync/workspace27/Pong/Ball.cpp",line="58"},frame={level="1",addr="0xBDF",func="Pong::draw()",args=[],file="Pong.cpp",fullname="C:/MoSync/workspace27/Pong/Pong.cpp",line="105"},frame={level="2",addr="0xB3C",func="Pong::runTimerEvent()",args=[],file="Pong.cpp",fullname="C:/MoSync/workspace27/Pong/Pong.cpp",line="83"},frame={level="3",addr="0xB1C",func="non-virtual thunk to Pong::runTimerEvent()",args=[],file="Pong.h",fullname="C:/MoSync/workspace27/Pong/Pong.h",line="26"},frame={level="4",addr="0x386B3",func="MAUtil::Moblet::runPendingTimers()",args=[],file="Moblet.cpp",fullname="c:/slave/buildScripts/temp_vG2R/source/libs/MAUtil/Moblet.cpp",line="61"},frame={level="5",addr="0x389D1",func="MAUtil::Moblet::run(MAUtil::Moblet*)",args=[],file="Moblet.cpp",fullname="c:/slave/buildScripts/temp_vG2R/source/libs/MAUtil/Moblet.cpp",line="135"},frame={level="6",addr="0x25",func="MAMain",args=[],file="main.cpp",fullname="C:/MoSync/workspace27/Pong/main.cpp",line="10"}]
+(gdb) 
+Command: 359-data-list-changed-registers
+359^done,register-names=["1","2","3","4","12","13","14","17","18","19","30","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127"]
+(gdb) 
+Command: 360-stack-list-arguments 0 0 0
+360^done,stack-args=[frame={level="0",args=[name="this"]}]
+(gdb) 
+Command: 361-stack-list-locals 0
+361^done,locals=[name="rect",name="point"]
+(gdb) 
+Command: 362 whatis this
+sIdle = false;
+Send: $m8EE8,1C#07
+Recv Ack
+Recv packet(56): '78000000a000000001000000010000000100000004000000588c0000'
+Send: +
+sIdle = true;
+~"type = Ball *\n"
+362^done
+(gdb) 
+Command: 363 ptype Ball *
+~"type = struct Ball {\n"
+~"	unsigned int x;\n"
+~"	unsigned int y;\n"
+~"	int velX;\n"
+~"	int velY;\n"
+~"	unsigned int multiplyer;\n"
+~"	int image;\n"
+~"	Pong * game;\n"
+~"} *\n"
+363^done
+(gdb) 
+Command: 364 whatis rect
+~"type = MARect\n"
+364^done
+(gdb) 
+Command: 365 ptype MARect
+~"type = struct MARect {\n"
+~"	int left;\n"
+~"	int top;\n"
+~"	int width;\n"
+~"	int height;\n"
+~"}\n"
+365^done
+(gdb) 
+Command: 366 whatis point
+~"type = MAPoint2d\n"
+366^done
+(gdb) 
+Command: 367 ptype MAPoint2d
+~"type = struct MAPoint2d {\n"
+~"	int x;\n"
+~"	int y;\n"
+~"}\n"
+367^done
+(gdb) 
+Command: 368-var-create - * this
+368^done,name="var1",numchild="1",type="Ball *",value="0x8ee8"
+(gdb) 
+Command: 369-var-evaluate-expression var1
+369^done,value="0x8ee8"
+(gdb) 
+Command: 370-var-create - * rect
+370^done,name="var2",numchild="1",type="MARect",value="{...}"
+(gdb) 
+Command: 371-var-evaluate-expression var2
+371^done,value="{...}"
+(gdb) 
+Command: 372-var-create - * point
+372^done,name="var3",numchild="1",type="MAPoint2d",value="{...}"
+(gdb) 
+Command: 373-var-evaluate-expression var3
+373^done,value="{...}"
+(gdb) 
+Command: 374-break-delete 5
+sIdle = false;
+Send: $M40001582,1:09#E1
+Recv Ack
+Recv packet(2): 'OK'
+Send: +
+sIdle = true;
+374^done
+(gdb) 
+Command: 375-break-insert C:/MoSync/workspace27/Pong/Ball.cpp:58
+sIdle = false;
+Send: $M40001582,1:37#E2
+Recv Ack
+Recv packet(2): 'OK'
+Send: +
+sIdle = true;
+375^done,bkpt={number="7",type="breakpoint",disp="keep",enabled="y",addr="0x1582",func="Ball::draw()",file="Ball.cpp",fullname="C:/MoSync/workspace27/Pong/Ball.cpp",line="58",times="0"}
+(gdb) 
+Command: 376-break-delete 7
+sIdle = false;
+Send: $M40001582,1:09#E1
+Recv Ack
+Recv packet(2): 'OK'
+Send: +
+sIdle = true;
+376^done
+(gdb) 
+Command: 377-break-delete 6
+sIdle = false;
+Send: $M4000174E,1:09#F2
+Recv Ack
+Recv packet(2): 'OK'
+Send: +
+sIdle = true;
+377^done
+(gdb) 
+Command: 378-exec-continue
+OpQueue: 1 levels
+ 0 elements:
+OpQueue: executing 3: unknown
+sRunning = true;
+Send: $c#63
+OpQueue: 1 levels
+ 1 elements:
+  3: unknown
+OpQueue: 1 levels
+ 1 elements:
+  3: unknown
+OpQueue: 1 levels
+ 2 elements:
+  3: unknown
+  4: unknown
+Recv Ack
+OpQueue: 1 levels
+ 2 elements:
+  3: unknown
+  4: unknown
+OpQueue: executing 4: unknown
+378^running
+(gdb) 
+OpQueue: 1 levels
+ 1 elements:
+  4: unknown
+OpQueue: 1 levels
+ 0 elements:
+OpQueue: 1 levels
+ 0 elements:
+Recv packet(3): 'S01'
+Send: +
+sIdle = false;
+Send: $g#67
+Recv Ack
+Recv packet(1032): '000000000001fefc00000d090001ff20000000f00000000000000000000000000000000000000000000000000000000000008c580001ff080001ff0400000000000000fa0001ff0400008ee800008f1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000fa0000000000000001ffffffff00000002fffffffe00000003fffffffd00000004fffffffc00000005fffffffb00000006fffffffa00000007fffffff900000008fffffff800000009fffffff70000000afffffff60000000bfffffff50000000cfffffff40000000dfffffff30000000efffffff20000000ffffffff100000010fffffff00000001f000000200000003f000000400000007f00000080000000ff00000100000001ff00000200000003ff00000400000007ff0000080000000fff0000100000001fff0000200000003fff0000400000007fff000080000000ffff000100000001ffff000200000003ffff000400000007ffff00080000000fffff00100000001fffff00200000003fffff00400000007fffff0080000000ffffff0100000001ffffff0200000003ffffff0400000007ffffff080000000fffffff100000001fffffff200000003fffffff400000007fffffff80000000ffffffefffffffdfffffffbfffffff7ffffffefffffffdfffffffbfffffff7ffffffefffffffdfff00000d1a'
+Send: +
+sIdle = true;
+breakpointHit
+*stopped,reason="breakpoint-hit",thread-id="1",bkptno="4",frame={addr="0xD1A",func="Pong::hitPaddle() const",file="Pong.cpp",fullname="C:/MoSync/workspace27/Pong/Pong.cpp",line="132"}
+(gdb) 
+Command: 379-thread-info
+379^done,threads=[{id="1",target-id="The One",state="stopped",frame={addr="0xD1A",func="Pong::hitPaddle() const",args=[],file="Pong.cpp",fullname="C:/MoSync/workspace27/Pong/Pong.cpp",line="132"}}],current-thread-id="1"
+(gdb) 
+Command: 380-stack-info-depth
+sIdle = false;
+Send: $m1FEFC,104#73
+Recv Ack
+Recv packet(520): 'e600000000000000fa000000d20000007800000078000000588c000038ff0100e70b000040ff0100ac8e0300588c0000588c000044ff01003c0b0000588c000050ff01001c0b0000108d000070ff0100b3860300b08c00000100000000000000ed2b0000588c0000588c0000a4ff0100d1890300a4ff01009a0300000100000001000000000000000d0000002c00000020a6f3000000000020013002588c0000b0ff010025000000000000000000000096e301000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+Send: +
+sIdle = true;
+framePtr: 0x0001ff20
+retAddr: 0x00000d09
+pc: 0x00000d1a
+Stack: 260 bytes (58 words) @ 0x0001fefc
+0001FEFC: 000000E6 00000000 000000FA 000000D2
+0001FF0C: 00000078 00000078 00008C58 0001FF38
+0001FF1C: 00000BE7 0001FF40 00038EAC 00008C58
+0001FF2C: 00008C58 0001FF44 00000B3C 00008C58
+0001FF3C: 0001FF50 00000B1C 00008D10 0001FF70
+0001FF4C: 000386B3 00008CB0 00000001 00000000
+0001FF5C: 00002BED 00008C58 00008C58 0001FFA4
+0001FF6C: 000389D1 0001FFA4 0000039A 00000001
+0001FF7C: 00000001 00000000 0000000D 0000002C
+0001FF8C: 00F3A620 00000000 02300120 00008C58
+0001FF9C: 0001FFB0 00000025 00000000 00000000
+0001FFAC: 0001E396 00000000 00000000 00000000
+0001FFBC: 00000000 00000000 00000000 00000000
+0001FFCC: 00000000 00000000 00000000 00000000
+0001FFDC: 00000000 00000000
+380^done,depth="7"
+(gdb) 
+Command: 381-stack-list-frames 0 7
+381^done,stack=[frame={level="0",addr="0xD1A",func="Pong::hitPaddle() const",args=[],file="Pong.cpp",fullname="C:/MoSync/workspace27/Pong/Pong.cpp",line="132"},frame={level="1",addr="0xBE7",func="Pong::draw()",args=[],file="Pong.cpp",fullname="C:/MoSync/workspace27/Pong/Pong.cpp",line="105"},frame={level="2",addr="0xB3C",func="Pong::runTimerEvent()",args=[],file="Pong.cpp",fullname="C:/MoSync/workspace27/Pong/Pong.cpp",line="83"},frame={level="3",addr="0xB1C",func="non-virtual thunk to Pong::runTimerEvent()",args=[],file="Pong.h",fullname="C:/MoSync/workspace27/Pong/Pong.h",line="26"},frame={level="4",addr="0x386B3",func="MAUtil::Moblet::runPendingTimers()",args=[],file="Moblet.cpp",fullname="c:/slave/buildScripts/temp_vG2R/source/libs/MAUtil/Moblet.cpp",line="61"},frame={level="5",addr="0x389D1",func="MAUtil::Moblet::run(MAUtil::Moblet*)",args=[],file="Moblet.cpp",fullname="c:/slave/buildScripts/temp_vG2R/source/libs/MAUtil/Moblet.cpp",line="135"},frame={level="6",addr="0x25",func="MAMain",args=[],file="main.cpp",fullname="C:/MoSync/workspace27/Pong/main.cpp",line="10"}]
+(gdb) 
+Command: 382-var-update var1
+382^done,changelist=[{name="var1",in_scope="false",type_changed="false"},{name="var1.private.game",in_scope="true",type_changed="false"},{name="var1.private.game.TimerListener",in_scope="true",type_changed="false"},{name="var1.private.image",in_scope="true",type_changed="false"},{name="var1.private.multiplyer",in_scope="true",type_changed="false"},{name="var1.private.velX",in_scope="true",type_changed="false"},{name="var1.private.velY",in_scope="true",type_changed="false"},{name="var1.private.x",in_scope="true",type_changed="false"},{name="var1.private.y",in_scope="true",type_changed="false"},{name="var2.public.height",in_scope="true",type_changed="false"},{name="var2.public.left",in_scope="true",type_changed="false"},{name="var2.public.top",in_scope="true",type_changed="false"},{name="var2.public.width",in_scope="true",type_changed="false"},{name="var3.public.x",in_scope="true",type_changed="false"},{name="var3.public.y",in_scope="true",type_changed="false"}]
+(gdb) 
+Command: 383-var-delete var1
+383^done
+(gdb) 
+Command: 384-var-update var2
+384^done,changelist=[{name="var2",in_scope="false",type_changed="false"}]
+(gdb) 
+Command: 385-var-delete var2
+385^done
+(gdb) 
+Command: 386-var-update var3
+386^done,changelist=[{name="var3",in_scope="false",type_changed="false"}]
+(gdb) 
+Command: 387-var-delete var3
+387^done
+(gdb) 
+Command: 388-data-list-changed-registers
+388^done,register-names=["1","2","12","13","14","16","17","18","30"]
+(gdb) 
+Command: 389-stack-list-arguments 0 0 0
+389^done,stack-args=[frame={level="0",args=[name="this"]}]
+(gdb) 
+Command: 390-stack-list-locals 0
+390^done,locals=[name="p1x",name="p2x",name="bx",name="by",name="x",name="x"]
+(gdb) 
+Command: 391 whatis this
+sIdle = false;
+Send: $m8C58,C8#FC
+Recv Ack
+Recv packet(400): '0c000000000000000100000004000000288d0000000000000100000004000000508d0000000000000100000004000000788d0000000000000000000004000000908d0000000000000000000004000000b88d0000010001000100000004000000e08d0000000000000000000004000000088e0000000000000100000004000000308e0000000000000000000004000000588e0000000000000000000004000000808e000050000000740000009c000000a800000001000000b4000000a88e0000c88e0000e88e0000'
+Send: +
+sIdle = true;
+~"type = const Pong *\n"
+391^done
+(gdb) 
+Command: 392 ptype const Pong *
+~"type = struct Pong : public Moblet, public TimerListener {\n"
+~"	Paddle * p1;\n"
+~"	Paddle * p2;\n"
+~"	Ball * ball;\n"
+~"} *\n"
+392^done
+(gdb) 
+Command: 393 whatis p1x
+~"type = unsigned int\n"
+393^done
+(gdb) 
+Command: 394 whatis p2x
+~"type = unsigned int\n"
+394^done
+(gdb) 
+Command: 395 whatis bx
+~"type = unsigned int\n"
+395^done
+(gdb) 
+Command: 396 whatis by
+~"type = unsigned int\n"
+396^done
+(gdb) 
+Command: 397 whatis x
+~"type = int\n"
+397^done
+(gdb) 
+Command: 398 whatis x
+~"type = int\n"
+398^done
+(gdb) 
+Command: 399-var-create - * this
+399^done,name="var4",numchild="3",type="const Pong *",value="0x8c58"
+(gdb) 
+Command: 400-var-evaluate-expression var4
+400^done,value="0x8c58"
+(gdb) 
+Command: 401-var-create - * p1x
+401^done,name="var5",numchild="0",type="unsigned int",value="120"
+(gdb) 
+Command: 402-var-evaluate-expression var5
+402^done,value="120"
+(gdb) 
+Command: 403-var-create - * p2x
+403^done,name="var6",numchild="0",type="unsigned int",value="120"
+(gdb) 
+Command: 404-var-evaluate-expression var6
+404^done,value="120"
+(gdb) 
+Command: 405-var-create - * bx
+405^done,name="var7",numchild="0",type="unsigned int",value="210"
+(gdb) 
+Command: 406-var-evaluate-expression var7
+406^done,value="210"
+(gdb) 
+Command: 407-var-create - * by
+407^done,name="var8",numchild="0",type="unsigned int",value="250"
+(gdb) 
+Command: 408-var-evaluate-expression var8
+408^done,value="250"
+(gdb) 
+Command: 409-var-create - * x
+409^done,name="var9",numchild="0",type="int",value="0"
+(gdb) 
+Command: 410-var-evaluate-expression var9
+410^done,value="0"
+(gdb) 
+Command: 411-var-create - * x
+411^done,name="var10",numchild="0",type="int",value="0"
+(gdb) 
+Command: 412-var-evaluate-expression var10
+412^done,value="0"
+(gdb) 
+Command: 413-data-evaluate-expression x
+413^done,value="0"
+(gdb) 
+Command: 414-data-evaluate-expression p2x
+414^done,value="120"
+(gdb) 
+Command: 415 kill
+415^error,msg="Undefined MI command: '415 kill'"
+(gdb) 
+Command: 416-gdb-exit
+416^exit
+Send: $e#65
+remoteReadThreadFunc end

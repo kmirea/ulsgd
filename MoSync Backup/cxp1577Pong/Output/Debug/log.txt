@@ -1,0 +1,73 @@
+PerformanceFrequency: 3579545
+StartCount: 25655561112
+Hello World!
+argc: 12
+1:-program
+3:-resource
+5:-resolution
+8:-fd
+Emulator connected.
+10:-id
+fmt->BitsPerPixel: 32
+AddFontResourceEx: 2 faces added.
+InitVM .. 
+LoadVM
+maxCustomEventSize: 0x30
+Head.DataSize: 0x20000
+Head.StackSize: 0x8000
+Head.HeapSize: 0x10000
+Head.EntryPoint: 0x1ea6e
+Head.CodeLen: 0x4048c
+CODE_SEGMENT_SIZE: 0x80000
+Head.DataLen: 0x25d4
+Head.DataSize: 0x20000
+DATA_SEGMENT_SIZE: 0x20000
+Head.IntLen: 0x43d
+Type 2, size 291
+Type 2, size 521
+Type 2, size 507
+Type 2, size 235
+ResLoad complete
+IDL version match!
+SDL_QUIT @ 115325
+Exit 0
+DumpCallStackEx:
+reportCallStack
+0
+IP: 0x3916a
+Call stack: 7 frames
+0: 0x1ea91
+1: 0x25
+2: 0x38ee9
+3: 0x312f5
+4: 0x39148
+5: 0x3915e
+6: 0x3916c
+Exit @ IP 0x3916a  SP 0x1ff40
+InstCount: 5389127
+IP: 0x1EA6B
+Profile dumped.
+level: 7
+maxLevel: 17
+nodes: 448
+SDL_QUIT @ 41181
+Exit 0
+DumpCallStackEx:
+reportCallStack
+0
+IP: 0x3916d
+Call stack: 7 frames
+0: 0x1ea94
+1: 0x25
+2: 0x38eec
+3: 0x312f8
+4: 0x3914b
+5: 0x39161
+6: 0x3916f
+Exit @ IP 0x3916d  SP 0x1ff40
+InstCount: 1868849
+IP: 0x1EA6E
+Profile dumped.
+level: 7
+maxLevel: 17
+nodes: 448
