@@ -155,7 +155,95 @@ void fillField()
 
 bool markCell( int Row, int Column, bool SetFlag )	// Returns true if cell mark did not cause game over.
 {
+//	if( Row < 0 || Row > 9 || Row < 0 || Column > 9 )
+//		return true;
 	
+	printField();
+	
+	if( SetFlag )			// attempting to flag/unflag cell
+	{
+		if( MineField[Row][Column].isSeen )
+			return true;
+		
+		MineField[Row][Column].isFlag = MineField[Row][Column].isFlag ? false : true;
+		return true;
+	}
+	else					// attempting to uncover cell
+	{
+		if( MineField[Row][Column].isFlag )
+			return true;
+		
+		if( MineField[Row][Column].isSeen )
+			return true;
+		
+		bool isMineSeen = false;
+		
+		switch( MineField[Row][Column].adjacentMineCount )
+		{
+		case -1:
+			MineField[Row][Column].isSeen = true;
+			return false;
+		case 0:
+			MineField[Row][Column].isSeen = true;
+			for( int i=0; i<8; i++ )
+			{
+				switch(i)
+				{
+				case 0:	// nw
+					if( Row > 0 && Column > 0 )
+					{
+						isMineSeen = markCell( Row-1, Column-1, false ) ? isMineSeen : true;
+					}
+					break;
+				case 1:	// n
+					if( Row > 0  )
+					{
+						isMineSeen = markCell( Row-1, Column, false ) ? isMineSeen : true;
+					}
+					break;
+				case 2:	// ne
+					if( Row > 0 && Column < 9 )
+					{
+						isMineSeen = markCell( Row-1, Column+1, false ) ? isMineSeen : true;
+					}
+					break;
+				case 3:	// w
+					if( Column > 0 )
+					{
+						isMineSeen = markCell( Row, Column-1, false ) ? isMineSeen : true;
+					}
+					break;
+				case 4:	// e
+					if( Column < 9 )
+					{
+						isMineSeen = markCell( Row, Column+1, false ) ? isMineSeen : true;
+					}
+					break;
+				case 5:	// sw
+					if( Row < 9 && Column > 0 )
+					{
+						isMineSeen = markCell( Row+1, Column-1, false ) ? isMineSeen : true;
+					}
+					break;
+				case 6:	// s
+					if( Row < 9 )
+					{
+						isMineSeen = markCell( Row+1, Column, false ) ? isMineSeen : true;
+					}
+					break;
+				case 7:	// se
+					if( Row < 9 && Column < 9)
+					{
+						isMineSeen = markCell( Row+1, Column+1, false ) ? isMineSeen : true;
+					}
+				}
+			}
+			return !isMineSeen;
+		default:
+			MineField[Row][Column].isSeen = true;
+			return true;
+		}
+	}
 }
 
 bool printField() // Returns true if game has not ended.

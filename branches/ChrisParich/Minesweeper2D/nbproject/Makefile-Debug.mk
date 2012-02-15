@@ -51,7 +51,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=-lIrrlicht
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -59,7 +59,7 @@ LDLIBSOPTIONS=
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/minesweeper2d: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/minesweeper2d ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -lIrrlicht -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/minesweeper2d ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
