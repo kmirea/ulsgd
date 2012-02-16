@@ -101,7 +101,7 @@ void fillField()
 {
 	int CurMineCount = 0;
 	
-	device = createDevice(video::EDT_OPENGL, core::dimension2d<u32>(600,400));
+	device = createDevice(video::EDT_BURNINGSVIDEO, core::dimension2d<u32>(600,400));
 	device->getSceneManager()->setAmbientLight(video::SColorf(1,1,1));
 	cam = device->getSceneManager()->addCameraSceneNode();
 	cam->setPosition(core::vector3df(5,5,-15));
