@@ -1,38 +1,8 @@
-rebuild-needed = false
-variant = MoSync/Emulator Debug Non-finalizer 
-success = true
-timestamp = 1328555531226
+rebuild-needed = true
 
 [files]
-resources/Arrow_left.png = 1328480167000
-resources/Paddle.png = 1328480364000
-resources/Arrow_right.png = 1328480223000
-Paddle.cpp = 1328488623000
-main.cpp = 1328477244000
-.project = 1328475956000
-Types.h = 1328477213000
-Ball.cpp = 1328555111000
-Pong.cpp = 1328555517000
-.mosyncproject.local = 1328551676000
-resources/Ball.png = 1328480393000
-Paddle.h = 1328486868000
-Ball.h = 1328555111000
-.mosyncproject = 1328551676000
-.cproject = 1328475956000
-resources.lst = 1328484760000
-Pong.h = 1328553165000
 
 [dependencies]
-/Pong/Ball.cpp = /Pong/Output/Debug/Ball.s
-/Pong/main.cpp = /Pong/Output/Debug/main.s
-/Pong/Output/Debug/MAHeaders.h = /Pong/resources.lst
-/Pong/Pong.cpp = /Pong/Output/Debug/Pong.s
-/Pong/resources.lst = /Pong/Output/Debug/resources
-/Pong/Paddle.cpp = /Pong/Output/Debug/Paddle.s
-/Pong/Output/Debug/Pong.s = /Pong/gameserver.cacs.louisiana.edu/cxp1577/MoSync/ Backup/cxp1577Pong/Pong.cpp, /Pong/gameserver.cacs.louisiana.edu/cxp1577/MoSync/ Backup/cxp1577Pong/Paddle.h, /Pong/gameserver.cacs.louisiana.edu/cxp1577/MoSync/ Backup/cxp1577Pong/Output/Debug/MAHeaders.h, /Pong/gameserver.cacs.louisiana.edu/cxp1577/MoSync/ Backup/cxp1577Pong/Ball.h, /Pong/gameserver.cacs.louisiana.edu/cxp1577/MoSync/ Backup/cxp1577Pong/Pong.h, /Pong/gameserver.cacs.louisiana.edu/cxp1577/MoSync/ Backup/cxp1577Pong/Types.h
 
 [build-properties]
-build.prefs:additional.libraries/Debug = MAUtilD.lib
-template.id = project.moblet
-build.prefs:additional.libraries = MAUtil.lib
 

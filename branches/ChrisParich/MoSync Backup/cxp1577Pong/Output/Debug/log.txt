@@ -1,5 +1,5 @@
-PerformanceFrequency: 3579545
-StartCount: 25655561112
+PerformanceFrequency: 1558876
+StartCount: 812843491925
 Hello World!
 argc: 12
 1:-program
@@ -29,28 +29,7 @@ Type 2, size 507
 Type 2, size 235
 ResLoad complete
 IDL version match!
-SDL_QUIT @ 115325
-Exit 0
-DumpCallStackEx:
-reportCallStack
-0
-IP: 0x3916a
-Call stack: 7 frames
-0: 0x1ea91
-1: 0x25
-2: 0x38ee9
-3: 0x312f5
-4: 0x39148
-5: 0x3915e
-6: 0x3916c
-Exit @ IP 0x3916a  SP 0x1ff40
-InstCount: 5389127
-IP: 0x1EA6B
-Profile dumped.
-level: 7
-maxLevel: 17
-nodes: 448
-SDL_QUIT @ 41181
+SDL_QUIT @ 5892346
 Exit 0
 DumpCallStackEx:
 reportCallStack
@@ -65,9 +44,9 @@ Call stack: 7 frames
 5: 0x39161
 6: 0x3916f
 Exit @ IP 0x3916d  SP 0x1ff40
-InstCount: 1868849
+InstCount: 343567894
 IP: 0x1EA6E
 Profile dumped.
 level: 7
 maxLevel: 17
-nodes: 448
+nodes: 506

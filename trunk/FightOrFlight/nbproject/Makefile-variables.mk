@@ -23,21 +23,21 @@ CND_PACKAGE_DIR_Release_Linux=dist/Release_Linux/GNU-Linux-x86/package
 CND_PACKAGE_NAME_Release_Linux=fightorflight.tar
 CND_PACKAGE_PATH_Release_Linux=dist/Release_Linux/GNU-Linux-x86/package/fightorflight.tar
 # Debug_Win32 configuration
-CND_PLATFORM_Debug_Win32=
-CND_ARTIFACT_DIR_Debug_Win32=dist/Debug_Win32/
+CND_PLATFORM_Debug_Win32=MinGW-Windows
+CND_ARTIFACT_DIR_Debug_Win32=dist/Debug_Win32/MinGW-Windows
 CND_ARTIFACT_NAME_Debug_Win32=fightorflight
-CND_ARTIFACT_PATH_Debug_Win32=dist/Debug_Win32//fightorflight
-CND_PACKAGE_DIR_Debug_Win32=dist/Debug_Win32//package
+CND_ARTIFACT_PATH_Debug_Win32=dist/Debug_Win32/MinGW-Windows/fightorflight
+CND_PACKAGE_DIR_Debug_Win32=dist/Debug_Win32/MinGW-Windows/package
 CND_PACKAGE_NAME_Debug_Win32=fightorflight.tar
-CND_PACKAGE_PATH_Debug_Win32=dist/Debug_Win32//package/fightorflight.tar
+CND_PACKAGE_PATH_Debug_Win32=dist/Debug_Win32/MinGW-Windows/package/fightorflight.tar
 # Release_Win32 configuration
-CND_PLATFORM_Release_Win32=
-CND_ARTIFACT_DIR_Release_Win32=dist/Release_Win32/
+CND_PLATFORM_Release_Win32=MinGW-Windows
+CND_ARTIFACT_DIR_Release_Win32=dist/Release_Win32/MinGW-Windows
 CND_ARTIFACT_NAME_Release_Win32=fightorflight
-CND_ARTIFACT_PATH_Release_Win32=dist/Release_Win32//fightorflight
-CND_PACKAGE_DIR_Release_Win32=dist/Release_Win32//package
+CND_ARTIFACT_PATH_Release_Win32=dist/Release_Win32/MinGW-Windows/fightorflight
+CND_PACKAGE_DIR_Release_Win32=dist/Release_Win32/MinGW-Windows/package
 CND_PACKAGE_NAME_Release_Win32=fightorflight.tar
-CND_PACKAGE_PATH_Release_Win32=dist/Release_Win32//package/fightorflight.tar
+CND_PACKAGE_PATH_Release_Win32=dist/Release_Win32/MinGW-Windows/package/fightorflight.tar
 # Debug_Linux_Server configuration
 CND_PLATFORM_Debug_Linux_Server=GNU-Linux-x86
 CND_ARTIFACT_DIR_Debug_Linux_Server=dist/Debug_Linux_Server/GNU-Linux-x86

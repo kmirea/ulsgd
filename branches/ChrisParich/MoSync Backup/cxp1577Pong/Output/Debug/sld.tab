@@ -1,8 +1,8 @@
 Files
-0:3:/gameserver.cacs.louisiana.edu/cxp1577/MoSync Backup/cxp1577Pong/main.cpp
-1:4:/gameserver.cacs.louisiana.edu/cxp1577/MoSync Backup/cxp1577Pong/Pong.cpp
-2:5:/gameserver.cacs.louisiana.edu/cxp1577/MoSync Backup/cxp1577Pong/Paddle.cpp
-3:6:/gameserver.cacs.louisiana.edu/cxp1577/MoSync Backup/cxp1577Pong/Ball.cpp
+0:3:C:/Users/Chris/Documents/NetBeansProjects/SGD/branches/ChrisParich/MoSync Backup/cxp1577Pong/main.cpp
+1:4:C:/Users/Chris/Documents/NetBeansProjects/SGD/branches/ChrisParich/MoSync Backup/cxp1577Pong/Pong.cpp
+2:5:C:/Users/Chris/Documents/NetBeansProjects/SGD/branches/ChrisParich/MoSync Backup/cxp1577Pong/Paddle.cpp
+3:6:C:/Users/Chris/Documents/NetBeansProjects/SGD/branches/ChrisParich/MoSync Backup/cxp1577Pong/Ball.cpp
 4:8:c:/slave/buildScripts/temp_vG2R/source/libs/libsupc++/new_opvnt.cc
 5:9:c:/slave/buildScripts/temp_vG2R/source/libs/libsupc++/new_opnt.cc
 6:10:c:/slave/buildScripts/temp_vG2R/source/libs/libsupc++/del_opvnt.cc
@@ -69,7 +69,7 @@ Files
 67:72:c:/slave/buildScripts/temp_vG2R/source/libs/MAUtil/Server.cpp
 68:73:c:/slave/buildScripts/temp_vG2R/source/libs/MAUtil/String.cpp
 69:74:c:/slave/buildScripts/temp_vG2R/source/libs/MAUtil/util.cpp
-70:4:/gameserver.cacs.louisiana.edu/cxp1577/MoSync Backup/cxp1577Pong/Pong.h
+70:4:C:/Users/Chris/Documents/NetBeansProjects/SGD/branches/ChrisParich/MoSync Backup/cxp1577Pong/Pong.h
 71:4:c:/MoSync/include/MAUtil/Environment.h
 72:4:c:/MoSync/include/MAUtil/Moblet.h
 73:19:c:/slave/buildScripts/temp_vG2R/source/libs/MAStd/mastack.h

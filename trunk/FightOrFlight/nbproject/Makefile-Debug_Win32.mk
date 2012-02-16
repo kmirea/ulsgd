@@ -14,22 +14,23 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=gcc
-CCC=g++
-CXX=g++
-FC=gfortran
-AS=as
+CC=gcc.exe
+CCC=g++.exe
+CXX=g++.exe
+FC=gfortran.exe
+AS=as.exe
 
 # Macros
 CND_PLATFORM=MinGW-Windows
 CND_CONF=Debug_Win32
 CND_DISTDIR=dist
+CND_BUILDDIR=build
 
 # Include project Makefile
 include Makefile
 
 # Object Directory
-OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
+OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
@@ -40,7 +41,9 @@ OBJECTFILES= \
 	${OBJECTDIR}/NetworkObject.o \
 	${OBJECTDIR}/WorldManager.o \
 	${OBJECTDIR}/Client.o \
+	${OBJECTDIR}/SceneLoader.o \
 	${OBJECTDIR}/NetProtocolStruct.o \
+	${OBJECTDIR}/Timer.o \
 	${OBJECTDIR}/PhysicsObject.o \
 	${OBJECTDIR}/ReferenceCountedObject.o \
 	${OBJECTDIR}/Entity.o
@@ -64,10 +67,10 @@ LDLIBSOPTIONS=-Llib -lirrBullet -lBulletSoftBody -lBulletDynamics -lBulletCollis
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Debug_Win32.mk dist/Debug_Win32/MinGW-Windows/fightorflight.exe
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/fightorflight.exe
 
-dist/Debug_Win32/MinGW-Windows/fightorflight.exe: ${OBJECTFILES}
-	${MKDIR} -p dist/Debug_Win32/MinGW-Windows
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/fightorflight.exe: ${OBJECTFILES}
+	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/fightorflight ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/Types.o: Types.cpp 
@@ -105,10 +108,20 @@ ${OBJECTDIR}/Client.o: Client.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -DDEBUG -Iinclude -Iinclude/bullet -MMD -MP -MF $@.d -o ${OBJECTDIR}/Client.o Client.cpp
 
+${OBJECTDIR}/SceneLoader.o: SceneLoader.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -DDEBUG -Iinclude -Iinclude/bullet -MMD -MP -MF $@.d -o ${OBJECTDIR}/SceneLoader.o SceneLoader.cpp
+
 ${OBJECTDIR}/NetProtocolStruct.o: NetProtocolStruct.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -DDEBUG -Iinclude -Iinclude/bullet -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetProtocolStruct.o NetProtocolStruct.cpp
+
+${OBJECTDIR}/Timer.o: Timer.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -DDEBUG -Iinclude -Iinclude/bullet -MMD -MP -MF $@.d -o ${OBJECTDIR}/Timer.o Timer.cpp
 
 ${OBJECTDIR}/PhysicsObject.o: PhysicsObject.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -130,8 +143,8 @@ ${OBJECTDIR}/Entity.o: Entity.cpp
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
-	${RM} -r build/Debug_Win32
-	${RM} dist/Debug_Win32/MinGW-Windows/fightorflight.exe
+	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/fightorflight.exe
 
 # Subprojects
 .clean-subprojects:
