@@ -10,6 +10,7 @@
 #include <vector>
 #include <ctime>
 #include <irrlicht/irrlicht.h>
+
 using namespace std;
 using namespace irr;
 
@@ -183,7 +184,7 @@ bool markCell( int Row, int Column, bool SetFlag )	// Returns true if cell mark 
 //	if( Row < 0 || Row > 9 || Row < 0 || Column > 9 )
 //		return true;
 	
-	printField();
+//	printField();
 	
 	if( SetFlag )			// attempting to flag/unflag cell
 	{
@@ -274,6 +275,8 @@ bool markCell( int Row, int Column, bool SetFlag )	// Returns true if cell mark 
 bool printField() // Returns true if game has not ended.
 {
 	bool isMineVisible = false;
+	int hidden_tiles = 0;
+	
 	cout << "+  0 1 2 3 4 5 6 7 8 9" << endl;
 	for( int i=0; i<11; i++ )
 	{
@@ -324,12 +327,15 @@ bool printField() // Returns true if game has not ended.
 			case -1:
 				if( MineField[i][j].isFlag )
 				{
-					MineField[i][j].scenenode = device->getSceneManager()->addBillboardTextSceneNode(0, L"F");
+					MineField[i][j].scenenode = device->getSceneManager()->addBillboardTextSceneNode(0, L"F", NULL, 
+																									 core::dimension2df(1,1));
 					cout << 'F';
+					hidden_tiles++;
 				}
 				else if( MineField[i][j].isSeen )
 				{
-					MineField[i][j].scenenode = device->getSceneManager()->addBillboardTextSceneNode(0,L"*");
+					MineField[i][j].scenenode = device->getSceneManager()->addBillboardTextSceneNode(0,L"*", NULL, 
+																									 core::dimension2df(1,1));
 					cout << '*';
 					isMineVisible = true;
 				}
@@ -337,13 +343,16 @@ bool printField() // Returns true if game has not ended.
 				{
 					MineField[i][j].scenenode = device->getSceneManager()->addCubeSceneNode(1);
 					cout << '#';
+					hidden_tiles++;
 				}
 				break;
 			case 0:
 				if( MineField[i][j].isFlag )
 				{
-					MineField[i][j].scenenode = device->getSceneManager()->addBillboardTextSceneNode(0, L"F");
+					MineField[i][j].scenenode = device->getSceneManager()->addBillboardTextSceneNode(0, L"F", NULL, 
+																									 core::dimension2df(1,1));
 					cout << 'F';
+					hidden_tiles++;
 				}
 				else if( MineField[i][j].isSeen )
 				{
@@ -354,39 +363,44 @@ bool printField() // Returns true if game has not ended.
 				{
 					MineField[i][j].scenenode = device->getSceneManager()->addCubeSceneNode(1);
 					cout << '#';
+					hidden_tiles++;
 				}
 				break;
 			default:
 				if( MineField[i][j].isFlag )
 				{
-					MineField[i][j].scenenode = device->getSceneManager()->addBillboardTextSceneNode(0, L"F");
+					MineField[i][j].scenenode = device->getSceneManager()->addBillboardTextSceneNode(0, L"F", NULL, 
+																									 core::dimension2df(1,1));
 					cout << 'F';
+					hidden_tiles++;
 				}
 				else if( MineField[i][j].isSeen )
 				{
 					MineField[i][j].scenenode = device->getSceneManager()->addBillboardTextSceneNode(0, 
-															core::stringw(MineField[i][j].adjacentMineCount).c_str());
+															core::stringw(MineField[i][j].adjacentMineCount).c_str(), NULL, 
+																									 core::dimension2df(1,1));
 					cout << MineField[i][j].adjacentMineCount;
 				}
 				else
 				{
 					MineField[i][j].scenenode = device->getSceneManager()->addCubeSceneNode(1);
 					cout << '#';
+					hidden_tiles++;
 				}
 				break;
 			}
-			MineField[i][j].scenenode->setPosition(core::vector3df(i,j,0));
+			MineField[i][j].scenenode->setPosition(core::vector3df(j,9-i,0));
 			MineField[i][j].scenenode->setScale(core::vector3df(0.9, 0.9, 0.9));
 			if( j == 9 )
 				cout << '|' << endl;
 		}
 	}
-	cout << "  ---------------------"<< endl;
+	cout << "  ---------------------" << endl;
 	
 	device->run();
 	device->getVideoDriver()->beginScene(true, true, video::SColor(255,0,0,255) );
 	device->getSceneManager()->drawAll();
 	device->getVideoDriver()->endScene();
 	
-	return !isMineVisible;
+	return !isMineVisible && hidden_tiles > NumMines;
 }
